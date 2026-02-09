@@ -1,19 +1,19 @@
 :root {
-    --primary-bg: #eff6ff;
-    --border-color: #e0e0e0;
-    --text-main: #333333;
-    --text-secondary: #666666;
+  --primary-bg: #eff6ff;
+  --border-color: #e0e0e0;
+  --text-main: #333333;
+  --text-secondary: #666666;
 
-    --sports-green: #dcfce7;
-    --sports-green-text: #016630;
-    --academic-blue: #dbeafe;
-    --academic-blue-text: #193cb8;
-    --language-yellow: #fef9c2;
-    --language-yellow-text: #894b00;
-    --cultural-purple: #f3e8ff;
-    --cultural-purple-text: #6e11b0;
-    --social-pink: #fce7f3;
-    --social-pink-text: #a3004c;
+  --sports-green: #dcfce7;
+  --sports-green-text: #016630;
+  --academic-blue: #dbeafe;
+  --academic-blue-text: #193cb8;
+  --language-yellow: #fef9c2;
+  --language-yellow-text: #894b00;
+  --cultural-purple: #f3e8ff;
+  --cultural-purple-text: #6e11b0;
+  --social-pink: #fce7f3;
+  --social-pink-text: #a3004c;
 }
 
 /* html{
@@ -21,6 +21,6 @@
 } */
 
 body {
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--primary-bg);
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--primary-bg);
 }
