@@ -1,0 +1,98 @@
+@import "./main.css";
+
+/* REMOVE BEFORE MERGE !!!! */
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--primary-bg);
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+/* Card Container */
+.event-card {
+    display: flex;
+    background: var(--primary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    max-width: 900px;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Image Section */
+.event-image {
+    flex: 0 0 320px;
+    background-image: url("../assets/");
+    background-size: cover;
+    background-position: center;
+}
+
+/* Content Section */
+.event-content {
+    padding: 24px 32px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.event-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-main);
+    margin: 0;
+}
+
+.category-tag {
+    background-color: var(--social-pink);
+    color: var(--social-pink-text);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.description {
+    color: var(--text-secondary);
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 24px;
+    max-width: 400px;
+}
+
+/* Details Section */
+.event-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-left: 1px solid transparent;
+    min-width: 220px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.detail-item span.icon {
+    font-size: 18px;
+    width: 20px;
+    text-align: center;
+}
+
+.spots-left {
+    color: var(--available-green);
+    font-weight: 500;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erasmus Events List</title>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="filter-section">
+            <span class="filter-label">Filter by category</span>
+            <div class="filter-group">
+                <button class="filter-chip active">All Events</button>
+                <button class="filter-chip">Cultural</button>
+                <button class="filter-chip">Academic</button>
+                <button class="filter-chip">Social</button>
+                <button class="filter-chip">Sports</button>
+                <button class="filter-chip">Trips</button>
+                <button class="filter-chip">Language</button>
+            </div>
+
+            <div class="view-toggle">
+                <button class="view-btn active">☰ List View</button>
+                <button class="view-btn">📅 Calendar View</button>
+            </div>
+        </div>
+
+        <div class="event-list">
+            <div data-include="event_card"></div>
+            <div data-include="event_card"></div>
+            <div data-include="event_card"></div>
+        </div>
+    </div>
+
+</body>
+<script src="../scripts/referencer.js"></script>
+
+</html>
