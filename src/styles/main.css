@@ -4,6 +4,7 @@
   --text-main: #333333;
   --text-secondary: #666666;
 
+  /*Event type*/
   --sports-green: #dcfce7;
   --sports-green-text: #016630;
   --academic-blue: #dbeafe;
@@ -14,6 +15,9 @@
   --cultural-purple-text: #6e11b0;
   --social-pink: #fce7f3;
   --social-pink-text: #a3004c;
+
+  /*Other*/
+  --available-green: #2e7d32;
 }
 
 /* html{
