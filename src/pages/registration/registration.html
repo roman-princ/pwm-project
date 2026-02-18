@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration - Erasmus Las Palmas</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/registration.css">
+</head>
+
+<body>
+
+    <div data-include="/src/partials/header"></div>
+
+    <main>
+        <section class="register-container">
+            <div class="register-header">
+                <a href="javascript:history.back()" class="back-button" aria-label="Go back">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m15 18-6-6 6-6" />
+                    </svg>
+                </a>
+                <h1>Registration</h1>
+            </div>
+
+            <form class="register-form">
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="surname">Surname:</label>
+                    <input type="text" id="surname" name="surname" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="organization">Organization:</label>
+                    <input type="text" id="organization" name="organization">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="passwordConfirm">Password again:</label>
+                    <input type="password" id="passwordConfirm" name="passwordConfirm" required>
+                </div>
+
+                <button type="submit" class="btn-register">Register</button>
+            </form>
+        </section>
+    </main>
+
+    <div data-include="/src/partials/footer"></div>
+
+    <script src="../scripts/referencer.js"></script>
+</body>
+
+</html>

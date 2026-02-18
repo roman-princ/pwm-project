@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In - Erasmus Events</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+    <div data-include="partials/header"></div>
+    <section class="login-container">
+        <div class="login-header">
+            <a href="javascript:history.back()" class="back-button" aria-label="Go back">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m15 18-6-6 6-6" />
+                </svg>
+            </a>
+            <h1>Log in</h1>
+        </div>
+
+        <form class="login-form">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <div class="registration-link">
+                <a href="register.html">Registration?</a>
+            </div>
+
+            <button type="submit" class="btn-login">Log in</button>
+        </form>
+    </section>
+    <div data-include="partials/footer"></div>
+
+    <script src="../../scripts/referencer.js"></script>
+</body>
+
+</html>

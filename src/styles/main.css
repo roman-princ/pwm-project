@@ -1,3 +1,7 @@
+@import "normalize.css";
+@import "header.css";
+@import "footer.css";
+
 :root {
   --primary-bg: #eff6ff;
   --border-color: #e0e0e0;

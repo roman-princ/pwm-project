@@ -1,0 +1,134 @@
+.all-events-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Category Filters */
+.filter-label {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.category-tags {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.tag {
+    border: 1px solid #ddd;
+    background: white;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
+.tag.active {
+    background-color: #333 !important;
+    /* Darker to show selection */
+    color: white;
+    border-color: #333;
+}
+
+/* View Switcher */
+.view-switcher {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.view-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    background: #f8f9fa;
+    font-size: 0.85rem;
+}
+
+.view-btn:hover {
+    cursor: pointer;
+}
+
+.view-btn.active {
+    background-color: #d1e9ff;
+    border-color: #a5c7e9;
+    font-weight: bold;
+}
+
+/* Event Card Layout */
+.event-card-horizontal {
+    display: flex;
+    background: white;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.card-image-placeholder {
+    width: 300px;
+    background-color: #e0e0e0;
+    /* You can add a background-image of the wave here */
+}
+
+.card-body {
+    padding: 25px;
+    flex: 1;
+}
+
+.card-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.category-badge {
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+/* Category Colors */
+.social {
+    background: #fce4ec;
+    color: #d81b60;
+}
+
+.cultural {
+    background: #f3e5f5;
+    color: #8e24aa;
+}
+
+.language {
+    background: #fff9c4;
+    color: #fbc02d;
+}
+
+.sports {
+    background: #e8f5e9;
+    color: #43a047;
+}
+
+.academic {
+    background: #e3f2fd;
+    color: #1e88e5;
+}
+
+.card-meta {
+    padding: 25px;
+    border-left: 1px solid #f0f0f0;
+    width: 180px;
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: #555;
+}
