@@ -1,7 +1,9 @@
 <header class="site-header">
     <div class="header-content">
         <div class="brand">
-            <img class="brand-logo" src="/src/assets/logo.png" alt="Erasmus Events logo" />
+            <a href="/src/pages/index.html">
+                <img class="brand-logo" src="/src/assets/logo.png" alt="Erasmus Events logo" />
+            </a>
         </div>
 
         <form class="header-search" role="search">
@@ -11,11 +13,21 @@
             <input type="search" placeholder="Search" aria-label="Search events" />
         </form>
 
+        <nav class="header-nav">
+            <a href="/src/pages/index.html" class="nav-link">All Events</a>
+            <a href="/src/pages/about.html" class="nav-link">About us</a>
+        </nav>
+
         <div class="header-events">
             <span class="events-icon" aria-hidden="true">
                 <img src="/src/assets/calendar.svg" alt="" />
             </span>
-            <span> X upcoming events</span>
+            <span>X upcoming events</span>
         </div>
+
+        <a href="#" class="header-login">
+            <span class="login-icon">👤</span>
+            <span>Login</span>
+        </a>
     </div>
 </header>
