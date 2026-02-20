@@ -1,33 +1,35 @@
-<header class="site-header">
-    <div class="header-content">
-        <div class="brand">
-            <a href="/src/pages/index.html">
-                <img class="brand-logo" src="/src/assets/logo.png" alt="Erasmus Events logo" />
+<header class="header">
+    <div class="header__container">
+        <div class="header__brand">
+            <a href="/src/pages/index.html" class="header__brand-link">
+                <img class="header__logo" src="/src/assets/logo.png" alt="Erasmus Events logo" />
             </a>
         </div>
 
-        <form class="header-search" role="search">
-            <span class="search-icon" aria-hidden="true">
-                <img src="/src/assets/search.png" alt="" />
+        <form class="header__search" role="search">
+            <span class="header__icon">
+                <img src="/src/assets/search.png" alt="Search" />
             </span>
-            <input type="search" placeholder="Search" aria-label="Search events" />
+            <input class="header__search-input" type="search" placeholder="Search" />
         </form>
 
-        <nav class="header-nav">
-            <a href="/src/pages/all-events/all-events.html" class="nav-link">All Events</a>
-            <a href="/src/pages/about/about.html" class="nav-link">About us</a>
-        </nav>
+        <div class="header__actions">
+            <nav class="header__nav">
+                <a href="/src/pages/all-events/all-events.html" class="header__link">All Events</a>
+                <a href="/src/pages/about/about.html" class="header__link">About us</a>
+            </nav>
 
-        <div class="header-events">
-            <span class="events-icon" aria-hidden="true">
-                <img src="/src/assets/calendar.svg" alt="" />
-            </span>
-            <span>X upcoming events</span>
+            <div class="header__info">
+                <span class="header__icon">
+                    <img src="/src/assets/calendar.svg" alt="Calendar" />
+                </span>
+                <span class="header__info-text">X upcoming events</span>
+            </div>
+
+            <a href="/src/pages/login/login.html" class="header__login">
+                <span class="header__login-icon">👤</span>
+                <span class="header__login-text">Login</span>
+            </a>
         </div>
-
-        <a href="/src/pages/login/login.html" class="header-login">
-            <span class="login-icon">👤</span>
-            <span>Login</span>
-        </a>
     </div>
 </header>

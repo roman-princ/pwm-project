@@ -4,62 +4,79 @@
     --text-main: #333;
 }
 
-body {
+.page-body {
     font-family: 'Segoe UI', sans-serif;
     background-color: var(--bg-blue);
     margin: 0;
     color: var(--text-main);
 }
 
-.container {
-    max-width: 1100px;
+.main-container {
+    max-width: 67rem;
     margin: 0 auto;
-    padding: 20px;
+    padding: 1.3rem;
 }
 
-/* Hero Section */
+/* Hero Block */
 .hero {
     text-align: center;
-    padding: 40px 10%;
+    padding: 2.5rem 10%;
 }
 
-.hero h1 {
+.hero__title {
     font-size: 2rem;
-    margin-bottom: 15px;
+    margin-bottom: 0.9rem;
 }
 
-/* Grid System */
-.event-grid {
+.hero__description {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Events Block & Grid System */
+.events__heading {
+    font-size: 1.5rem;
+    margin-bottom: 1.3rem;
+}
+
+.events__grid {
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr;
     grid-template-rows: auto auto;
-    gap: 20px;
+    gap: 1.3rem;
 }
 
+/* Event Card Block */
 .event-card {
     background: var(--card-white);
-    border-radius: 15px;
+    border-radius: 0.9rem;
     display: flex;
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0.3rem 0.4rem rgba(0, 0, 0, 0.05);
 }
 
-.featured-card {
+/* Modifiers for different card layouts */
+.event-card--featured {
     grid-row: span 2;
     flex-direction: column;
 }
 
-.wide-card {
+.event-card--wide {
     grid-column: span 2;
 }
 
-.card-img {
-    background: #ccc;
-    min-width: 150px;
-    min-height: 150px;
+.event-card__img {
+    background: url("../../assets/placeholder.png");
+    min-width: 9.4rem;
+    min-height: 9.4rem;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
 }
 
-.card-content {
-    padding: 20px;
+.event-card__content {
+    padding: 1.3rem;
     flex: 1;
 }

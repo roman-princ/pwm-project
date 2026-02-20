@@ -1,5 +1,6 @@
 .all-events-container {
-    max-width: 1200px;
+    max-width: 100rem;
+    min-width: 80rem;
     margin: 0 auto;
     padding: 40px 20px;
 }
