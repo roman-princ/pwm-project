@@ -1,3 +1,7 @@
+@import "normalize.css";
+@import "header.css";
+@import "footer.css";
+
 :root {
   --primary-bg: #eff6ff;
   --border-color: #e0e0e0;
@@ -27,4 +31,12 @@
 body {
   font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background-color: var(--primary-bg);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+main {
+  flex: 1;
 }

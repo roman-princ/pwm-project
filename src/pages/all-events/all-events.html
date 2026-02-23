@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In - Erasmus Events</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="all-events.css">
+</head>
+
+<body>
+    <div data-include="partials/header"></div>
+    <section class="all-events-container">
+        <h1>All Events</h1>
+
+        <div class="filter-section">
+            <p class="filter-label">Filter by category</p>
+            <div class="category-tags" id="categoryFilters">
+                <button class="tag active">All Events</button>
+                <button class="tag">Cultural</button>
+                <button class="tag">Academic</button>
+                <button class="tag">Social</button>
+                <button class="tag">Sports</button>
+                <button class="tag">Trips</button>
+                <button class="tag">Language</button>
+            </div>
+        </div>
+
+        <div class="view-switcher">
+            <button class="view-btn active">
+                <span class="icon">≡</span> List View
+            </button>
+            <button class="view-btn">
+                <span class="icon">📅</span> Calendar View
+            </button>
+        </div>
+
+
+        <div id="listView">
+            <!-- <div data-include="/src/components/event-list/event-list"></div> -->
+            <div id="eventsContainer">
+                <div class="date-group">
+                    <h2 class="date-header">Date</h2>
+                    <div class="event-stack">
+                        <div data-include="components/event-card/event-card"></div>
+                        <div data-include="components/event-card/event-card"></div>
+                    </div>
+                </div>
+                <div class="date-group">
+                    <h2 class="date-header">Date 2</h2>
+                    <div class="event-stack">
+                        <div data-include="components/event-card/event-card"></div>
+                        <div data-include="components/event-card/event-card"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="calendarView" style="display: none;">
+            <div data-include="components/calendar-view/calendar-view"></div>
+        </div>
+
+    </section>
+    <div data-include="partials/footer"></div>
+    <script src="../../scripts/referencer.js"></script>
+    <!-- <script src="all-events.js"></script> -->
+    <script src="../../scripts/events-interaction.js"></script>
+
+</body>
+
+</html>

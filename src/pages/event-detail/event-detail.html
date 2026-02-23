@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Detail - Erasmus Las Palmas</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="event-detail.css">
+</head>
+
+<body class="page-body">
+    <div data-include="partials/header"></div>
+
+    <main class="event-detail">
+        <nav class="event-detail__nav">
+            <a href="javascript:history.back()" class="event-detail__back" aria-label="Go back">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m15 18-6-6 6-6" />
+                </svg>
+            </a>
+        </nav>
+
+        <div class="event-detail__hero">
+            <div class="event-detail__hero-img"></div>
+        </div>
+
+        <section class="event-detail__content">
+            <h1 class="event-detail__title">Name</h1>
+
+            <div class="event-detail__description">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque faucibus ex sapien vitae
+                    pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed
+                    diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
+                    malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad
+                    litora torquent per conubia nostra inceptos himenaeos.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque faucibus ex sapien vitae
+                    pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed
+                    diam urna tempor.</p>
+            </div>
+
+            <a href="../registration/registration.html" class="event-detail__register-link">
+                <button class="event-detail__register-btn">Register here</button>
+            </a>
+            <div class="event-detail__meta">
+                <div class="event-detail__meta-item">
+                    <span class="event-detail__meta-icon">📅</span>
+                    <span class="event-detail__meta-label">Date</span>
+                </div>
+                <div class="event-detail__meta-item">
+                    <span class="event-detail__meta-icon">🕒</span>
+                    <span class="event-detail__meta-label">Time</span>
+                </div>
+                <div class="event-detail__meta-item">
+                    <span class="event-detail__meta-icon">📍</span>
+                    <span class="event-detail__meta-label">Place</span>
+                </div>
+                <div class="event-detail__meta-item">
+                    <span class="event-detail__meta-icon">👤</span>
+                    <span class="event-detail__meta-label">Attendance</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div data-include="partials/footer"></div>
+
+    <script src="../../scripts/referencer.js"></script>
+</body>
+
+</html>

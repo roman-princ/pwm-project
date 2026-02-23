@@ -24,7 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         const response = await fetch(file);
         if (response.ok) {
-          return { file, html: await response.text() };
+          // return { file, html: await response.text() };
+          return { baseUrl: file.substring(0, file.lastIndexOf('/')), html: await response.text() };
         }
       } catch (error) {
         console.error(error);
@@ -45,14 +46,42 @@ document.addEventListener("DOMContentLoaded", () => {
         const includeName = el.getAttribute("data-include");
         const candidates = resolveIncludePaths(includeName);
 
+
         try {
-          const { html } = await fetchFirstAvailable(candidates);
-          el.innerHTML = html;
+          const { html, baseUrl } = await fetchFirstAvailable(candidates);
+
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = html;
+
+          const links = tempDiv.querySelectorAll('link[rel="stylesheet"]');
+          links.forEach(link => {
+            const href = link.getAttribute('href');
+            const newLink = document.createElement('link');
+            newLink.rel = 'stylesheet';
+
+            newLink.href = href.startsWith('.') || !href.startsWith('/') ? `${baseUrl}/${href}` : href;
+
+            if (!document.querySelector(`link[href="${newLink.href}"]`)) {
+              document.head.appendChild(newLink);
+            }
+            link.remove();
+          });
+
+          el.innerHTML = tempDiv.innerHTML;
           el.removeAttribute("data-include");
+
           await loadIncludes(el);
         } catch (error) {
           console.error(error);
         }
+        // try {
+        //   const { html, baseUrl } = await fetchFirstAvailable(candidates);
+        //   el.innerHTML = html;
+        //   el.removeAttribute("data-include");
+        //   await loadIncludes(el);
+        // } catch (error) {
+        //   console.error(error);
+        // }
       }),
     );
   };

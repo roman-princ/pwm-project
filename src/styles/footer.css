@@ -6,6 +6,10 @@
   border-top: 1px solid var(--border-color);
 }
 
+.site-footer {
+  flex-shrink: 0;
+}
+
 .footer-content {
   max-width: 900px;
   margin: 0 auto;
