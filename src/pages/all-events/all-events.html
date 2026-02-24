@@ -7,10 +7,11 @@
     <title>Log In - Erasmus Events</title>
     <link rel="stylesheet" href="../../styles/main.css">
     <link rel="stylesheet" href="all-events.css">
+    <link rel="stylesheet" href="../../components/event-card/event-card.css">
 </head>
 
 <body>
-    <div data-include="partials/header"></div>
+    <div data-include="partials/header/header"></div>
     <section class="all-events-container">
         <h1>All Events</h1>
 
@@ -27,33 +28,8 @@
             </div>
         </div>
 
-        <div class="view-switcher">
-            <button class="view-btn active">
-                <span class="icon">≡</span> List View
-            </button>
-            <button class="view-btn">
-                <span class="icon">📅</span> Calendar View
-            </button>
-        </div>
-
-
         <div id="listView">
-            <!-- <div data-include="/src/components/event-list/event-list"></div> -->
             <div id="eventsContainer">
-                <div class="date-group">
-                    <h2 class="date-header">Date</h2>
-                    <div class="event-stack">
-                        <div data-include="components/event-card/event-card"></div>
-                        <div data-include="components/event-card/event-card"></div>
-                    </div>
-                </div>
-                <div class="date-group">
-                    <h2 class="date-header">Date 2</h2>
-                    <div class="event-stack">
-                        <div data-include="components/event-card/event-card"></div>
-                        <div data-include="components/event-card/event-card"></div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -62,7 +38,12 @@
         </div>
 
     </section>
-    <div data-include="partials/footer"></div>
+    <div data-include="partials/footer/footer"></div>
+    <script src="../../scripts/event-card.js"></script>
+    <script>
+        const container = document.getElementById("eventsContainer");
+        if (container) renderEventCards(eventsData, container);
+    </script>
     <script src="../../scripts/referencer.js"></script>
     <!-- <script src="all-events.js"></script> -->
     <script src="../../scripts/events-interaction.js"></script>

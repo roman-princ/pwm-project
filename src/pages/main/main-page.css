@@ -1,82 +1,78 @@
 :root {
-    --bg-blue: #e8f4fd;
-    --card-white: #ffffff;
-    --text-main: #333;
+  --bg-blue: #e8f4fd;
+  --card-white: #ffffff;
+  --text-main: #333;
 }
 
 .page-body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: var(--bg-blue);
-    margin: 0;
-    color: var(--text-main);
+  font-family: "Segoe UI", sans-serif;
+  background-color: var(--bg-blue);
+  margin: 0;
+  color: var(--text-main);
 }
 
 .main-container {
-    max-width: 67rem;
-    margin: 0 auto;
-    padding: 1.3rem;
+  max-width: 67rem;
+  margin: 0 auto;
+  padding: 1.3rem;
 }
 
 /* Hero Block */
 .hero {
-    text-align: center;
-    padding: 2.5rem 10%;
+  text-align: center;
+  padding: 2.5rem 10%;
 }
 
 .hero__title {
-    font-size: 2rem;
-    margin-bottom: 0.9rem;
+  font-size: 2rem;
+  margin-bottom: 0.9rem;
 }
 
 .hero__description {
-    font-size: 1rem;
-    line-height: 1.5;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
-/* Events Block & Grid System */
+/* Events Block */
 .events__heading {
-    font-size: 1.5rem;
-    margin-bottom: 1.3rem;
+  font-size: 1.5rem;
+  margin-bottom: 1.3rem;
 }
 
-.events__grid {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr;
-    grid-template-rows: auto auto;
-    gap: 1.3rem;
+.events__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  align-items: flex-start;
 }
 
-/* Event Card Block */
-.event-card {
-    background: var(--card-white);
-    border-radius: 0.9rem;
-    display: flex;
-    overflow: hidden;
-    box-shadow: 0 0.3rem 0.4rem rgba(0, 0, 0, 0.05);
+.events__list .event-card-link {
+  max-width: 900px;
+  width: 100%;
 }
 
-/* Modifiers for different card layouts */
-.event-card--featured {
-    grid-row: span 2;
-    flex-direction: column;
+/* All Events CTA */
+.events__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
 }
 
-.event-card--wide {
-    grid-column: span 2;
+.events__cta-btn {
+  display: inline-block;
+  padding: 0.7rem 2rem;
+  border: 1px solid var(--text-main);
+  border-radius: 2rem;
+  color: var(--text-main);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }
 
-.event-card__img {
-    background: url("../../assets/placeholder.png");
-    min-width: 9.4rem;
-    min-height: 9.4rem;
-
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    flex-shrink: 0;
-}
-
-.event-card__content {
-    padding: 1.3rem;
-    flex: 1;
+.events__cta-btn:hover {
+  background: var(--text-main);
+  color: #fff;
 }

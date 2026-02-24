@@ -1,6 +1,6 @@
 @import "normalize.css";
-@import "header.css";
-@import "footer.css";
+@import "../partials/header/header.css";
+@import "../partials/footer/footer.css";
 
 :root {
   --primary-bg: #eff6ff;
@@ -39,4 +39,8 @@ body {
 
 main {
   flex: 1;
+}
+
+a {
+  text-decoration: none;
 }

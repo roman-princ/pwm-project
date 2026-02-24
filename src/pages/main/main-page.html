@@ -7,10 +7,10 @@
     <title>Erasmus Las Palmas</title>
     <link rel="stylesheet" href="../../styles/main.css">
     <link rel="stylesheet" href="main-page.css">
+    <link rel="stylesheet" href="../../components/event-card/event-card.css">
 </head>
 
 <body class="page-body">
-    <div data-include="partials/header"></div>
 
     <main class="main-container">
         <section class="hero">
@@ -23,13 +23,16 @@
 
         <section class="events">
             <h2 class="events__heading">Coming soon</h2>
-            <div class="events__grid" id="eventGrid">
+            <div class="events__list" id="eventList">
+            </div>
+            <div class="events__cta">
+                <a href="/src/pages/all-events/all-events.html" class="events__cta-btn">All Events</a>
             </div>
         </section>
     </main>
 
-    <div data-include="partials/footer"></div>
 
+    <script src="../../scripts/event-card.js"></script>
     <script src="main-page.js"></script>
     <script src="../../scripts/referencer.js"></script>
 </body>

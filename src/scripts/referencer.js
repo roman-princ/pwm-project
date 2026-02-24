@@ -24,8 +24,10 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         const response = await fetch(file);
         if (response.ok) {
-          // return { file, html: await response.text() };
-          return { baseUrl: file.substring(0, file.lastIndexOf('/')), html: await response.text() };
+          return {
+            baseUrl: file.substring(0, file.lastIndexOf("/")),
+            html: await response.text(),
+          };
         }
       } catch (error) {
         console.error(error);
@@ -46,20 +48,22 @@ document.addEventListener("DOMContentLoaded", () => {
         const includeName = el.getAttribute("data-include");
         const candidates = resolveIncludePaths(includeName);
 
-
         try {
-          const { html, baseUrl } = await fetchFirstAvailable(candidates);
+          let { html, baseUrl } = await fetchFirstAvailable(candidates);
 
-          const tempDiv = document.createElement('div');
+          const tempDiv = document.createElement("div");
           tempDiv.innerHTML = html;
 
           const links = tempDiv.querySelectorAll('link[rel="stylesheet"]');
-          links.forEach(link => {
-            const href = link.getAttribute('href');
-            const newLink = document.createElement('link');
-            newLink.rel = 'stylesheet';
+          links.forEach((link) => {
+            const href = link.getAttribute("href");
+            const newLink = document.createElement("link");
+            newLink.rel = "stylesheet";
 
-            newLink.href = href.startsWith('.') || !href.startsWith('/') ? `${baseUrl}/${href}` : href;
+            newLink.href =
+              href.startsWith(".") || !href.startsWith("/")
+                ? `${baseUrl}/${href}`
+                : href;
 
             if (!document.querySelector(`link[href="${newLink.href}"]`)) {
               document.head.appendChild(newLink);
@@ -67,21 +71,50 @@ document.addEventListener("DOMContentLoaded", () => {
             link.remove();
           });
 
+          const scripts = Array.from(tempDiv.querySelectorAll("script"));
+          scripts.forEach((script) => script.remove());
+
+          const dataAttrs = el.dataset;
+          if (Object.keys(dataAttrs).length > 1) {
+            html = tempDiv.innerHTML;
+            html = html.replace(/\{\{(\w+)\}\}/g, (match, key) => {
+              return dataAttrs[key] !== undefined ? dataAttrs[key] : "";
+            });
+            tempDiv.innerHTML = html;
+          }
+
           el.innerHTML = tempDiv.innerHTML;
           el.removeAttribute("data-include");
+
+          await loadIncludes(el);
+
+          for (const oldScript of scripts) {
+            const newScript = document.createElement("script");
+            if (oldScript.src) {
+              const src = oldScript.getAttribute("src");
+              newScript.src =
+                src.startsWith(".") || !src.startsWith("/")
+                  ? `${baseUrl}/${src}`
+                  : src;
+            } else {
+              newScript.textContent = oldScript.textContent;
+            }
+            await new Promise((resolve, reject) => {
+              newScript.onload = resolve;
+              newScript.onerror = reject;
+              if (!oldScript.src) {
+                document.body.appendChild(newScript);
+                resolve();
+              } else {
+                document.body.appendChild(newScript);
+              }
+            });
+          }
 
           await loadIncludes(el);
         } catch (error) {
           console.error(error);
         }
-        // try {
-        //   const { html, baseUrl } = await fetchFirstAvailable(candidates);
-        //   el.innerHTML = html;
-        //   el.removeAttribute("data-include");
-        //   await loadIncludes(el);
-        // } catch (error) {
-        //   console.error(error);
-        // }
       }),
     );
   };
