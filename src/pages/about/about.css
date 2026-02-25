@@ -1,12 +1,12 @@
 @import "./main.css";
 
-.about-main {
+.about {
   max-width: 900px;
   margin: 0 auto;
   padding: 2rem 1rem;
 }
 
-.about-hero {
+.about__hero {
   text-align: center;
   background: #cfe4ff;
   padding: 1.5rem 2rem;
@@ -14,32 +14,32 @@
   margin-bottom: 2rem;
 }
 
-.about-title {
+.about__title {
   font-size: 1.75rem;
   font-weight: 600;
   color: var(--text-main);
   margin: 0 0 0.5rem;
 }
 
-.about-subtitle {
+.about__subtitle {
   font-size: 1rem;
   color: var(--text-secondary);
   margin: 0;
 }
 
-.about-content {
+.about__content {
   text-align: center;
   margin-bottom: 2rem;
 }
 
-.about-heading {
+.about__heading {
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--text-main);
   margin: 0 0 1rem;
 }
 
-.about-description {
+.about__description {
   font-size: 1rem;
   line-height: 1.6;
   color: var(--text-secondary);
@@ -47,36 +47,35 @@
   margin: 0 auto;
 }
 
-.about-image {
+.about__image {
   text-align: center;
   margin-bottom: 2rem;
 }
 
-.about-image img {
+.about__image img {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  .about-hero {
+@media (max-width: 48rem) {
+  .about__hero {
     padding: 1rem;
   }
 
-  .about-title {
+  .about__title {
     font-size: 1.4rem;
   }
 
-  .about-subtitle {
+  .about__subtitle {
     font-size: 0.9rem;
   }
 
-  .about-heading {
+  .about__heading {
     font-size: 1.25rem;
   }
 
-  .about-description {
+  .about__description {
     font-size: 0.9rem;
   }
 }

@@ -1,0 +1,35 @@
+.btn {
+  display: inline-block;
+  padding: 0.7rem 2rem;
+  border-radius: 2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.btn--outline {
+  border: 1px solid var(--text-main);
+  color: var(--text-main);
+  background: transparent;
+}
+
+.btn--outline:hover {
+  background: var(--text-main);
+  color: #fff;
+}
+
+.btn--primary {
+  border: 1px solid var(--text-main);
+  background: var(--text-main);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background: transparent;
+  color: var(--text-main);
+}

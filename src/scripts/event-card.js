@@ -121,11 +121,6 @@ const eventsData = [
   },
 ];
 
-/**
- * Create a DOM element with data-include pointing to the event-card template
- * and data-* attributes holding the values for {{placeholder}} replacement.
- * The referencer.js will fetch the template and fill in the placeholders.
- */
 function createEventCard(event) {
   const el = document.createElement("div");
   el.setAttribute("data-include", "components/event-card/event-card");
@@ -141,10 +136,6 @@ function createEventCard(event) {
   return el;
 }
 
-/**
- * Group events by date and render data-include elements into the container.
- * Referencer.js will process them after this runs.
- */
 function renderEventCards(events, container) {
   container.innerHTML = "";
 
@@ -168,12 +159,12 @@ function renderEventCards(events, container) {
       dateGroup.className = "date-group";
 
       const dateHeader = document.createElement("h2");
-      dateHeader.className = "date-header";
+      dateHeader.className = "date-group__header";
       dateHeader.textContent = group.label;
       dateGroup.appendChild(dateHeader);
 
       const stack = document.createElement("div");
-      stack.className = "event-stack";
+      stack.className = "date-group__stack";
 
       group.events.forEach((event) => {
         stack.appendChild(createEventCard(event));

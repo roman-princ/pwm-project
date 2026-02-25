@@ -17,7 +17,6 @@
   padding: 1.3rem;
 }
 
-/* Hero Block */
 .hero {
   text-align: center;
   padding: 2.5rem 10%;
@@ -33,7 +32,6 @@
   line-height: 1.5;
 }
 
-/* Events Block */
 .events__heading {
   font-size: 1.5rem;
   margin-bottom: 1.3rem;
@@ -46,33 +44,13 @@
   align-items: flex-start;
 }
 
-.events__list .event-card-link {
+.events__list .event-card__link {
   max-width: 900px;
   width: 100%;
 }
 
-/* All Events CTA */
 .events__cta {
   display: flex;
   justify-content: center;
   margin-top: 2rem;
-}
-
-.events__cta-btn {
-  display: inline-block;
-  padding: 0.7rem 2rem;
-  border: 1px solid var(--text-main);
-  border-radius: 2rem;
-  color: var(--text-main);
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition:
-    background 0.2s,
-    color 0.2s;
-}
-
-.events__cta-btn:hover {
-  background: var(--text-main);
-  color: #fff;
 }

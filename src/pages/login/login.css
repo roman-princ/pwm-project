@@ -1,90 +1,60 @@
-.login-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 40px 20px;
-    min-height: 60vh;
+.login {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  min-height: 60vh;
 }
 
-/* Header & Back Button */
-.login-header {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 40px;
+.login__header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 40px;
 }
 
-.back-button {
-    color: #333;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
+.login__header h1 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  margin: 0;
 }
 
-.login-header h1 {
-    font-size: 2.5rem;
-    font-weight: 500;
-    margin: 0;
-}
-
-/* Form Layout */
-.login-form {
-    max-width: 400px;
-    /* Aligns with the visual width in mockup */
-    margin-left: 60px;
-    /* Offsets form to align under the title */
+.login__form {
+  max-width: 400px;
+  margin-left: 60px;
 }
 
 .form-group {
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 }
 
 .form-group label {
-    display: block;
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: #333;
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
 }
 
 .form-group input {
-    width: 100%;
-    padding: 12px 15px;
-    border: none;
-    border-radius: 12px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    font-size: 1rem;
+  width: 100%;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  font-size: 1rem;
 }
 
-/* Registration Link */
-.registration-link {
-    margin-bottom: 30px;
+.login__registration-link {
+  margin-bottom: 30px;
 }
 
-.registration-link a {
-    font-size: 0.85rem;
-    color: #888;
-    text-decoration: none;
+.login__registration-link a {
+  font-size: 0.85rem;
+  color: #888;
+  text-decoration: none;
 }
 
-.registration-link a:hover {
-    text-decoration: underline;
-}
-
-/* Login Button */
-.btn-login {
-    background-color: #c5dcf2;
-    /* The soft blue from the image */
-    border: none;
-    padding: 12px 35px;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-    color: #333;
-}
-
-.btn-login:hover {
-    background-color: #b0cce6;
+.login__registration-link a:hover {
+  text-decoration: underline;
 }

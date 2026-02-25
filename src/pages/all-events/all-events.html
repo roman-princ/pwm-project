@@ -8,33 +8,33 @@
     <link rel="stylesheet" href="../../styles/main.css">
     <link rel="stylesheet" href="all-events.css">
     <link rel="stylesheet" href="../../components/event-card/event-card.css">
+    <link rel="stylesheet" href="../../components/button/button.css">
 </head>
 
 <body>
     <div data-include="partials/header/header"></div>
-    <section class="all-events-container">
+    <section class="all-events">
         <h1>All Events</h1>
 
-        <div class="filter-section">
-            <p class="filter-label">Filter by category</p>
-            <div class="category-tags" id="categoryFilters">
-                <button class="tag active">All Events</button>
-                <button class="tag">Cultural</button>
-                <button class="tag">Academic</button>
-                <button class="tag">Social</button>
-                <button class="tag">Sports</button>
-                <button class="tag">Trips</button>
-                <button class="tag">Language</button>
+        <div class="all-events__filters">
+            <p class="all-events__filter-label">Filter by category</p>
+            <div class="all-events__category-tags" id="categoryFilters">
+                <button class="filter-tag filter-tag--active">All Events</button>
+                <button class="filter-tag">Cultural</button>
+                <button class="filter-tag">Academic</button>
+                <button class="filter-tag">Social</button>
+                <button class="filter-tag">Sports</button>
+                <button class="filter-tag">Trips</button>
+                <button class="filter-tag">Language</button>
             </div>
         </div>
 
-        <div id="listView">
-            <div id="eventsContainer">
-            </div>
+        <div id="eventsContainer">
         </div>
 
-        <div id="calendarView" style="display: none;">
-            <div data-include="components/calendar-view/calendar-view"></div>
+        <div class="all-events__cta">
+            <div data-include="components/button/button" data-href="#" data-variant="outline" data-text="See more">
+            </div>
         </div>
 
     </section>
@@ -45,7 +45,6 @@
         if (container) renderEventCards(eventsData, container);
     </script>
     <script src="../../scripts/referencer.js"></script>
-    <!-- <script src="all-events.js"></script> -->
     <script src="../../scripts/events-interaction.js"></script>
 
 </body>

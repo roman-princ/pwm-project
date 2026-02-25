@@ -1,27 +1,25 @@
-<a href="{{detailUrl}}" class="event-card-link">
+<a href="{{detailUrl}}" class="event-card__link">
     <div class="event-card">
-        <div class="event-image"></div>
+        <div class="event-card__image"></div>
+        <span class="category-tag category-tag--{{category}}">
+            {{category}}
+        </span>
 
-        <div class="event-content">
-            <div class="header-row">
-                <h2 class="event-title">{{title}}</h2>
-                <span class="category-tag category-tag--{{category}}">
-                    {{category}}
-                </span>
-            </div>
-            <p class="description">{{description}}</p>
+        <div class="event-card__content">
+            <h2 class="event-card__title">{{title}}</h2>
+            <p class="event-card__description">{{description}}</p>
         </div>
 
-        <div class="event-content event-content--details">
-            <div class="event-details">
-                <div class="detail-item">
-                    <span class="icon">📅</span> {{dateFormatted}}
+        <div class="event-card__content event-card__content--details">
+            <div class="event-card__details">
+                <div class="event-card__detail-item">
+                    <span class="event-card__icon">📅</span> {{dateFormatted}}
                 </div>
-                <div class="detail-item">
-                    <span class="icon">🕒</span> {{time}}
+                <div class="event-card__detail-item">
+                    <span class="event-card__icon">🕒</span> {{time}}
                 </div>
-                <div class="detail-item">
-                    <span class="icon">📍</span> {{location}}
+                <div class="event-card__detail-item">
+                    <span class="event-card__icon">📍</span> {{location}}
                 </div>
             </div>
         </div>

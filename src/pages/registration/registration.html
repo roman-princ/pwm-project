@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration - Erasmus Las Palmas</title>
     <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../components/button/button.css">
     <link rel="stylesheet" href="registration.css">
 </head>
 
@@ -14,18 +15,13 @@
     <div data-include="partials/header/header"></div>
 
     <main>
-        <section class="register-container">
-            <div class="register-header">
-                <a href="javascript:history.back()" class="back-button" aria-label="Go back">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="m15 18-6-6 6-6" />
-                    </svg>
-                </a>
+        <section class="register">
+            <div class="register__header">
+                <div data-include="components/back-button/back-button" data-size="24" data-stroke="2"></div>
                 <h1>Registration</h1>
             </div>
 
-            <form class="register-form">
+            <form class="register__form">
                 <div class="form-group">
                     <label for="firstName">First Name:</label>
                     <input type="text" id="firstName" name="firstName" required>
@@ -56,7 +52,7 @@
                     <input type="password" id="passwordConfirm" name="passwordConfirm" required>
                 </div>
 
-                <button type="submit" class="btn-register">Register</button>
+                <button type="submit" class="btn btn--primary">Register</button>
             </form>
         </section>
     </main>
