@@ -1,42 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
+<link rel="stylesheet" href="/src/pages/main/main-page.css">
+<link rel="stylesheet" href="/src/components/event-card/event-card.css">
+<link rel="stylesheet" href="/src/components/button/button.css">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Erasmus Las Palmas</title>
-    <link rel="stylesheet" href="../../styles/main.css">
-    <link rel="stylesheet" href="main-page.css">
-    <link rel="stylesheet" href="../../components/event-card/event-card.css">
-    <link rel="stylesheet" href="../../components/button/button.css">
-</head>
+<main class="main-container">
+    <section class="hero">
+        <h1 class="hero__title">Welcome to Las Palmas</h1>
+        <p class="hero__description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque
+            sem placerat. In id cursus mi pretium tellus duis convallis.
+        </p>
+    </section>
 
-<body class="page-body">
+    <section class="events">
+        <h2 class="events__heading">Coming soon</h2>
+        <div class="events__list" id="eventList">
+        </div>
+        <div class="events__cta">
+            <div data-include="components/button/button" data-href="/src/pages/all-events/all-events.html"
+                data-variant="outline" data-text="All Events"></div>
+        </div>
+    </section>
+</main>
 
-    <main class="main-container">
-        <section class="hero">
-            <h1 class="hero__title">Welcome to Las Palmas</h1>
-            <p class="hero__description">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque
-                sem placerat. In id cursus mi pretium tellus duis convallis.
-            </p>
-        </section>
-
-        <section class="events">
-            <h2 class="events__heading">Coming soon</h2>
-            <div class="events__list" id="eventList">
-            </div>
-            <div class="events__cta">
-                <div data-include="components/button/button" data-href="/src/pages/all-events/all-events.html"
-                    data-variant="outline" data-text="All Events"></div>
-            </div>
-        </section>
-    </main>
-
-
-    <script src="../../scripts/event-card.js"></script>
-    <script src="main-page.js"></script>
-    <script src="../../scripts/referencer.js"></script>
-</body>
-
-</html>
+<script src="/src/scripts/event-card.js"></script>
+<script src="/src/pages/main/main-page.js"></script>

@@ -1,42 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+<link rel="stylesheet" href="components/event-list/event-list.css">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Erasmus Events List</title>
-    <link rel="stylesheet" href="event-list.css">
-</head>
-
-<body>
-
-    <div class="event-list-page">
-        <div class="event-list-page__filters">
-            <span class="event-list-page__filter-label">Filter by category</span>
-            <div class="event-list-page__filter-group">
-                <button class="filter-chip filter-chip--active">All Events</button>
-                <button class="filter-chip">Cultural</button>
-                <button class="filter-chip">Academic</button>
-                <button class="filter-chip">Social</button>
-                <button class="filter-chip">Sports</button>
-                <button class="filter-chip">Trips</button>
-                <button class="filter-chip">Language</button>
-            </div>
-
-            <div class="view-toggle">
-                <button class="view-btn view-btn--active">☰ List View</button>
-                <button class="view-btn">📅 Calendar View</button>
-            </div>
+<div class="event-list-page">
+    <div class="event-list-page__filters">
+        <span class="event-list-page__filter-label">Filter by category</span>
+        <div class="event-list-page__filter-group">
+            <button class="filter-chip filter-chip--active">All Events</button>
+            <button class="filter-chip">Cultural</button>
+            <button class="filter-chip">Academic</button>
+            <button class="filter-chip">Social</button>
+            <button class="filter-chip">Sports</button>
+            <button class="filter-chip">Trips</button>
+            <button class="filter-chip">Language</button>
         </div>
 
-        <div class="event-list">
-            <div data-include="event-card"></div>
-            <div data-include="event-card"></div>
-            <div data-include="event-card"></div>
+        <div class="view-toggle">
+            <button class="view-btn view-btn--active">☰ List View</button>
+            <button class="view-btn">📅 Calendar View</button>
         </div>
     </div>
 
-</body>
-<script src="../scripts/referencer.js"></script>
-
-</html>
+    <div class="event-list">
+        <div data-include="components/event-card/event-card"></div>
+        <div data-include="components/event-card/event-card"></div>
+        <div data-include="components/event-card/event-card"></div>
+    </div>
+</div>
