@@ -33,3 +33,29 @@
   background: transparent;
   color: var(--text-main);
 }
+
+.btn--edit {
+  border: 1px solid #dbeafe;
+  background: #dbeafe;
+  color: #1e40af;
+  font-weight: 600;
+}
+
+.btn--edit:hover {
+  background: #bfdbfe;
+  border-color: #bfdbfe;
+  color: #1847d9;
+}
+
+.btn--danger {
+  border: 1px solid #fee2e2;
+  background: #fee2e2;
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.btn--danger:hover {
+  background: #fecaca;
+  border-color: #fecaca;
+  color: #b91c1c;
+}

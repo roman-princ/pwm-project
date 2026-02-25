@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Erasmus Events</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../components/event-card/event-card.css">
+    <link rel="stylesheet" href="../../components/button/button.css">
+    <link rel="stylesheet" href="admin-home.css">
+</head>
+
+<body class="page-body">
+    <div data-include="partials/header/header"></div>
+
+    <main class="admin-home">
+        <section class="admin-home__welcome">
+            <h1 class="admin-home__title">Hello NAME,</h1>
+            <div data-include="components/button/button" data-href="/src/pages/create-event/create-event.html"
+                data-variant="outline" data-text="Add New Event"></div>
+        </section>
+
+        <section class="admin-home__events">
+            <h2 class="admin-home__events-heading">My Events</h2>
+            <div class="admin-home__events-list" id="adminEventList"></div>
+            <div class="admin-home__cta">
+                <div data-include="components/button/button" data-href="/src/pages/all-events/all-events.html"
+                    data-variant="outline" data-text="See more"></div>
+            </div>
+        </section>
+    </main>
+
+    <div data-include="partials/footer/footer"></div>
+
+    <script src="../../scripts/event-card.js"></script>
+    <script src="admin-home.js"></script>
+    <script src="../../scripts/referencer.js"></script>
+</body>
+
+</html>

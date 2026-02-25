@@ -17,12 +17,20 @@
             <nav class="header__nav">
                 <a href="/src/pages/all-events/all-events.html" class="header__link">All Events</a>
                 <a href="/src/pages/about/about.html" class="header__link">About us</a>
+                <a href="/src/pages/create-event/create-event.html" class="header__link header__link--admin"
+                    id="createEventLink" style="display: none;">Create Event</a>
             </nav>
 
-            <a href="/src/pages/login/login.html" class="header__login">
+            <a href="/src/pages/login/login.html" class="header__login" id="loginLink">
                 <span class="header__login-icon">👤</span>
                 <span class="header__login-text">Login</span>
             </a>
+
+            <button class="header__logout" id="logoutBtn" style="display: none;">
+                Log out
+            </button>
         </div>
     </div>
 </header>
+
+<script src="/src/partials/header/header.js"></script>

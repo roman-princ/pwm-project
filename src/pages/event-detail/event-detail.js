@@ -21,7 +21,12 @@ function renderEventDetail() {
   }
 
   const metaItems = document.querySelectorAll(".event-detail__meta-item");
-  const metaValues = [event.dateFormatted, event.time, event.location];
+  const metaValues = [
+    event.dateFormatted,
+    event.time,
+    event.location,
+    event.organizer,
+  ];
 
   metaItems.forEach((item, i) => {
     const label = item.querySelector(".event-detail__meta-label");
@@ -29,6 +34,11 @@ function renderEventDetail() {
       label.textContent = metaValues[i];
     }
   });
+
+  const registerButton = document.querySelector(".btn");
+  if (registerButton && event.registrationUrl) {
+    registerButton.href = event.registrationUrl;
+  }
 }
 
 renderEventDetail();

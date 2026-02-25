@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Event - Erasmus Events</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../components/button/button.css">
+    <link rel="stylesheet" href="edit-event.css">
+</head>
+
+<body class="page-body">
+    <div data-include="partials/header/header"></div>
+
+    <main class="edit-event">
+        <div class="edit-event__header">
+            <div data-include="components/back-button/back-button" data-size="32" data-stroke="2.5"></div>
+            <h1>Edit Event</h1>
+        </div>
+
+        <form class="edit-event__form" id="editEventForm">
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category:</label>
+                <select id="category" name="category" required>
+                    <option value="">Select a category</option>
+                    <option value="social">Social</option>
+                    <option value="cultural">Cultural</option>
+                    <option value="language">Language</option>
+                    <option value="academic">Academic</option>
+                    <option value="sports">Sports</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="organizer">Organizer:</label>
+                <input type="text" id="organizer" name="organizer" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" rows="8" required></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="time">Time:</label>
+                    <input type="time" id="time" name="time" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" required>
+            </div>
+
+            <div class="form-group">
+                <label for="registrationUrl">Registration URL:</label>
+                <input type="url" id="registrationUrl" name="registrationUrl" placeholder="https://example.com/register"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Pictures:</label>
+                <div class="file-upload">
+                    <input type="file" id="image" name="image" accept="image/*" multiple>
+                    <label for="image" class="file-upload__label">
+                        <svg class="file-upload__icon" viewBox="0 0 24 24" fill="none">
+                            <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2" />
+                            <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" />
+                            <path d="M21 15L16 10L5 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path d="M14 12L21 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <circle cx="18" cy="6" r="3" fill="#4A90E2" stroke="white" stroke-width="2" />
+                            <path d="M18 5V7M17 6H19" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                        <span class="file-upload__text">Click to upload images</span>
+                    </label>
+                    <div class="file-upload__preview" id="imagePreview"></div>
+                </div>
+            </div>
+
+            <div class="edit-event__actions">
+                <button type="submit" class="btn btn--edit edit-event__save-btn">Save Changes</button>
+                <button type="button" class="btn btn--danger edit-event__delete-btn" id="deleteBtn">Delete</button>
+            </div>
+        </form>
+    </main>
+
+    <div data-include="partials/footer/footer"></div>
+
+    <script src="../../scripts/event-card.js"></script>
+    <script src="../../scripts/referencer.js"></script>
+    <script src="edit-event.js"></script>
+</body>
+
+</html>

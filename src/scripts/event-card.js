@@ -9,6 +9,8 @@ const eventsData = [
     dateFormatted: "Wednesday, February 25, 2026",
     time: "19:00",
     location: "Lorem ipsum",
+    organizer: "Erasmus Student Network",
+    registrationUrl: "#",
     image: null,
   },
   {
@@ -21,6 +23,8 @@ const eventsData = [
     dateFormatted: "Wednesday, February 25, 2026",
     time: "18:00",
     location: "Dolor sit amet",
+    organizer: "Cultural Committee",
+    registrationUrl: "#",
     image: null,
   },
   {
@@ -33,6 +37,8 @@ const eventsData = [
     dateFormatted: "Thursday, February 26, 2026",
     time: "10:00",
     location: "Consectetur adipiscing",
+    organizer: "Language Exchange Club",
+    registrationUrl: "#",
     image: null,
   },
   {
@@ -45,6 +51,8 @@ const eventsData = [
     dateFormatted: "Thursday, February 26, 2026",
     time: "11:00",
     location: "Labore et dolore",
+    organizer: "International Office",
+    registrationUrl: "#",
     image: null,
   },
   {
@@ -57,6 +65,8 @@ const eventsData = [
     dateFormatted: "Saturday, February 28, 2026",
     time: "14:00",
     location: "Veniam quis nostrud",
+    organizer: "University Las Palmas",
+    registrationUrl: "#",
     image: null,
   },
   {
@@ -69,6 +79,8 @@ const eventsData = [
     dateFormatted: "Saturday, February 28, 2026",
     time: "16:00",
     location: "Ipsum quia dolor",
+    organizer: "Sports Association",
+    registrationUrl: "#",
     image: null,
   },
   {
@@ -81,6 +93,8 @@ const eventsData = [
     dateFormatted: "Sunday, March 1, 2026",
     time: "20:00",
     location: "Egestas vestibulum",
+    organizer: "Student Union",
+    registrationUrl: "#",
     image: null,
   },
   {
@@ -93,6 +107,8 @@ const eventsData = [
     dateFormatted: "Sunday, March 1, 2026",
     time: "09:00",
     location: "Tortor dignissim",
+    organizer: "Athletic Club Las Palmas",
+    registrationUrl: "#",
     image: null,
   },
   {
@@ -105,6 +121,8 @@ const eventsData = [
     dateFormatted: "Tuesday, March 3, 2026",
     time: "17:00",
     location: "Nibh sit amet",
+    organizer: "Arts & Culture Society",
+    registrationUrl: "#",
     image: null,
   },
   {
@@ -117,6 +135,8 @@ const eventsData = [
     dateFormatted: "Thursday, March 5, 2026",
     time: "15:00",
     location: "Diam quis enim",
+    organizer: "Academic Affairs Office",
+    registrationUrl: "#",
     image: null,
   },
 ];
@@ -132,6 +152,7 @@ function createEventCard(event) {
   el.dataset.dateFormatted = event.dateFormatted;
   el.dataset.time = event.time;
   el.dataset.location = event.location;
+  el.dataset.organizer = event.organizer;
 
   return el;
 }
