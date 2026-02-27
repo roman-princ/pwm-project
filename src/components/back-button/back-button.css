@@ -1,5 +1,7 @@
-.back-button {
-  color: #333;
+.back-button,
+.back-button:link,
+.back-button:visited {
+  color: #000;
   text-decoration: none;
   display: flex;
   align-items: center;
