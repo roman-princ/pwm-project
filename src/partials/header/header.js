@@ -24,7 +24,7 @@ const brandLink = document.querySelector(".header__brand-link");
 if (isLoggedIn) {
   if (loginLink) loginLink.style.display = "none";
   if (logoutBtn) logoutBtn.style.display = "block";
-  if (createEventLink) createEventLink.style.display = "block";
+  if (createEventLink) createEventLink.style.display = "none";
   if (brandLink) brandLink.href = "/src/pages/admin-home/admin-home.html";
 } else {
   if (loginLink) loginLink.style.display = "flex";
