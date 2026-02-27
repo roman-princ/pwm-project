@@ -15,30 +15,31 @@
     <div data-include="partials/header/header"></div>
     <section class="login">
         <div class="login__header">
-            <div data-include="components/back-button/back-button" data-size="24" data-stroke="2"></div>
-            <h1>Log in</h1>
+            <div id="backBtn"></div>
+            <h1 id="loginHeading"></h1>
         </div>
 
         <form class="login__form">
             <div class="form-group">
-                <label for="username">Username:</label>
+                <label for="username" id="usernameLabel"></label>
                 <input type="text" id="username" name="username" required>
             </div>
 
             <div class="form-group">
-                <label for="password">Password:</label>
+                <label for="password" id="passwordLabel"></label>
                 <input type="password" id="password" name="password" required>
             </div>
 
             <div class="login__registration-link">
-                <a href="../registration/registration.html">Registration?</a>
+                <a href="../registration/registration.html" id="registrationLink"></a>
             </div>
 
-            <button type="submit" class="btn btn--primary">Log in</button>
+            <button type="submit" class="btn btn--primary" id="loginSubmitBtn"></button>
         </form>
     </section>
     <div data-include="partials/footer/footer"></div>
 
+    <script src="../../scripts/components.js"></script>
     <script src="../../scripts/referencer.js"></script>
     <script src="login.js"></script>
 </body>

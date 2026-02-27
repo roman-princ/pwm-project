@@ -7,6 +7,11 @@ function renderEventDetail() {
   const event = eventsData.find((e) => e.id === id);
   if (!event) return;
 
+  const backBtnContainer = document.getElementById("backBtn");
+  if (backBtnContainer) {
+    backBtnContainer.appendChild(createBackButton(32, 2.5));
+  }
+
   const titleEl = document.querySelector(".event-detail__title");
   if (titleEl) titleEl.textContent = event.title;
   document.title = `${event.title} - Erasmus Las Palmas`;
@@ -35,9 +40,11 @@ function renderEventDetail() {
     }
   });
 
-  const registerButton = document.querySelector(".btn");
-  if (registerButton && event.registrationUrl) {
-    registerButton.href = event.registrationUrl;
+  const registerBtnContainer = document.getElementById("registerBtn");
+  if (registerBtnContainer) {
+    registerBtnContainer.appendChild(
+      createButton(event.registrationUrl || "#", "primary", "Register here"),
+    );
   }
 }
 

@@ -14,35 +14,34 @@
 <body>
     <div data-include="partials/header/header"></div>
     <section class="all-events">
-        <h1>All Events</h1>
+        <h1 id="pageTitle"></h1>
 
         <div class="all-events__filters">
-            <p class="all-events__filter-label">Filter by category</p>
-            <div class="all-events__category-tags" id="categoryFilters">
-                <button class="filter-tag filter-tag--active">All Events</button>
-                <button class="filter-tag">Cultural</button>
-                <button class="filter-tag">Academic</button>
-                <button class="filter-tag">Social</button>
-                <button class="filter-tag">Sports</button>
-                <button class="filter-tag">Trips</button>
-                <button class="filter-tag">Language</button>
-            </div>
+            <p class="all-events__filter-label" id="filterLabel"></p>
+            <div class="all-events__category-tags" id="categoryFilters"></div>
         </div>
 
         <div id="eventsContainer">
         </div>
 
-        <div class="all-events__cta">
-            <div data-include="components/button/button" data-href="#" data-variant="outline" data-text="See more">
-            </div>
-        </div>
+        <div class="all-events__cta" id="seeMoreBtnContainer"></div>
 
     </section>
     <div data-include="partials/footer/footer"></div>
     <script src="../../scripts/event-card.js"></script>
+    <script src="../../scripts/components.js"></script>
     <script>
+        setPageContent({
+            pageTitle: "All Events",
+            filterLabel: "Filter by category",
+        });
+        createFilterTags("categoryFilters", "All Events");
+
         const container = document.getElementById("eventsContainer");
         if (container) renderEventCards(eventsData, container);
+
+        const seeMoreBtn = document.getElementById("seeMoreBtnContainer");
+        if (seeMoreBtn) seeMoreBtn.appendChild(createButton("#", "outline", "See more"));
     </script>
     <script src="../../scripts/referencer.js"></script>
     <script src="../../scripts/events-interaction.js"></script>

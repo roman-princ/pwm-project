@@ -9,6 +9,17 @@ function renderHomeEvents() {
   upcoming.forEach((event) => {
     container.appendChild(createEventCard(event));
   });
+
+  const ctaContainer = document.getElementById("allEventsBtnContainer");
+  if (ctaContainer) {
+    ctaContainer.appendChild(
+      createButton(
+        "/src/pages/all-events/all-events.html",
+        "outline",
+        "All Events",
+      ),
+    );
+  }
 }
 
 renderHomeEvents();

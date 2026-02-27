@@ -1,3 +1,14 @@
+const backBtnContainer = document.getElementById("backBtn");
+if (backBtnContainer) backBtnContainer.appendChild(createBackButton(24, 2));
+
+setPageContent({
+  loginHeading: "Log in",
+  usernameLabel: "Username:",
+  passwordLabel: "Password:",
+  registrationLink: "Registration?",
+  loginSubmitBtn: "Log in",
+});
+
 const loginForm = document.querySelector(".login__form");
 
 if (loginForm) {

@@ -16,6 +16,8 @@ function populateForm() {
     return;
   }
 
+  createCategoryOptions("category", "Select a category");
+
   document.getElementById("title").value = event.title;
   document.getElementById("category").value = event.category;
   document.getElementById("organizer").value = event.organizer;
@@ -100,3 +102,26 @@ if (deleteBtn) {
 }
 
 populateForm();
+
+const backBtnContainer = document.getElementById("backBtn");
+if (backBtnContainer) backBtnContainer.appendChild(createBackButton(32, 2.5));
+
+setPageContent({
+  pageHeading: "Edit Event",
+  titleLabel: "Title:",
+  categoryLabel: "Category:",
+  organizerLabel: "Organizer:",
+  descriptionLabel: "Description:",
+  dateLabel: "Date:",
+  timeLabel: "Time:",
+  locationLabel: "Location:",
+  registrationUrlLabel: "Registration URL:",
+  imageLabel: "Pictures:",
+  fileUploadText: "Click to upload images",
+  saveBtn: "Save Changes",
+  deleteBtn: "Delete",
+});
+
+const registrationUrlInput = document.getElementById("registrationUrl");
+if (registrationUrlInput)
+  registrationUrlInput.placeholder = "https://example.com/register";

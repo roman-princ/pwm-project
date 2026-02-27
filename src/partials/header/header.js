@@ -1,3 +1,19 @@
+const headerContent = {
+  navAllEvents: "All Events",
+  navAbout: "About us",
+  createEventLink: "Create Event",
+  loginText: "Login",
+  logoutBtn: "Log out",
+};
+
+Object.entries(headerContent).forEach(([id, text]) => {
+  const el = document.getElementById(id);
+  if (el) el.textContent = text;
+});
+
+const searchInput = document.getElementById("searchInput");
+if (searchInput) searchInput.placeholder = "Search";
+
 const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 const loginLink = document.getElementById("loginLink");
 const logoutBtn = document.getElementById("logoutBtn");

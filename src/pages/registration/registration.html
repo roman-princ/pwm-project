@@ -17,48 +17,50 @@
     <main>
         <section class="register">
             <div class="register__header">
-                <div data-include="components/back-button/back-button" data-size="24" data-stroke="2"></div>
-                <h1>Registration</h1>
+                <div id="backBtn"></div>
+                <h1 id="registerHeading"></h1>
             </div>
 
             <form class="register__form">
                 <div class="form-group">
-                    <label for="firstName">First Name:</label>
+                    <label for="firstName" id="firstNameLabel"></label>
                     <input type="text" id="firstName" name="firstName" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="surname">Surname:</label>
+                    <label for="surname" id="surnameLabel"></label>
                     <input type="text" id="surname" name="surname" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">E-mail:</label>
+                    <label for="email" id="emailLabel"></label>
                     <input type="email" id="email" name="email" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="organization">Organization:</label>
+                    <label for="organization" id="organizationLabel"></label>
                     <input type="text" id="organization" name="organization">
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Password:</label>
+                    <label for="password" id="passwordLabel"></label>
                     <input type="password" id="password" name="password" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="passwordConfirm">Password again:</label>
+                    <label for="passwordConfirm" id="passwordConfirmLabel"></label>
                     <input type="password" id="passwordConfirm" name="passwordConfirm" required>
                 </div>
 
-                <button type="submit" class="btn btn--primary">Register</button>
+                <button type="submit" class="btn btn--primary" id="registerSubmitBtn"></button>
             </form>
         </section>
     </main>
 
     <div data-include="partials/footer/footer"></div>
 
+    <script src="../../scripts/components.js"></script>
+    <script src="registration.js"></script>
     <script src="../../scripts/referencer.js"></script>
 </body>
 

@@ -39,9 +39,36 @@ function renderAdminEvents() {
   });
 
   const username = localStorage.getItem("username") || "Admin";
-  const titleEl = document.querySelector(".admin-home__title");
+  const titleEl = document.getElementById("adminTitle");
   if (titleEl) {
     titleEl.textContent = `Hello ${username},`;
+  }
+
+  const eventsHeadingEl = document.getElementById("eventsHeading");
+  if (eventsHeadingEl) {
+    eventsHeadingEl.textContent = "My Events";
+  }
+
+  const addNewEventBtn = document.getElementById("addNewEventBtnContainer");
+  if (addNewEventBtn) {
+    addNewEventBtn.appendChild(
+      createButton(
+        "/src/pages/create-event/create-event.html",
+        "outline",
+        "Add New Event",
+      ),
+    );
+  }
+
+  const seeMoreBtn = document.getElementById("seeMoreBtnContainer");
+  if (seeMoreBtn) {
+    seeMoreBtn.appendChild(
+      createButton(
+        "/src/pages/all-events/all-events.html",
+        "outline",
+        "See more",
+      ),
+    );
   }
 }
 

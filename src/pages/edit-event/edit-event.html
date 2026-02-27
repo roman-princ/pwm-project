@@ -15,63 +15,55 @@
 
     <main class="edit-event">
         <div class="edit-event__header">
-            <div data-include="components/back-button/back-button" data-size="32" data-stroke="2.5"></div>
-            <h1>Edit Event</h1>
+            <div id="backBtn"></div>
+            <h1 id="pageHeading"></h1>
         </div>
 
         <form class="edit-event__form" id="editEventForm">
             <div class="form-group">
-                <label for="title">Title:</label>
+                <label for="title" id="titleLabel"></label>
                 <input type="text" id="title" name="title" required>
             </div>
 
             <div class="form-group">
-                <label for="category">Category:</label>
-                <select id="category" name="category" required>
-                    <option value="">Select a category</option>
-                    <option value="social">Social</option>
-                    <option value="cultural">Cultural</option>
-                    <option value="language">Language</option>
-                    <option value="academic">Academic</option>
-                    <option value="sports">Sports</option>
-                </select>
+                <label for="category" id="categoryLabel"></label>
+                <select id="category" name="category" required></select>
             </div>
 
             <div class="form-group">
-                <label for="organizer">Organizer:</label>
+                <label for="organizer" id="organizerLabel"></label>
                 <input type="text" id="organizer" name="organizer" required>
             </div>
 
             <div class="form-group">
-                <label for="description">Description:</label>
+                <label for="description" id="descriptionLabel"></label>
                 <textarea id="description" name="description" rows="8" required></textarea>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="date">Date:</label>
+                    <label for="date" id="dateLabel"></label>
                     <input type="date" id="date" name="date" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="time">Time:</label>
+                    <label for="time" id="timeLabel"></label>
                     <input type="time" id="time" name="time" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="location">Location:</label>
+                <label for="location" id="locationLabel"></label>
                 <input type="text" id="location" name="location" required>
             </div>
 
             <div class="form-group">
-                <label for="registrationUrl">Registration URL:</label>
-                <input type="url" id="registrationUrl" name="registrationUrl" placeholder="https://example.com/register"
-                    required>
+                <label for="registrationUrl" id="registrationUrlLabel"></label>
+                <input type="url" id="registrationUrl" name="registrationUrl" placeholder="" required>
             </div>
 
             <div class="form-group">
-                <label for="image">Pictures:</label>
+                <label for="image" id="imageLabel"></label>
                 <div class="file-upload">
                     <input type="file" id="image" name="image" accept="image/*" multiple>
                     <label for="image" class="file-upload__label">
@@ -85,15 +77,15 @@
                             <circle cx="18" cy="6" r="3" fill="#4A90E2" stroke="white" stroke-width="2" />
                             <path d="M18 5V7M17 6H19" stroke="white" stroke-width="1.5" stroke-linecap="round" />
                         </svg>
-                        <span class="file-upload__text">Click to upload images</span>
+                        <span class="file-upload__text" id="fileUploadText"></span>
                     </label>
                     <div class="file-upload__preview" id="imagePreview"></div>
                 </div>
             </div>
 
             <div class="edit-event__actions">
-                <button type="submit" class="btn btn--edit edit-event__save-btn">Save Changes</button>
-                <button type="button" class="btn btn--danger edit-event__delete-btn" id="deleteBtn">Delete</button>
+                <button type="submit" class="btn btn--edit edit-event__save-btn" id="saveBtn"></button>
+                <button type="button" class="btn btn--danger edit-event__delete-btn" id="deleteBtn"></button>
             </div>
         </form>
     </main>
@@ -101,6 +93,7 @@
     <div data-include="partials/footer/footer"></div>
 
     <script src="../../scripts/event-card.js"></script>
+    <script src="../../scripts/components.js"></script>
     <script src="../../scripts/referencer.js"></script>
     <script src="edit-event.js"></script>
 </body>

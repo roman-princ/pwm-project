@@ -1,3 +1,27 @@
+const backBtnContainer = document.getElementById("backBtn");
+if (backBtnContainer) backBtnContainer.appendChild(createBackButton(32, 2.5));
+
+setPageContent({
+  pageHeading: "Create New Event",
+  titleLabel: "Title:",
+  categoryLabel: "Category:",
+  organizerLabel: "Organizer:",
+  descriptionLabel: "Description:",
+  dateLabel: "Date:",
+  timeLabel: "Time:",
+  locationLabel: "Location:",
+  registrationUrlLabel: "Registration URL:",
+  imageLabel: "Pictures:",
+  fileUploadText: "Click to upload images",
+  submitBtn: "Add",
+});
+
+createCategoryOptions("category", "Select a category");
+
+const registrationUrlInput = document.getElementById("registrationUrl");
+if (registrationUrlInput)
+  registrationUrlInput.placeholder = "https://example.com/register";
+
 const imageInput = document.getElementById("image");
 const imagePreview = document.getElementById("imagePreview");
 
