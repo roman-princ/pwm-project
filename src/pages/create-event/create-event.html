@@ -13,69 +13,8 @@
 <body class="page-body">
     <div data-include="partials/header/header"></div>
 
-    <main class="create-event">
-        <div class="create-event__header">
-            <div id="backBtn"></div>
-            <h1 id="pageHeading"></h1>
-        </div>
-
-        <form class="create-event__form" id="createEventForm">
-            <div class="form-group">
-                <label for="title" id="titleLabel"></label>
-                <input type="text" id="title" name="title" required>
-            </div>
-
-            <div class="form-group">
-                <label for="category" id="categoryLabel"></label>
-                <select id="category" name="category" required></select>
-            </div>
-
-            <div class="form-group">
-                <label for="organizer" id="organizerLabel"></label>
-                <input type="text" id="organizer" name="organizer" required>
-            </div>
-
-            <div class="form-group">
-                <label for="description" id="descriptionLabel"></label>
-                <textarea id="description" name="description" rows="8" required></textarea>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="date" id="dateLabel"></label>
-                    <input type="date" id="date" name="date" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="time" id="timeLabel"></label>
-                    <input type="time" id="time" name="time" required>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="location" id="locationLabel"></label>
-                <input type="text" id="location" name="location" required>
-            </div>
-
-            <div class="form-group">
-                <label for="registrationUrl" id="registrationUrlLabel"></label>
-                <input type="url" id="registrationUrl" name="registrationUrl" placeholder="" required>
-            </div>
-
-            <div class="form-group">
-                <label for="image" id="imageLabel"></label>
-                <div class="file-upload">
-                    <input type="file" id="image" name="image" accept="image/*" multiple>
-                    <label for="image" class="file-upload__label">
-                        <img class="file-upload__icon" src="/src/assets/file-upload.svg" alt="Upload" />
-                        <span class="file-upload__text" id="fileUploadText"></span>
-                    </label>
-                    <div class="file-upload__preview" id="imagePreview"></div>
-                </div>
-            </div>
-
-            <button type="submit" class="btn btn--primary create-event__submit" id="submitBtn"></button>
-        </form>
+    <main class="event-form-page">
+        <div data-include="components/event-form/event-form"></div>
     </main>
 
     <div data-include="partials/footer/footer"></div>
