@@ -19,10 +19,13 @@ const loginLink = document.getElementById("loginLink");
 const logoutBtn = document.getElementById("logoutBtn");
 const createEventLink = document.getElementById("createEventLink");
 
+const brandLink = document.querySelector(".header__brand-link");
+
 if (isLoggedIn) {
   if (loginLink) loginLink.style.display = "none";
   if (logoutBtn) logoutBtn.style.display = "block";
   if (createEventLink) createEventLink.style.display = "block";
+  if (brandLink) brandLink.href = "/src/pages/admin-home/admin-home.html";
 } else {
   if (loginLink) loginLink.style.display = "flex";
   if (logoutBtn) logoutBtn.style.display = "none";

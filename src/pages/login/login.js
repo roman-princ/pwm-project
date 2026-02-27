@@ -23,7 +23,7 @@ if (loginForm) {
       localStorage.setItem("username", username);
 
       alert("Login successful!");
-      window.location.href = "/src/pages/all-events/all-events.html";
+      window.location.href = "/src/pages/admin-home/admin-home.html";
     } else {
       alert("Please enter both username and password.");
     }
