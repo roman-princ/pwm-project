@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Erasmus Events</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../components/event-card/event-card.css">
+    <link rel="stylesheet" href="../../components/button/button.css">
+    <link rel="stylesheet" href="admin-home.css">
+</head>
+
+<body class="page-body">
+    <div data-include="partials/header/header"></div>
+
+    <main class="admin-home">
+        <section class="admin-home__welcome">
+            <h1 class="admin-home__title" id="adminTitle"></h1>
+            <div id="addNewEventBtnContainer"></div>
+        </section>
+
+        <section class="admin-home__events">
+            <h2 class="admin-home__events-heading" id="eventsHeading"></h2>
+            <div class="admin-home__events-list" id="adminEventList"></div>
+            <div class="admin-home__cta" id="seeMoreBtnContainer"></div>
+        </section>
+    </main>
+
+    <div data-include="partials/footer/footer"></div>
+
+    <script src="../../scripts/event-card.js"></script>
+    <script src="../../scripts/components.js"></script>
+    <script src="admin-home.js"></script>
+    <script src="../../scripts/referencer.js"></script>
+</body>
+
+</html>

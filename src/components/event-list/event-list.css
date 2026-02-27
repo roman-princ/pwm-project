@@ -1,0 +1,147 @@
+body {
+  color: var(--text-dark);
+  margin: 0;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.event-list-page {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.event-list-page__filters {
+  margin-bottom: 24px;
+}
+
+.event-list-page__filter-label {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  display: block;
+}
+
+.event-list-page__filter-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.filter-chip {
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-chip--active {
+  background: #334155;
+  color: white;
+  border-color: #334155;
+}
+
+.event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.event-card {
+  display: grid;
+  grid-template-columns: 280px 1fr 240px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.event-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.event-card__main {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.event-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.event-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.description {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.event-card__sidebar {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-muted);
+  border-left: 1px solid #f1f5f9;
+}
+
+.category-tag {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  text-transform: lowercase;
+  font-weight: 600;
+}
+
+.category-tag--social {
+  background: #fdf2f8;
+  color: #db2777;
+}
+
+.category-tag--cultural {
+  background: #f5f3ff;
+  color: #7c3aed;
+}
+
+.category-tag--language {
+  background: #fefce8;
+  color: #ca8a04;
+}
+
+.category-tag--sports {
+  background: #f0fdf4;
+  color: #16a34a;
+}
+
+.category-tag--academic {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.event-card__status--available {
+  color: #16a34a;
+  font-weight: 500;
+}
+
+.event-card__status--full {
+  color: #dc2626;
+  font-weight: 500;
+}

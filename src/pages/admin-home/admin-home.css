@@ -1,0 +1,86 @@
+.admin-home {
+  max-width: 67rem;
+  margin: 0 auto;
+  padding: 1.3rem;
+}
+
+.admin-home__welcome {
+  padding: 2rem 0 1.5rem;
+}
+
+.admin-home__title {
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 0 0 1.5rem;
+  color: var(--text-main);
+}
+
+.admin-home__events {
+  margin-top: 2rem;
+}
+
+.admin-home__events-heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.3rem;
+  color: var(--text-main);
+}
+
+.admin-home__events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  align-items: flex-start;
+}
+
+.admin-home__events-list .event-card__link {
+  max-width: 900px;
+  width: 100%;
+}
+
+.admin-home__events-list .event-card {
+  position: relative;
+}
+
+.admin-home__events-list .event-card__content--details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.event-card__edit-btn {
+  display: inline-block;
+  padding: 0.5rem 1.8rem;
+  border-radius: 2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid var(--text-main);
+  background: var(--text-main);
+  color: #fff;
+  transition:
+    background 0.2s,
+    color 0.2s;
+  z-index: 2;
+  position: relative;
+}
+
+.event-card__edit-btn:hover {
+  background: transparent;
+  color: var(--text-main);
+}
+
+.admin-home__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+@media (max-width: 48rem) {
+  .admin-home__title {
+    font-size: 1.5rem;
+  }
+}

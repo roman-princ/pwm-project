@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Detail - Erasmus Las Palmas</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../components/event-card/event-card.css">
+    <link rel="stylesheet" href="../../components/button/button.css">
+    <link rel="stylesheet" href="event-detail.css">
+</head>
+
+<body class="page-body">
+    <div data-include="partials/header/header"></div>
+
+    <main class="event-detail">
+        <nav class="event-detail__nav">
+            <div id="backBtn"></div>
+        </nav>
+
+        <div class="event-detail__hero">
+            <div class="event-detail__hero-img"></div>
+        </div>
+
+        <section class="event-detail__content">
+            <h1 class="event-detail__title"></h1>
+            <span class="category-tag"></span>
+
+            <div class="event-detail__description"></div>
+
+            <div class="event-detail__meta">
+                <div class="event-detail__meta-item">
+                    <span class="event-detail__meta-icon">📅</span>
+                    <span class="event-detail__meta-label"></span>
+                </div>
+                <div class="event-detail__meta-item">
+                    <span class="event-detail__meta-icon">🕒</span>
+                    <span class="event-detail__meta-label"></span>
+                </div>
+                <div class="event-detail__meta-item">
+                    <span class="event-detail__meta-icon">📍</span>
+                    <span class="event-detail__meta-label"></span>
+                </div>
+                <div class="event-detail__meta-item">
+                    <span class="event-detail__meta-icon">👥</span>
+                    <span class="event-detail__meta-label"></span>
+                </div>
+            </div>
+
+            <div id="registerBtn"></div>
+        </section>
+    </main>
+
+    <div data-include="partials/footer/footer"></div>
+
+    <script src="../../scripts/event-card.js"></script>
+    <script src="../../scripts/components.js"></script>
+    <script src="event-detail.js"></script>
+    <script src="../../scripts/referencer.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="/src/pages/main/main-page.css">
+<link rel="stylesheet" href="/src/components/event-card/event-card.css">
+<link rel="stylesheet" href="/src/components/button/button.css">
+
+<main class="main-container">
+    <section class="hero">
+        <h1 class="hero__title">{{heroTitle}}</h1>
+        <p class="hero__description">{{heroDescription}}</p>
+    </section>
+
+    <section class="events">
+        <h2 class="events__heading">{{eventsHeading}}</h2>
+        <div class="events__list" id="eventList">
+        </div>
+        <div class="events__cta" id="allEventsBtnContainer"></div>
+    </section>
+</main>
+
+<script src="/src/scripts/components.js"></script>
+<script src="/src/scripts/event-card.js"></script>
+<script src="/src/pages/main/main-page.js"></script>

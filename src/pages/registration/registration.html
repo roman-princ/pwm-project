@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration - Erasmus Las Palmas</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../components/button/button.css">
+    <link rel="stylesheet" href="registration.css">
+</head>
+
+<body>
+
+    <div data-include="partials/header/header"></div>
+
+    <main>
+        <section class="register">
+            <div class="register__header">
+                <div id="backBtn"></div>
+                <h1 id="registerHeading"></h1>
+            </div>
+
+            <form class="register__form">
+                <div class="form-group">
+                    <label for="firstName" id="firstNameLabel"></label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="surname" id="surnameLabel"></label>
+                    <input type="text" id="surname" name="surname" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" id="emailLabel"></label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="organization" id="organizationLabel"></label>
+                    <input type="text" id="organization" name="organization">
+                </div>
+
+                <div class="form-group">
+                    <label for="password" id="passwordLabel"></label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="passwordConfirm" id="passwordConfirmLabel"></label>
+                    <input type="password" id="passwordConfirm" name="passwordConfirm" required>
+                </div>
+
+                <button type="submit" class="btn btn--primary" id="registerSubmitBtn"></button>
+            </form>
+        </section>
+    </main>
+
+    <div data-include="partials/footer/footer"></div>
+
+    <script src="../../scripts/components.js"></script>
+    <script src="registration.js"></script>
+    <script src="../../scripts/referencer.js"></script>
+</body>
+
+</html>

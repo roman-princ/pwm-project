@@ -1,0 +1,52 @@
+<link rel="stylesheet" href="components/event-list/event-list.css">
+
+<div class="event-list-page">
+    <div class="event-list-page__filters">
+        <span class="event-list-page__filter-label" id="eventListFilterLabel"></span>
+        <div class="event-list-page__filter-group" id="eventListFilters"></div>
+
+        <div class="view-toggle">
+            <button class="view-btn view-btn--active" id="listViewBtn"></button>
+            <button class="view-btn" id="calendarViewBtn"></button>
+        </div>
+    </div>
+
+    <div class="event-list" id="componentEventList"></div>
+</div>
+
+<script>
+    const eventListContent = {
+        filterLabel: "Filter by category",
+        allEventsLabel: "All Events",
+        listViewLabel: "☰ List View",
+        calendarViewLabel: "📅 Calendar View",
+    };
+
+    const filterLabelEl = document.getElementById("eventListFilterLabel");
+    if (filterLabelEl) filterLabelEl.textContent = eventListContent.filterLabel;
+
+    const listViewBtn = document.getElementById("listViewBtn");
+    if (listViewBtn) listViewBtn.textContent = eventListContent.listViewLabel;
+
+    const calendarViewBtn = document.getElementById("calendarViewBtn");
+    if (calendarViewBtn) calendarViewBtn.textContent = eventListContent.calendarViewLabel;
+
+    const filterGroup = document.getElementById("eventListFilters");
+    if (filterGroup && typeof categories !== "undefined") {
+        const allBtn = document.createElement("button");
+        allBtn.className = "filter-chip filter-chip--active";
+        allBtn.textContent = eventListContent.allEventsLabel;
+        filterGroup.appendChild(allBtn);
+        categories.forEach((cat) => {
+            const btn = document.createElement("button");
+            btn.className = "filter-chip";
+            btn.textContent = cat.label;
+            filterGroup.appendChild(btn);
+        });
+    }
+
+    const componentListEl = document.getElementById("componentEventList");
+    if (componentListEl && typeof renderEventCards === "function" && typeof eventsData !== "undefined") {
+        renderEventCards(eventsData, componentListEl);
+    }
+</script>
