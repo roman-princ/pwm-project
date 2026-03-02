@@ -1,6 +1,5 @@
 .event-card {
   display: flex;
-  position: relative;
   background: var(--primary-bg);
   border: 1px solid var(--border-color);
   border-radius: 16px;
@@ -34,14 +33,11 @@
 }
 
 .category-tag {
-  position: absolute;
-  top: 12px;
-  right: 12px;
+  align-self: flex-end;
   padding: 4px 12px;
   border-radius: 20px;
   font-size: 14px;
   font-weight: 500;
-  z-index: 1;
 }
 
 .category-tag--social {
