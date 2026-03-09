@@ -1,8 +1,8 @@
-function initCreateEventForm() {
+async function initCreateEventForm() {
   const backBtnContainer = document.getElementById("backBtn");
   if (backBtnContainer) backBtnContainer.appendChild(createBackButton(32, 2.5));
 
-  setPageContent({
+  let pageContent = {
     pageHeading: "Create New Event",
     titleLabel: "Title:",
     categoryLabel: "Category:",
@@ -14,9 +14,38 @@ function initCreateEventForm() {
     registrationUrlLabel: "Registration URL:",
     imageLabel: "Pictures:",
     fileUploadText: "Click to upload images",
+    categoryDefault: "Select a category",
+    registrationUrlPlaceholder: "https://example.com/register",
+    submitBtn: "Add",
+  };
+
+  if (typeof DataService !== "undefined") {
+    try {
+      const data = await DataService.getPageContent("createEvent");
+      pageContent = { ...pageContent, ...data };
+    } catch (e) {
+      console.warn(
+        "CreateEvent: could not load content from db.json, using defaults.",
+        e,
+      );
+    }
+  }
+
+  setPageContent({
+    pageHeading: pageContent.pageHeading,
+    titleLabel: pageContent.titleLabel,
+    categoryLabel: pageContent.categoryLabel,
+    organizerLabel: pageContent.organizerLabel,
+    descriptionLabel: pageContent.descriptionLabel,
+    dateLabel: pageContent.dateLabel,
+    timeLabel: pageContent.timeLabel,
+    locationLabel: pageContent.locationLabel,
+    registrationUrlLabel: pageContent.registrationUrlLabel,
+    imageLabel: pageContent.imageLabel,
+    fileUploadText: pageContent.fileUploadText,
   });
 
-  createCategoryOptions("category", "Select a category");
+  createCategoryOptions("category", pageContent.categoryDefault);
 
   const actionsContainer = document.getElementById("eventFormActions");
   if (actionsContainer) {
@@ -24,13 +53,17 @@ function initCreateEventForm() {
     submitBtn.type = "submit";
     submitBtn.className = "btn btn--primary";
     submitBtn.id = "submitBtn";
-    submitBtn.textContent = "Add";
+    submitBtn.textContent = pageContent.submitBtn;
     actionsContainer.appendChild(submitBtn);
   }
 
   const registrationUrlInput = document.getElementById("registrationUrl");
   if (registrationUrlInput)
-    registrationUrlInput.placeholder = "https://example.com/register";
+    registrationUrlInput.placeholder = pageContent.registrationUrlPlaceholder;
+
+  if (typeof window.loadIncludes === "function") {
+    await window.loadIncludes();
+  }
 
   const imageInput = document.getElementById("image");
   const imagePreview = document.getElementById("imagePreview");
@@ -57,7 +90,7 @@ function initCreateEventForm() {
   const form = document.getElementById("eventForm");
 
   if (form) {
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
       const formData = new FormData(form);
@@ -71,29 +104,32 @@ function initCreateEventForm() {
         location: formData.get("location"),
         registrationUrl: formData.get("registrationUrl"),
         image: null,
+        createdBy: Number(localStorage.getItem("userId")) || 1,
       };
 
-      const dateObj = new Date(eventData.date);
-      const options = {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      };
-      eventData.dateFormatted = dateObj.toLocaleDateString("en-US", options);
-
-      console.log("Event created:", eventData);
-
-      alert("Event created successfully!");
-
-      form.reset();
-      imagePreview.innerHTML = "";
-      window.location.href = "/src/pages/all-events/all-events.html";
+      if (typeof DataService !== "undefined") {
+        try {
+          const created = await DataService.createEvent(eventData);
+          console.log("Event created:", created);
+          alert("Event created successfully!");
+          form.reset();
+          if (imagePreview) imagePreview.innerHTML = "";
+          window.location.href = "/src/pages/all-events/all-events.html";
+        } catch (err) {
+          console.error("Create event error:", err);
+          alert("Failed to create event.");
+        }
+      } else {
+        console.log("Event created:", eventData);
+        alert("Event created successfully!");
+        form.reset();
+        if (imagePreview) imagePreview.innerHTML = "";
+        window.location.href = "/src/pages/all-events/all-events.html";
+      }
     });
   }
 }
 
-// Wait for the event-form component to be loaded by referencer.js
 const createFormObserver = new MutationObserver(() => {
   if (document.getElementById("eventForm")) {
     createFormObserver.disconnect();

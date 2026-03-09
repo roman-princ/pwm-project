@@ -1,0 +1,277 @@
+{
+  "site": {
+    "title": "Erasmus Events Organizer",
+    "language": "en"
+  },
+
+  "categories": [
+    { "id": 1, "value": "social", "label": "Social" },
+    { "id": 2, "value": "cultural", "label": "Cultural" },
+    { "id": 3, "value": "language", "label": "Language" },
+    { "id": 4, "value": "academic", "label": "Academic" },
+    { "id": 5, "value": "sports", "label": "Sports" },
+    { "id": 6, "value": "trips", "label": "Trips" }
+  ],
+
+  "users": [
+    {
+      "id": 1,
+      "firstName": "Admin",
+      "surname": "User",
+      "email": "admin@erasmus.com",
+      "organization": "Erasmus Student Network",
+      "username": "admin",
+      "password": "Admin123!",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "firstName": "Maria",
+      "surname": "Garcia",
+      "email": "maria@student.ulpgc.es",
+      "organization": "ULPGC",
+      "username": "maria",
+      "password": "Maria123!",
+      "role": "user"
+    },
+    {
+      "id": 3,
+      "firstName": "Jan",
+      "surname": "Novak",
+      "email": "jan@erasmus.eu",
+      "organization": "",
+      "username": "jan",
+      "password": "Jan12345!",
+      "role": "user"
+    }
+  ],
+
+  "events": [
+    {
+      "id": 1,
+      "title": "Lorem Ipsum Dolor",
+      "category": "social",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat.",
+      "date": "2026-02-25",
+      "time": "19:00",
+      "location": "Lorem ipsum",
+      "organizer": "Erasmus Student Network",
+      "registrationUrl": "#",
+      "image": null,
+      "createdBy": 1
+    },
+    {
+      "id": 2,
+      "title": "Sit Amet Consectetur",
+      "category": "cultural",
+      "description": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud.",
+      "date": "2026-02-25",
+      "time": "18:00",
+      "location": "Dolor sit amet",
+      "organizer": "Cultural Committee",
+      "registrationUrl": "#",
+      "image": null,
+      "createdBy": 1
+    },
+    {
+      "id": 3,
+      "title": "Adipiscing Elit Sed",
+      "category": "language",
+      "description": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "date": "2026-02-26",
+      "time": "10:00",
+      "location": "Consectetur adipiscing",
+      "organizer": "Language Exchange Club",
+      "registrationUrl": "#",
+      "image": null,
+      "createdBy": 1
+    },
+    {
+      "id": 4,
+      "title": "Tempor Incididunt Ut",
+      "category": "language",
+      "description": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "date": "2026-02-26",
+      "time": "11:00",
+      "location": "Labore et dolore",
+      "organizer": "International Office",
+      "registrationUrl": "#",
+      "image": null,
+      "createdBy": 2
+    },
+    {
+      "id": 5,
+      "title": "Magna Aliqua Enim",
+      "category": "academic",
+      "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "date": "2026-02-28",
+      "time": "14:00",
+      "location": "Veniam quis nostrud",
+      "organizer": "University Las Palmas",
+      "registrationUrl": "#",
+      "image": null,
+      "createdBy": 1
+    },
+    {
+      "id": 6,
+      "title": "Exercitation Ullamco",
+      "category": "sports",
+      "description": "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni.",
+      "date": "2026-02-28",
+      "time": "16:00",
+      "location": "Ipsum quia dolor",
+      "organizer": "Sports Association",
+      "registrationUrl": "#",
+      "image": null,
+      "createdBy": 2
+    },
+    {
+      "id": 7,
+      "title": "Quis Nostrud Tempor",
+      "category": "social",
+      "description": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas vestibulum.",
+      "date": "2026-03-01",
+      "time": "20:00",
+      "location": "Egestas vestibulum",
+      "organizer": "Student Union",
+      "registrationUrl": "#",
+      "image": null,
+      "createdBy": 3
+    },
+    {
+      "id": 8,
+      "title": "Faucibus Vitae Aliquet",
+      "category": "sports",
+      "description": "Curabitur gravida arcu ac tortor dignissim convallis aenean et tortor at risus viverra adipiscing.",
+      "date": "2026-03-01",
+      "time": "09:00",
+      "location": "Tortor dignissim",
+      "organizer": "Athletic Club Las Palmas",
+      "registrationUrl": "#",
+      "image": null,
+      "createdBy": 1
+    },
+    {
+      "id": 9,
+      "title": "Viverra Adipiscing At",
+      "category": "cultural",
+      "description": "Amet consectetur adipiscing elit duis tristique sollicitudin nibh sit amet commodo nulla facilisi.",
+      "date": "2026-03-03",
+      "time": "17:00",
+      "location": "Nibh sit amet",
+      "organizer": "Arts & Culture Society",
+      "registrationUrl": "#",
+      "image": null,
+      "createdBy": 3
+    },
+    {
+      "id": 10,
+      "title": "Tristique Sollicitudin",
+      "category": "academic",
+      "description": "Eget nulla facilisi etiam dignissim diam quis enim lobortis scelerisque fermentum dui faucibus in.",
+      "date": "2026-03-05",
+      "time": "15:00",
+      "location": "Diam quis enim",
+      "organizer": "Academic Affairs Office",
+      "registrationUrl": "#",
+      "image": null,
+      "createdBy": 2
+    }
+  ],
+
+  "pages": {
+    "home": {
+      "heroTitle": "Welcome to Las Palmas",
+      "heroDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
+      "eventsHeading": "Coming soon"
+    },
+    "about": {
+      "aboutTitle": "Erasmus Events - Las Palmas",
+      "aboutSubtitle": "Discover and join amazing events with fellow students",
+      "aboutHeading": "About us",
+      "aboutDescription": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos."
+    },
+    "login": {
+      "loginHeading": "Log in",
+      "usernameLabel": "Username:",
+      "passwordLabel": "Password:",
+      "registrationLink": "Registration?",
+      "loginSubmitBtn": "Log in"
+    },
+    "registration": {
+      "registerHeading": "Registration",
+      "firstNameLabel": "First Name:",
+      "surnameLabel": "Surname:",
+      "emailLabel": "E-mail:",
+      "organizationLabel": "Organization:",
+      "usernameLabel": "Username:",
+      "passwordLabel": "Password:",
+      "passwordConfirmLabel": "Password again:",
+      "registerSubmitBtn": "Register"
+    },
+    "adminHome": {
+      "eventsHeading": "My Events",
+      "addNewEventBtn": "Add New Event",
+      "seeMoreBtn": "See more"
+    },
+    "allEvents": {
+      "pageTitle": "All Events",
+      "filterLabel": "Filter by category"
+    },
+    "createEvent": {
+      "pageHeading": "Create New Event",
+      "titleLabel": "Title:",
+      "categoryLabel": "Category:",
+      "organizerLabel": "Organizer:",
+      "descriptionLabel": "Description:",
+      "dateLabel": "Date:",
+      "timeLabel": "Time:",
+      "locationLabel": "Location:",
+      "registrationUrlLabel": "Registration URL:",
+      "imageLabel": "Pictures:",
+      "fileUploadText": "Click to upload images",
+      "categoryDefault": "Select a category",
+      "registrationUrlPlaceholder": "https://example.com/register",
+      "submitBtn": "Add"
+    },
+    "editEvent": {
+      "pageHeading": "Edit Event",
+      "titleLabel": "Title:",
+      "categoryLabel": "Category:",
+      "organizerLabel": "Organizer:",
+      "descriptionLabel": "Description:",
+      "dateLabel": "Date:",
+      "timeLabel": "Time:",
+      "locationLabel": "Location:",
+      "registrationUrlLabel": "Registration URL:",
+      "imageLabel": "Pictures:",
+      "fileUploadText": "Click to upload images",
+      "categoryDefault": "Select a category",
+      "registrationUrlPlaceholder": "https://example.com/register",
+      "saveBtn": "Save Changes",
+      "deleteBtn": "Delete"
+    },
+    "eventDetail": {
+      "registerBtn": "Register here"
+    }
+  },
+
+  "partials": {
+    "header": {
+      "navAllEvents": "All Events",
+      "navAbout": "About us",
+      "createEventLink": "Create Event",
+      "loginText": "Login",
+      "logoutBtn": "Log out",
+      "searchPlaceholder": "Search"
+    },
+    "footer": {
+      "footerAddress": "Adress",
+      "footerPhone": "+34 666 666 666",
+      "footerFacebook": "erasmus_las_palmas",
+      "footerInstagram": "@erasmus_las_palmas",
+      "footerX": "erasmus_las_palmas",
+      "footerCopyright": "© Copyright"
+    }
+  }
+}

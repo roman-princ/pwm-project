@@ -28,11 +28,28 @@ function createAdminEventCard(event) {
   return wrapper;
 }
 
-function renderAdminEvents() {
+async function renderAdminEvents() {
   const container = document.getElementById("adminEventList");
-  if (!container || typeof eventsData === "undefined") return;
+  if (!container) return;
 
-  const upcoming = eventsData.slice(0, MAX_ADMIN_EVENTS);
+  let events = [];
+  let adminContent = {
+    eventsHeading: "My Events",
+    addNewEventBtn: "Add New Event",
+    seeMoreBtn: "See more",
+  };
+
+  if (typeof DataService !== "undefined") {
+    try {
+      events = await DataService.getEvents();
+      const pageData = await DataService.getPageContent("adminHome");
+      adminContent = { ...adminContent, ...pageData };
+    } catch (e) {
+      console.warn("Admin: could not load data from db.json.", e);
+    }
+  }
+
+  const upcoming = events.slice(0, MAX_ADMIN_EVENTS);
 
   upcoming.forEach((event) => {
     container.appendChild(createAdminEventCard(event));
@@ -46,7 +63,7 @@ function renderAdminEvents() {
 
   const eventsHeadingEl = document.getElementById("eventsHeading");
   if (eventsHeadingEl) {
-    eventsHeadingEl.textContent = "My Events";
+    eventsHeadingEl.textContent = adminContent.eventsHeading;
   }
 
   const addNewEventBtn = document.getElementById("addNewEventBtnContainer");
@@ -55,7 +72,7 @@ function renderAdminEvents() {
       createButton(
         "/src/pages/create-event/create-event.html",
         "outline",
-        "Add New Event",
+        adminContent.addNewEventBtn,
       ),
     );
   }
@@ -66,9 +83,14 @@ function renderAdminEvents() {
       createButton(
         "/src/pages/all-events/all-events.html",
         "outline",
-        "See more",
+        adminContent.seeMoreBtn,
       ),
     );
+  }
+
+  // Process the newly-added data-include elements (event cards, buttons).
+  if (typeof window.loadIncludes === "function") {
+    await window.loadIncludes();
   }
 }
 

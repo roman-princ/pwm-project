@@ -119,5 +119,43 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   };
 
-  void loadIncludes();
+  // Expose loadIncludes globally so dynamically-added
+  // data-include elements can be processed on demand.
+  window.loadIncludes = loadIncludes;
+
+  void loadIncludes().then(() => {
+    // After initial includes are resolved, watch for any new
+    // data-include elements added to the DOM asynchronously
+    // (e.g. event cards rendered after an async fetch).
+    let pending = null;
+    const observer = new MutationObserver((mutations) => {
+      let hasNewIncludes = false;
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (node.nodeType !== Node.ELEMENT_NODE) continue;
+          if (
+            node.matches?.("[data-include]") ||
+            node.querySelector?.("[data-include]")
+          ) {
+            hasNewIncludes = true;
+            break;
+          }
+        }
+        if (hasNewIncludes) break;
+      }
+      if (hasNewIncludes && !pending) {
+        // Small delay to batch multiple rapid insertions into one pass.
+        pending = setTimeout(() => {
+          pending = null;
+          loadIncludes();
+        }, 10);
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Catch-up: process any data-include elements that were added
+    // to the DOM while the initial loadIncludes() was still running
+    // (e.g. by async rendering functions).
+    loadIncludes();
+  });
 });

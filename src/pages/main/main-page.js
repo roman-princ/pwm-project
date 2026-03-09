@@ -1,10 +1,19 @@
 const MAX_HOME_EVENTS = 4;
 
-function renderHomeEvents() {
+async function renderHomeEvents() {
   const container = document.getElementById("eventList");
-  if (!container || typeof eventsData === "undefined") return;
+  if (!container) return;
 
-  const upcoming = eventsData.slice(0, MAX_HOME_EVENTS);
+  let events = [];
+  if (typeof DataService !== "undefined") {
+    try {
+      events = await DataService.getEvents();
+    } catch (e) {
+      console.warn("Home: could not load events from db.json.", e);
+    }
+  }
+
+  const upcoming = events.slice(0, MAX_HOME_EVENTS);
 
   upcoming.forEach((event) => {
     container.appendChild(createEventCard(event));
@@ -19,6 +28,11 @@ function renderHomeEvents() {
         "All Events",
       ),
     );
+  }
+
+  // Process the newly-added data-include elements (event cards, buttons).
+  if (typeof window.loadIncludes === "function") {
+    await window.loadIncludes();
   }
 }
 

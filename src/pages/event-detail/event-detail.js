@@ -1,10 +1,21 @@
-function renderEventDetail() {
+async function renderEventDetail() {
   const params = new URLSearchParams(window.location.search);
   const id = Number(params.get("id"));
+  if (!id) return;
 
-  if (!id || typeof eventsData === "undefined") return;
+  let event = null;
+  let detailContent = { registerBtn: "Register here" };
 
-  const event = eventsData.find((e) => e.id === id);
+  if (typeof DataService !== "undefined") {
+    try {
+      event = await DataService.getEventById(id);
+      const pageData = await DataService.getPageContent("eventDetail");
+      detailContent = { ...detailContent, ...pageData };
+    } catch (e) {
+      console.warn("EventDetail: could not load data from db.json.", e);
+    }
+  }
+
   if (!event) return;
 
   const backBtnContainer = document.getElementById("backBtn");
@@ -43,8 +54,17 @@ function renderEventDetail() {
   const registerBtnContainer = document.getElementById("registerBtn");
   if (registerBtnContainer) {
     registerBtnContainer.appendChild(
-      createButton(event.registrationUrl || "#", "primary", "Register here"),
+      createButton(
+        event.registrationUrl || "#",
+        "primary",
+        detailContent.registerBtn,
+      ),
     );
+  }
+
+  // Process the newly-added data-include elements (back button, register button).
+  if (typeof window.loadIncludes === "function") {
+    await window.loadIncludes();
   }
 }
 
