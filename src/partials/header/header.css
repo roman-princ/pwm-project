@@ -28,10 +28,15 @@
   height: 6rem;
 }
 
-.header__search {
-  margin-right: auto;
+.header_search-container {
   flex: 1;
-  margin-left: 2rem;
+  display: flex;
+  align-items: flex-start;
+}
+
+.header__search {
+  width: 55%;
+  margin-right: auto;
   display: flex;
   align-items: center;
   gap: 0.625rem;
@@ -131,7 +136,25 @@
   border-color: #d0d0d0;
 }
 
-@media (max-width: 56rem) {
+@media only screen and (max-width: 1400px) {
+  .header__search {
+    width: 65%;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .header__search {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 1092px) {
+  .header__search {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
   .header__container {
     flex-direction: column;
     width: 100%;

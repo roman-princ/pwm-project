@@ -13,20 +13,22 @@
 
 <body>
     <div data-include="partials/header/header"></div>
-    <section class="all-events">
-        <h1 id="pageTitle"></h1>
+    <main class="main-container">
+        <section class="all-events">
+            <h1 id="pageTitle"></h1>
 
-        <div class="all-events__filters">
-            <p class="all-events__filter-label" id="filterLabel"></p>
-            <div class="all-events__category-tags" id="categoryFilters"></div>
-        </div>
+            <div class="all-events__filters">
+                <p class="all-events__filter-label" id="filterLabel"></p>
+                <div class="all-events__category-tags" id="categoryFilters"></div>
+            </div>
 
-        <div id="eventsContainer">
-        </div>
+            <div id="eventsContainer">
+            </div>
 
-        <div class="all-events__cta" id="seeMoreBtnContainer"></div>
+            <div class="all-events__cta" id="seeMoreBtnContainer"></div>
 
-    </section>
+        </section>
+    </main>
     <div data-include="partials/footer/footer"></div>
     <script src="../../scripts/data-service.js"></script>
     <script src="../../scripts/event-card.js"></script>

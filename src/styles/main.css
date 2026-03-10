@@ -22,13 +22,24 @@
   --available-green: #2e7d32;
 }
 
+html {
+  font-size: 16px;
+}
+
 body {
   font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background-color: var(--primary-bg);
+  margin: 0;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  margin: 0;
+}
+
+main {
+  /* min-width: 60rem; */
+  max-width: 80rem;
+  margin: 0 auto;
+
 }
 
 main {
@@ -37,4 +48,26 @@ main {
 
 a {
   text-decoration: none;
+}
+
+@media (max-width: 1400px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1092px) {
+  html {
+    font-size: 13px;
+  }
+
+  main {
+    max-width: 50rem;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 12px;
+  }
 }

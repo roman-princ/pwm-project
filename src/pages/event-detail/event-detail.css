@@ -1,5 +1,4 @@
 .event-detail {
-  max-width: 68.8rem;
   margin: 0 auto;
   padding-bottom: 4rem;
 }
@@ -39,7 +38,7 @@
   color: #000;
 }
 
-.event-detail__content > .category-tag {
+.event-detail__content>.category-tag {
   position: static;
   display: inline-block;
   margin-bottom: 1.9rem;
