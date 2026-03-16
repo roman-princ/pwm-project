@@ -65,9 +65,13 @@
   margin-top: 4px;
 }
 
-@media (max-width: 48rem) {
+@media only screen and (max-width: 768px) {
   .register__form {
-    margin-left: 0;
-    max-width: 100%;
+    max-width: 90vw;
+    margin-left: 0rem;
+  }
+
+  .form-group input {
+    width: 75vw;
   }
 }

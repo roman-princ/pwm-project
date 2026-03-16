@@ -59,4 +59,14 @@
       window.location.href = "/src/pages/index.html";
     });
   }
+
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const navActions = document.getElementById('navActions');
+
+  if (hamburgerBtn && navActions) {
+    hamburgerBtn.addEventListener('click', () => {
+      navActions.classList.toggle('is-open');
+      hamburgerBtn.classList.toggle('is-active');
+    });
+  }
 })();

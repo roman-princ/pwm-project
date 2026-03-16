@@ -3,8 +3,8 @@ const MAX_ADMIN_EVENTS = 4;
 function createAdminEventCard(event) {
   const wrapper = document.createElement("div");
   wrapper.className = "admin-card-wrapper";
-  wrapper.style.maxWidth = "900px";
-  wrapper.style.width = "100%";
+  // wrapper.style.maxWidth = "900px";
+  // wrapper.style.width = "100%";
 
   const card = createEventCard(event);
   wrapper.appendChild(card);
