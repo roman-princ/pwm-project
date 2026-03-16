@@ -33,46 +33,7 @@
     <script src="../../scripts/data-service.js"></script>
     <script src="../../scripts/event-card.js"></script>
     <script src="../../scripts/components.js"></script>
-    <script>
-        (async function initAllEventsPage() {
-            let allEventsContent = {
-                pageTitle: "All Events",
-                filterLabel: "Filter by category",
-            };
-
-            if (typeof DataService !== "undefined") {
-                try {
-                    const data = await DataService.getPageContent("allEvents");
-                    allEventsContent = { ...allEventsContent, ...data };
-                } catch (e) {
-                    console.warn("AllEvents: could not load content from db.json, using defaults.", e);
-                }
-            }
-
-            setPageContent(allEventsContent);
-            createFilterTags("categoryFilters", allEventsContent.pageTitle);
-
-            let events = [];
-            if (typeof DataService !== "undefined") {
-                try {
-                    events = await DataService.getEvents();
-                } catch (e) {
-                    console.warn("AllEvents: could not load events from db.json.", e);
-                }
-            }
-
-            const container = document.getElementById("eventsContainer");
-            if (container && events.length) renderEventCards(events, container);
-
-            const seeMoreBtn = document.getElementById("seeMoreBtnContainer");
-            if (seeMoreBtn) seeMoreBtn.appendChild(createButton("#", "outline", "See more"));
-
-            // Process the newly-added data-include elements (event cards, buttons).
-            if (typeof window.loadIncludes === "function") {
-                await window.loadIncludes();
-            }
-        })();
-    </script>
+    <script src="all-events.js"></script>
     <script src="../../scripts/referencer.js"></script>
     <script src="../../scripts/events-interaction.js"></script>
 

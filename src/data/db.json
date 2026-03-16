@@ -3,16 +3,38 @@
     "title": "Erasmus Events Organizer",
     "language": "en"
   },
-
   "categories": [
-    { "id": 1, "value": "social", "label": "Social" },
-    { "id": 2, "value": "cultural", "label": "Cultural" },
-    { "id": 3, "value": "language", "label": "Language" },
-    { "id": 4, "value": "academic", "label": "Academic" },
-    { "id": 5, "value": "sports", "label": "Sports" },
-    { "id": 6, "value": "trips", "label": "Trips" }
+    {
+      "id": 1,
+      "value": "social",
+      "label": "Social"
+    },
+    {
+      "id": 2,
+      "value": "cultural",
+      "label": "Cultural"
+    },
+    {
+      "id": 3,
+      "value": "language",
+      "label": "Language"
+    },
+    {
+      "id": 4,
+      "value": "academic",
+      "label": "Academic"
+    },
+    {
+      "id": 5,
+      "value": "sports",
+      "label": "Sports"
+    },
+    {
+      "id": 6,
+      "value": "trips",
+      "label": "Trips"
+    }
   ],
-
   "users": [
     {
       "id": 1,
@@ -45,7 +67,6 @@
       "role": "user"
     }
   ],
-
   "events": [
     {
       "id": 1,
@@ -178,7 +199,6 @@
       "createdBy": 2
     }
   ],
-
   "pages": {
     "home": {
       "heroTitle": "Welcome to Las Palmas",
@@ -255,7 +275,6 @@
       "registerBtn": "Register here"
     }
   },
-
   "partials": {
     "header": {
       "navAllEvents": "All Events",
