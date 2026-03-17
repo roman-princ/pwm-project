@@ -5,15 +5,17 @@
     <h1 id="pageHeading"></h1>
 </div>
 
-<form class="event-form__form" id="eventForm">
+<form class="event-form__form" id="eventForm" novalidate>
     <div class="form-group">
         <label for="title" id="titleLabel"></label>
-        <input type="text" id="title" name="title" required>
+        <input type="text" id="title" name="title" minlength="5" maxlength="100" required>
+        <span class="error-message">Title must be at least 5 characters.</span>
     </div>
 
     <div class="form-group">
         <label for="category" id="categoryLabel"></label>
         <select id="category" name="category" required></select>
+        <span class="error-message">Please select a category.</span>
     </div>
 
     <div class="form-group">
@@ -23,7 +25,8 @@
 
     <div class="form-group">
         <label for="description" id="descriptionLabel"></label>
-        <textarea id="description" name="description" rows="8" required></textarea>
+        <textarea id="description" name="description" rows="8" minlength="20" required></textarea>
+        <span class="error-message">Description is too short (min 20 chars).</span>
     </div>
 
     <div class="form-row">
@@ -45,13 +48,14 @@
 
     <div class="form-group">
         <label for="registrationUrl" id="registrationUrlLabel"></label>
-        <input type="url" id="registrationUrl" name="registrationUrl" placeholder="" required>
+        <input type="url" id="registrationUrl" name="registrationUrl" placeholder="https://..." required>
+        <span class="error-message">Please enter a valid URL (include https://).</span>
     </div>
 
     <div class="form-group">
         <label for="image" id="imageLabel"></label>
         <div class="file-upload">
-            <input type="file" id="image" name="image" accept="image/*" multiple>
+            <input type="file" id="image" name="image" accept="image/*" multiple required>
             <label for="image" class="file-upload__label">
                 <img class="file-upload__icon" src="/src/assets/file-upload.svg" alt="Upload" />
                 <span class="file-upload__text" id="fileUploadText"></span>
@@ -60,5 +64,8 @@
         </div>
     </div>
 
-    <div class="event-form__actions" id="eventFormActions"></div>
+    <div class="event-form__actions" id="eventFormActions">
+        <button type="submit" id="submitBtn" class="btn btn--primary"></button>
+        <button type="button" id="deleteBtn" class="btn btn--danger" style="display: none;"></button>
+    </div>
 </form>
