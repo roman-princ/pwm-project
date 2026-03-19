@@ -35,6 +35,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  width: var(--container-size);
 }
 
 .events__list .event-card__link {

@@ -10,18 +10,6 @@ async function initCreateEventForm() {
     backBtnContainer.appendChild(createBackButton(32, 2.5));
   }
 
-  // // buttons
-  // const submitBtn = document.getElementById("submitBtn");
-  // const deleteBtn = document.getElementById("deleteBtn");
-
-  // if (submitBtn) {
-  //   submitBtn.textContent = pageContent.submitBtn || "Add Event";
-  // }
-
-  // if (deleteBtn) {
-  //   deleteBtn.style.display = "none"; // ensure delete is hidden
-  // }
-
   // handle content
   let pageContent = {
     pageHeading: "Create New Event",
@@ -47,6 +35,18 @@ async function initCreateEventForm() {
     } catch (e) {
       console.warn("Using default content due to fetch error.", e);
     }
+  }
+
+  // buttons
+  const submitBtn = document.getElementById("submitBtn");
+  const deleteBtn = document.getElementById("deleteBtn");
+
+  if (submitBtn) {
+    submitBtn.textContent = pageContent.submitBtn || "Add Event";
+  }
+
+  if (deleteBtn) {
+    deleteBtn.style.display = "none"; // ensure delete is hidden
   }
 
   // apply labels

@@ -108,6 +108,20 @@ if (typeof DataService !== "undefined") {
         return db.events.map(_enrichEvent);
       },
 
+      async getEventsNextSevenDays() {
+        const db = await _loadDB();
+        const now = new Date();
+        const sevenDaysLater = new Date();
+        sevenDaysLater.setDate(now.getDate() + 7);
+
+        const filtered = db.events.filter(evt => {
+          const eventDate = new Date(evt.date + "T00:00:00");
+          return eventDate >= now && eventDate <= sevenDaysLater;
+        }).sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        return filtered.map(_enrichEvent);
+      },
+
       /** @returns {Promise<Object|undefined>} a single event or undefined */
       async getEventById(id) {
         const db = await _loadDB();

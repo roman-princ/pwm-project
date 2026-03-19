@@ -49,37 +49,6 @@ async function initEditEventForm() {
     backBtnContainer.appendChild(createBackButton(32, 2.5));
   }
 
-  // buttons
-  const submitBtn = document.getElementById("submitBtn");
-  const deleteBtn = document.getElementById("deleteBtn");
-
-  if (submitBtn) {
-    submitBtn.textContent = pageContent.saveBtn || "Save Changes";
-  }
-
-  // if (deleteBtn) {
-  //   deleteBtn.textContent = pageContent.deleteBtn || "Delete";
-  //   deleteBtn.style.display = "block"; // show the delete button
-
-  //   // delete logic
-  //   deleteBtn.addEventListener("click", async () => {
-  //     const params = new URLSearchParams(window.location.search);
-  //     const eventId = Number(params.get("id"));
-
-  //     if (confirm("Are you sure you want to delete this event?")) {
-  //       try {
-  //         if (typeof DataService !== "undefined") {
-  //           await DataService.deleteEvent(eventId);
-  //           alert("Event deleted successfully!");
-  //           window.location.href = "/src/pages/all-events/all-events.html";
-  //         }
-  //       } catch (err) {
-  //         alert("Failed to delete event.");
-  //       }
-  //     }
-  //   });
-  // }
-
   // handle content
   let pageContent = {
     pageHeading: "Edit Event",
@@ -107,6 +76,37 @@ async function initEditEventForm() {
     }
   }
 
+  // buttons
+  const submitBtn = document.getElementById("submitBtn");
+  const deleteBtn = document.getElementById("deleteBtn");
+
+  if (submitBtn) {
+    submitBtn.textContent = pageContent.saveBtn || "Save Changes";
+  }
+
+  if (deleteBtn) {
+    deleteBtn.textContent = pageContent.deleteBtn || "Delete";
+    deleteBtn.style.display = "block"; // show the delete button
+
+    // delete logic
+    deleteBtn.addEventListener("click", async () => {
+      const params = new URLSearchParams(window.location.search);
+      const eventId = Number(params.get("id"));
+
+      if (confirm("Are you sure you want to delete this event?")) {
+        try {
+          if (typeof DataService !== "undefined") {
+            await DataService.deleteEvent(eventId);
+            alert("Event deleted successfully!");
+            window.location.href = "/src/pages/all-events/all-events.html";
+          }
+        } catch (err) {
+          alert("Failed to delete event.");
+        }
+      }
+    });
+  }
+
   // apply labels
   const setText = (id, text) => {
     const el = document.getElementById(id);
@@ -125,37 +125,37 @@ async function initEditEventForm() {
   setText("imageLabel", pageContent.imageLabel);
   setText("fileUploadText", pageContent.fileUploadText);
 
-  // buttons
-  const actionsContainer = document.getElementById("eventFormActions");
-  if (actionsContainer && !document.getElementById("saveBtn")) {
-    const saveBtn = document.createElement("button");
-    saveBtn.type = "submit";
-    saveBtn.className = "btn btn--primary"; // using your primary class
-    saveBtn.id = "saveBtn";
-    saveBtn.textContent = pageContent.saveBtn;
-    actionsContainer.appendChild(saveBtn);
+  // // buttons
+  // const actionsContainer = document.getElementById("eventFormActions");
+  // if (actionsContainer && !document.getElementById("saveBtn")) {
+  //   const saveBtn = document.createElement("button");
+  //   saveBtn.type = "submit";
+  //   saveBtn.className = "btn btn--primary"; // using your primary class
+  //   saveBtn.id = "saveBtn";
+  //   saveBtn.textContent = pageContent.saveBtn;
+  //   actionsContainer.appendChild(saveBtn);
 
-    const deleteBtn = document.createElement("button");
-    deleteBtn.type = "button";
-    deleteBtn.className = "btn btn--danger";
-    deleteBtn.id = "deleteBtn";
-    deleteBtn.textContent = pageContent.deleteBtn;
-    actionsContainer.appendChild(deleteBtn);
+  //   const deleteBtn = document.createElement("button");
+  //   deleteBtn.type = "button";
+  //   deleteBtn.className = "btn btn--danger";
+  //   deleteBtn.id = "deleteBtn";
+  //   deleteBtn.textContent = pageContent.deleteBtn;
+  //   actionsContainer.appendChild(deleteBtn);
 
-    deleteBtn.addEventListener("click", async () => {
-      const params = new URLSearchParams(window.location.search);
-      const eventId = Number(params.get("id"));
-      if (confirm("Are you sure you want to delete this event?")) {
-        try {
-          if (typeof DataService !== "undefined") await DataService.deleteEvent(eventId);
-          alert("Event deleted successfully!");
-          window.location.href = "/src/pages/all-events/all-events.html";
-        } catch (err) {
-          alert("Failed to delete event.");
-        }
-      }
-    });
-  }
+  //   deleteBtn.addEventListener("click", async () => {
+  //     const params = new URLSearchParams(window.location.search);
+  //     const eventId = Number(params.get("id"));
+  //     if (confirm("Are you sure you want to delete this event?")) {
+  //       try {
+  //         if (typeof DataService !== "undefined") await DataService.deleteEvent(eventId);
+  //         alert("Event deleted successfully!");
+  //         window.location.href = "/src/pages/all-events/all-events.html";
+  //       } catch (err) {
+  //         alert("Failed to delete event.");
+  //       }
+  //     }
+  //   });
+  // }
 
   // validation
   if (dateInput) {

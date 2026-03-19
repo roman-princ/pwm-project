@@ -25,6 +25,7 @@
   flex-direction: column;
   gap: 1.3rem;
   align-items: flex-start;
+  width: var(--container-size);
 }
 
 .admin-home__events-list .event-card__link {
