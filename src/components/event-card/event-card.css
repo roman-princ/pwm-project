@@ -151,5 +151,6 @@
   .event-card__content--details {
     flex-direction: row-reverse;
     justify-content: space-between;
+    width: auto;
   }
 }
