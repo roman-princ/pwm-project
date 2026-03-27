@@ -60,13 +60,22 @@
     });
   }
 
-  const hamburgerBtn = document.getElementById('hamburgerBtn');
-  const navActions = document.getElementById('navActions');
+  // prevent duplicate event listener
+  if (!document.hamburgerListenerAttached) {
+    document.addEventListener('click', (event) => {
+      const clickedHamburger = event.target.closest('#hamburgerBtn');
 
-  if (hamburgerBtn && navActions) {
-    hamburgerBtn.addEventListener('click', () => {
-      navActions.classList.toggle('is-open');
-      hamburgerBtn.classList.toggle('is-active');
+      if (clickedHamburger) {
+        // Find the visible navActions
+        const allNavActions = document.querySelectorAll('#navActions');
+        if (allNavActions.length > 0) {
+          const activeNav = allNavActions[allNavActions.length - 1];
+          activeNav.classList.toggle('is-open');
+          clickedHamburger.classList.toggle('is-active');
+        }
+      }
     });
+
+    document.hamburgerListenerAttached = true;
   }
 })();
