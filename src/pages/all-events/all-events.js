@@ -31,8 +31,8 @@
   // render initial events
   if (typeof DataService !== "undefined") {
     try {
-      // Get everything from DB
-      allEvents = await DataService.getEvents();
+      // Get upcoming events from today onward
+      allEvents = await DataService.getUpcomingEvents();
       filteredEvents = allEvents;
     } catch (e) {
       console.warn("AllEvents: could not load events from db.json.", e);

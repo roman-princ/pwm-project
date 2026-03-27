@@ -7,7 +7,7 @@ async function renderHomeEvents() {
   let events = [];
   if (typeof DataService !== "undefined") {
     try {
-      events = await DataService.getEvents();
+      events = await DataService.getUpcomingEvents();
     } catch (e) {
       console.warn("Home: could not load events from db.json.", e);
     }

@@ -108,16 +108,36 @@ if (typeof DataService !== "undefined") {
         return db.events.map(_enrichEvent);
       },
 
+      /** @returns {Promise<Object[]>} events happening today or later */
+      async getUpcomingEvents() {
+        const db = await _loadDB();
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const filtered = db.events
+          .filter((evt) => {
+            const eventDate = new Date(evt.date + "T00:00:00");
+            return eventDate >= today;
+          })
+          .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        return filtered.map(_enrichEvent);
+      },
+
       async getEventsNextSevenDays() {
         const db = await _loadDB();
         const now = new Date();
+        now.setHours(0, 0, 0, 0);
         const sevenDaysLater = new Date();
         sevenDaysLater.setDate(now.getDate() + 7);
+        sevenDaysLater.setHours(23, 59, 59, 999);
 
-        const filtered = db.events.filter(evt => {
-          const eventDate = new Date(evt.date + "T00:00:00");
-          return eventDate >= now && eventDate <= sevenDaysLater;
-        }).sort((a, b) => new Date(a.date) - new Date(b.date));
+        const filtered = db.events
+          .filter((evt) => {
+            const eventDate = new Date(evt.date + "T00:00:00");
+            return eventDate >= now && eventDate <= sevenDaysLater;
+          })
+          .sort((a, b) => new Date(a.date) - new Date(b.date));
 
         return filtered.map(_enrichEvent);
       },
