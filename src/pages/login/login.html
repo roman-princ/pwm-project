@@ -20,17 +20,19 @@
                 <h1 id="loginHeading"></h1>
             </div>
 
-            <form class="login__form">
+            <form class="login__form" novalidate>
                 <div class="form-group">
                     <label for="username" id="usernameLabel"></label>
                     <input type="text" id="username" name="username" required minlength="3" maxlength="30"
                         title="Enter your username">
+                    <span class="error-message">Username must be at least 3 characters.</span>
                 </div>
 
                 <div class="form-group">
                     <label for="password" id="passwordLabel"></label>
                     <input type="password" id="password" name="password" required minlength="8"
                         title="Enter your password">
+                    <span class="error-message">Password must be at least 8 characters.</span>
                 </div>
 
                 <div class="login__registration-link">

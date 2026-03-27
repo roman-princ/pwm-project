@@ -32,14 +32,33 @@ if (loginForm) {
   loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value;
+    // standart html validation
+    if (!loginForm.checkValidity()) {
+      loginForm.classList.add("was-validated");
 
-    if (!username || !password) {
-      alert("Please enter both username and password.");
+      // Focus the first invalid input so the user knows where to fix
+      const firstInvalid = loginForm.querySelector(":invalid");
+      if (firstInvalid) firstInvalid.focus();
       return;
     }
 
+    // custom validation
+    const usernameInput = document.getElementById("username");
+    const passwordInput = document.getElementById("password");
+
+    const username = usernameInput.value.trim();
+    const password = passwordInput.value;
+
+    if (!username) {
+      usernameInput.setCustomValidity("Username cannot be just spaces.");
+      usernameInput.reportValidity();
+      loginForm.classList.add("was-validated");
+      return;
+    } else {
+      usernameInput.setCustomValidity("");
+    }
+
+    // authentication
     if (typeof DataService !== "undefined") {
       try {
         const user = await DataService.authenticate(username, password);
@@ -58,7 +77,6 @@ if (loginForm) {
         alert("An error occurred during login. Please try again.");
       }
     } else {
-      // Fallback if DataService not loaded
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("username", username);
       alert("Login successful!");

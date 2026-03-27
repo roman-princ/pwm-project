@@ -57,6 +57,61 @@
   text-decoration: underline;
 }
 
+/* validation */
+.was-validated .form-group input:invalid {
+  box-shadow: 0 0 0 2px #ff4d4d !important;
+  border: none;
+}
+
+.was-validated .form-group input:valid:not(:placeholder-shown) {
+  box-shadow: 0 0 0 2px #2ecc71 !important;
+}
+
+.error-message {
+  display: none;
+  color: #ff4d4d;
+  font-size: 0.85rem;
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+.was-validated .form-group input:invalid~.error-message {
+  display: block;
+}
+
+.form-group {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text-main);
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+  width: 100%;
+  padding: 1rem 1rem;
+  border: none;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--text-main);
+  transition: box-shadow 0.2s;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="password"]:focus {
+  outline: none;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+
 @media only screen and (max-width: 768px) {
   .login__form {
     max-width: 90vw;
