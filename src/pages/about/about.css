@@ -54,7 +54,7 @@
   border-radius: 8px;
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 768px) {
   .about__hero {
     padding: 1rem;
   }

@@ -94,7 +94,7 @@
   text-align: center;
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 768px) {
   .event-detail__title {
     font-size: 2.5rem;
   }

@@ -73,26 +73,9 @@
   font-size: 0.9rem;
 }
 
-/* 
-@media only screen and (max-width: px) {
-  .site-footer__contact {
-    max-width: 60rem;
-  }
-}
-
-@media only screen and (max-width: 1092px) {
-  .site-footer__contact {
-    max-width: 50rem;
-  }
-} */
-
 @media (max-width: 768px) {
   .site-footer__content {
     flex-direction: column;
     align-items: flex-start;
   }
-
-  /* .site-footer__contact-icon {
-    font-size: 1rem;
-  } */
 }

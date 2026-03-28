@@ -72,7 +72,7 @@
   margin-top: 2rem;
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 768px) {
   .admin-home__title {
     font-size: 1.5rem;
   }
