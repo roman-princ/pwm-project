@@ -13,32 +13,39 @@
 <body>
 
     <div data-include="partials/header/header"></div>
-    <section class="login">
-        <div class="login__header">
-            <div id="backBtn"></div>
-            <h1 id="loginHeading"></h1>
-        </div>
-
-        <form class="login__form">
-            <div class="form-group">
-                <label for="username" id="usernameLabel"></label>
-                <input type="text" id="username" name="username" required>
+    <main class="main-container">
+        <section class="login">
+            <div class="login__header">
+                <div id="backBtn"></div>
+                <h1 id="loginHeading"></h1>
             </div>
 
-            <div class="form-group">
-                <label for="password" id="passwordLabel"></label>
-                <input type="password" id="password" name="password" required>
-            </div>
+            <form class="login__form" novalidate>
+                <div class="form-group">
+                    <label for="username" id="usernameLabel"></label>
+                    <input type="text" id="username" name="username" required minlength="3" maxlength="30"
+                        title="Enter your username">
+                    <span class="error-message">Username must be at least 3 characters.</span>
+                </div>
 
-            <div class="login__registration-link">
-                <a href="../registration/registration.html" id="registrationLink"></a>
-            </div>
+                <div class="form-group">
+                    <label for="password" id="passwordLabel"></label>
+                    <input type="password" id="password" name="password" required minlength="8"
+                        title="Enter your password">
+                    <span class="error-message">Password must be at least 8 characters.</span>
+                </div>
 
-            <button type="submit" class="btn btn--primary" id="loginSubmitBtn"></button>
-        </form>
-    </section>
+                <div class="login__registration-link">
+                    <a href="../registration/registration.html" id="registrationLink"></a>
+                </div>
+
+                <button type="submit" class="btn btn--primary" id="loginSubmitBtn"></button>
+            </form>
+        </section>
+    </main>
     <div data-include="partials/footer/footer"></div>
 
+    <script src="../../scripts/data-service.js"></script>
     <script src="../../scripts/components.js"></script>
     <script src="../../scripts/referencer.js"></script>
     <script src="login.js"></script>

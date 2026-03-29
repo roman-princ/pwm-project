@@ -20,15 +20,28 @@
   --social-pink-text: #a3004c;
 
   --available-green: #2e7d32;
+
+  --container-size: 72rem;
+}
+
+html {
+  font-size: 16px;
 }
 
 body {
   font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background-color: var(--primary-bg);
+  margin: 0;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  margin: 0;
+}
+
+main {
+  /* min-width: 60rem; */
+  width: var(--container-size);
+  margin: 0 auto;
+  padding: 2rem 0 1.5rem 0;
 }
 
 main {
@@ -37,4 +50,30 @@ main {
 
 a {
   text-decoration: none;
+}
+
+@media (max-width: 1400px) {
+  :root {
+    --container-size: 64rem;
+  }
+
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1092px) {
+  :root {
+    --container-size: 90vw;
+  }
+
+  html {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 12px;
+  }
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log In - Erasmus Events</title>
+    <title>All Events - Erasmus Events</title>
     <link rel="stylesheet" href="../../styles/main.css">
     <link rel="stylesheet" href="all-events.css">
     <link rel="stylesheet" href="../../components/event-card/event-card.css">
@@ -13,38 +13,28 @@
 
 <body>
     <div data-include="partials/header/header"></div>
-    <section class="all-events">
-        <h1 id="pageTitle"></h1>
+    <main class="main-container">
+        <section class="all-events">
+            <h1 id="pageTitle"></h1>
 
-        <div class="all-events__filters">
-            <p class="all-events__filter-label" id="filterLabel"></p>
-            <div class="all-events__category-tags" id="categoryFilters"></div>
-        </div>
+            <div class="all-events__filters">
+                <p class="all-events__filter-label" id="filterLabel"></p>
+                <div class="all-events__category-tags" id="categoryFilters"></div>
+            </div>
 
-        <div id="eventsContainer">
-        </div>
+            <div id="eventsContainer">
+            </div>
 
-        <div class="all-events__cta" id="seeMoreBtnContainer"></div>
+            <div class="all-events__cta" id="seeMoreBtnContainer"></div>
 
-    </section>
+        </section>
+    </main>
     <div data-include="partials/footer/footer"></div>
-    <script src="../../scripts/event-card.js"></script>
+    <script src="../../scripts/data-service.js"></script>
+    <script src="../../components/event-card/event-card.js"></script>
     <script src="../../scripts/components.js"></script>
-    <script>
-        setPageContent({
-            pageTitle: "All Events",
-            filterLabel: "Filter by category",
-        });
-        createFilterTags("categoryFilters", "All Events");
-
-        const container = document.getElementById("eventsContainer");
-        if (container) renderEventCards(eventsData, container);
-
-        const seeMoreBtn = document.getElementById("seeMoreBtnContainer");
-        if (seeMoreBtn) seeMoreBtn.appendChild(createButton("#", "outline", "See more"));
-    </script>
+    <script src="all-events.js"></script>
     <script src="../../scripts/referencer.js"></script>
-    <script src="../../scripts/events-interaction.js"></script>
 
 </body>
 

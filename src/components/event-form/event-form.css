@@ -13,11 +13,12 @@
 }
 
 .event-form__form {
-  max-width: 700px;
-  margin-left: 60px;
+  max-width: 45rem;
+  margin-left: 3.5rem;
 }
 
 .form-group {
+  width: 100%;
   margin-bottom: 30px;
 }
 
@@ -36,7 +37,7 @@
 .form-group select,
 .form-group textarea {
   width: 100%;
-  padding: 14px 18px;
+  padding: 1rem 1rem;
   border: none;
   border-radius: 12px;
   background-color: #ffffff;
@@ -66,6 +67,7 @@
   background-repeat: no-repeat;
   background-position: right 18px center;
   padding-right: 45px;
+  width: calc(100% + 2rem)
 }
 
 .form-row {
@@ -143,6 +145,56 @@
   padding: 14px 60px;
   font-size: 1.1rem;
   border-radius: 12px;
+}
+
+.form-submitted .form-group input:invalid,
+.form-submitted .form-group select:invalid,
+.form-submitted .form-group textarea:invalid {
+  box-shadow: 0 0 0 2px #ff4d4d;
+  background-color: #fff9f9;
+}
+
+.form-submitted .form-group input:valid,
+.form-submitted .form-group select:valid,
+.form-submitted .form-group textarea:valid {
+  box-shadow: 0 0 0 1px #2ecc71;
+}
+
+.form-submitted .file-upload input:invalid+.file-upload__label {
+  border-color: #ff4d4d;
+  background-color: #fff9f9;
+}
+
+.error-message {
+  display: none;
+  color: #ff4d4d;
+  font-size: 0.85rem;
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+.was-validated .form-group input:invalid~.error-message,
+.was-validated .form-group textarea:invalid~.error-message,
+.was-validated .form-group select:invalid~.error-message {
+  display: block;
+}
+
+.was-validated .form-group input:invalid,
+.was-validated .form-group select:invalid,
+.was-validated .form-group textarea:invalid {
+  box-shadow: 0 0 0 2px #ff4d4d !important;
+  border: none;
+}
+
+.was-validated .form-group input:valid:not(:placeholder-shown),
+.was-validated .form-group select:valid,
+.was-validated .form-group textarea:valid:not(:placeholder-shown) {
+  box-shadow: 0 0 0 2px #2ecc71 !important;
+}
+
+.was-validated .file-upload input:invalid+.file-upload__label {
+  border-color: #ff4d4d;
+  background-color: #fff9f9;
 }
 
 @media (max-width: 768px) {

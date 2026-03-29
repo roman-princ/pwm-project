@@ -15,6 +15,7 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  width: 100%;
 }
 
 .header__brand {
@@ -28,10 +29,15 @@
   height: 6rem;
 }
 
-.header__search {
-  margin-right: auto;
+.header_search-container {
   flex: 1;
-  margin-left: 2rem;
+  display: flex;
+  align-items: flex-start;
+}
+
+.header__search {
+  width: 55%;
+  margin-right: auto;
   display: flex;
   align-items: center;
   gap: 0.625rem;
@@ -131,22 +137,106 @@
   border-color: #d0d0d0;
 }
 
-@media (max-width: 56rem) {
-  .header__container {
-    flex-direction: column;
+.header__hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 2rem;
+  height: 2rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+}
+
+.header__hamburger span {
+  width: 2rem;
+  height: 0.25rem;
+  background: #374151;
+  border-radius: 10px;
+  transition: all 0.3s linear;
+  position: relative;
+  transform-origin: 1px;
+}
+
+.header__hamburger.is-active span:first-child {
+  transform: rotate(45deg);
+}
+
+.header__hamburger.is-active span:nth-child(2) {
+  opacity: 0;
+}
+
+.header__hamburger.is-active span:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+@media only screen and (max-width: 1400px) {
+  .header__search {
+    width: 65%;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .header__search {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 1092px) {
+  .header__search {
     width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .header__container {
+    flex-wrap: wrap;
+  }
+
+  .header__hamburger {
+    display: flex;
+    order: 2;
+  }
+
+  .header__brand {
+    order: 1;
+  }
+
+  .header_search-container {
+    order: 3;
+    width: 100%;
+    margin-top: 1rem;
   }
 
   .header__search {
-    margin: 1rem 0;
-    width: 90%;
+    width: 100%;
+    margin: 0;
   }
 
-  .header__brand,
-  .header__nav,
-  .header__info,
-  .header__login {
-    justify-content: center;
+  .header__actions {
+    display: none;
+    order: 4;
+    width: 100%;
+    flex-direction: column;
+    padding-top: 1.5rem;
+    gap: 1.5rem;
     text-align: center;
+  }
+
+  .header__actions.is-open {
+    display: flex;
+  }
+
+  .header__nav {
+    flex-direction: column;
+    width: 100%;
+    gap: 1.5rem;
+  }
+
+  .header__login,
+  .header__logout {
+    justify-content: center;
   }
 }

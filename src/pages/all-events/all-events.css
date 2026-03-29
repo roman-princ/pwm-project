@@ -1,12 +1,7 @@
-.all-events {
-  max-width: 100rem;
-  min-width: 80rem;
-  margin: 0 auto;
-  padding: 40px 20px;
-}
-
 .all-events__filter-label {
   font-size: 0.8rem;
+  display: flex;
+  justify-content: left;
   color: #666;
   margin-bottom: 10px;
 }

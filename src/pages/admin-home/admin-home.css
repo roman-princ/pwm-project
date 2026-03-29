@@ -1,9 +1,3 @@
-.admin-home {
-  max-width: 67rem;
-  margin: 0 auto;
-  padding: 1.3rem;
-}
-
 .admin-home__welcome {
   padding: 2rem 0 1.5rem;
 }
@@ -31,11 +25,11 @@
   flex-direction: column;
   gap: 1.3rem;
   align-items: flex-start;
+  width: var(--container-size);
 }
 
 .admin-home__events-list .event-card__link {
-  max-width: 900px;
-  width: 100%;
+  width: var(--container-size);
 }
 
 .admin-home__events-list .event-card {
@@ -45,7 +39,6 @@
 .admin-home__events-list .event-card__content--details {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
   gap: 12px;
 }
 
@@ -61,11 +54,11 @@
   border: 1px solid var(--text-main);
   background: var(--text-main);
   color: #fff;
-  transition:
-    background 0.2s,
-    color 0.2s;
+  transition: background 0.2s, color 0.2s;
   z-index: 2;
   position: relative;
+  width: 5rem;
+  margin-left: auto;
 }
 
 .event-card__edit-btn:hover {
@@ -79,7 +72,7 @@
   margin-top: 2rem;
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 768px) {
   .admin-home__title {
     font-size: 1.5rem;
   }

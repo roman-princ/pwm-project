@@ -1,6 +1,4 @@
 .about {
-  max-width: 900px;
-  margin: 0 auto;
   padding: 2rem 1rem;
 }
 
@@ -56,7 +54,7 @@
   border-radius: 8px;
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 768px) {
   .about__hero {
     padding: 1rem;
   }
