@@ -1,0 +1,71 @@
+<main class="event-form-page page-body">
+    <div class="event-form__header">
+        <app-back-button></app-back-button>
+        <h1>Edit Event</h1>
+    </div>
+
+    <p class="error-message" style="display:block" *ngIf="error">{{ error }}</p>
+
+    <form *ngIf="event" class="event-form__form" [class.was-validated]="submitted" [formGroup]="form"
+        (ngSubmit)="submit()" novalidate>
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input id="title" type="text" formControlName="title" minlength="5" maxlength="100" required />
+            <span class="error-message">Title must be at least 5 characters.</span>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <select id="category" formControlName="category" required>
+                <option value="">Select a category</option>
+                <option *ngFor="let category of categories" [value]="category.value">{{ category.label }}</option>
+            </select>
+            <span class="error-message">Please select a category.</span>
+        </div>
+
+        <div class="form-group">
+            <label for="organizer">Organizer:</label>
+            <input id="organizer" type="text" formControlName="organizer" required />
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea id="description" rows="8" formControlName="description" minlength="20" required></textarea>
+            <span class="error-message">Description is too short (min 20 chars).</span>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input id="date" type="date" formControlName="date" required />
+            </div>
+
+            <div class="form-group">
+                <label for="time">Time:</label>
+                <input id="time" type="time" formControlName="time" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="location">Location:</label>
+            <input id="location" type="text" formControlName="location" required />
+        </div>
+
+        <div class="form-group">
+            <label for="registrationUrl">Registration URL:</label>
+            <input id="registrationUrl" type="url" formControlName="registrationUrl"
+                placeholder="https://example.com/register" required />
+            <span class="error-message">Please enter a valid URL (include https://).</span>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Pictures:</label>
+            <input id="image" type="text" formControlName="image" />
+        </div>
+
+        <div class="event-form__actions" id="eventFormActions">
+            <button type="submit" class="btn btn--primary">Save</button>
+            <button type="button" class="btn btn--danger" (click)="deleteEvent()">Delete</button>
+        </div>
+    </form>
+</main>

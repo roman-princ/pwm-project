@@ -1,0 +1,39 @@
+<header class="header">
+    <div class="header__container">
+        <div class="header__brand">
+            <a [routerLink]="authService.isAdmin ? '/admin-home' : '/'" class="header__brand-link">
+                <img class="header__logo" src="/assets/logo.png" alt="Erasmus Events logo" />
+            </a>
+        </div>
+
+        <button class="header__hamburger" [class.is-active]="menuOpen" aria-label="Toggle menu" (click)="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="header__actions" [class.is-open]="menuOpen">
+            <div class="header_search-container">
+                <form class="header__search" role="search">
+                    <span class="header__icon">
+                        <img src="/assets/search.png" alt="Search" />
+                    </span>
+                    <input class="header__search-input" type="search" />
+                </form>
+            </div>
+
+            <nav class="header__nav">
+                <a routerLink="/all-events" class="header__link">All Events</a>
+                <a routerLink="/about" class="header__link">About Us</a>
+            </nav>
+
+            <a *ngIf="!authService.isLoggedIn" routerLink="/login" class="header__login">
+                <span class="header__login-icon">👤</span>
+                <span class="header__login-text">Login</span>
+            </a>
+
+            <button *ngIf="authService.isLoggedIn" class="header__logout" type="button"
+                (click)="logout()">Logout</button>
+        </div>
+    </div>
+</header>

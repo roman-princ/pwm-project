@@ -1,0 +1,36 @@
+<section class="all-events">
+    <h1>All Events</h1>
+
+    <div class="all-events__filters">
+        <p class="all-events__filter-label">Filter by category</p>
+        <div class="all-events__category-tags" id="categoryFilters">
+            <button type="button" class="filter-tag" [class.filter-tag--active]="activeFilters.size === 0"
+                (click)="resetFilters()">
+                All Events
+            </button>
+            <button type="button" *ngFor="let category of categories" class="filter-tag"
+                [class.filter-tag--active]="activeFilters.has(category.value)" (click)="toggleFilter(category.value)">
+                {{ category.label }}
+            </button>
+        </div>
+    </div>
+
+    <div id="eventsContainer">
+        <ng-container *ngIf="groupedVisibleEvents.length > 0; else emptyState">
+            <section class="date-group" *ngFor="let group of groupedVisibleEvents">
+                <h2 class="date-group__header">{{ group.label }}</h2>
+                <div class="date-group__stack">
+                    <app-event-card *ngFor="let event of group.events" [event]="event"></app-event-card>
+                </div>
+            </section>
+        </ng-container>
+
+        <ng-template #emptyState>
+            <p class="events-empty-msg">No events found.</p>
+        </ng-template>
+    </div>
+
+    <div class="all-events__cta" id="seeMoreBtnContainer">
+        <button *ngIf="hasMore" type="button" class="btn btn--primary" (click)="loadMore()">See more</button>
+    </div>
+</section>

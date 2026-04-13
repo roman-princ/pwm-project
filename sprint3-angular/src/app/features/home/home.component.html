@@ -1,0 +1,14 @@
+<section class="hero">
+    <h1 class="hero__title">{{ heroTitle }}</h1>
+    <p class="hero__description">{{ heroDescription }}</p>
+</section>
+
+<section class="events">
+    <h2 class="events__heading">{{ eventsHeading }}</h2>
+    <div class="events__list" id="eventList">
+        <app-event-card *ngFor="let event of events" [event]="event"></app-event-card>
+    </div>
+    <div class="events__cta" id="allEventsBtnContainer">
+        <a routerLink="/all-events" class="btn btn--primary">All Events</a>
+    </div>
+</section>

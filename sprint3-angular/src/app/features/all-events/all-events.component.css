@@ -1,0 +1,126 @@
+.all-events__filter-label {
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: left;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.all-events__category-tags {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.filter-tag {
+  border: 1px solid #ddd;
+  background: white;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.filter-tag--active {
+  background-color: #333 !important;
+  color: white;
+  border-color: #333;
+}
+
+.event-card--horizontal {
+  display: flex;
+  background: white;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.event-card__image-placeholder {
+  width: 300px;
+  background-color: #e0e0e0;
+}
+
+.event-card__body {
+  padding: 25px;
+  flex: 1;
+}
+
+.event-card__title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.category-badge {
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+.category-badge--social {
+  background: #fce4ec;
+  color: #d81b60;
+}
+
+.category-badge--cultural {
+  background: #f3e5f5;
+  color: #8e24aa;
+}
+
+.category-badge--language {
+  background: #fff9c4;
+  color: #fbc02d;
+}
+
+.category-badge--sports {
+  background: #e8f5e9;
+  color: #43a047;
+}
+
+.category-badge--academic {
+  background: #e3f2fd;
+  color: #1e88e5;
+}
+
+.event-card__meta {
+  padding: 25px;
+  border-left: 1px solid #f0f0f0;
+  width: 180px;
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #555;
+}
+
+.all-events__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.date-group {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.date-group__header {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.date-group__stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.events-empty-msg {
+  color: var(--text-secondary);
+  margin: 1rem 0;
+}

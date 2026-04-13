@@ -1,0 +1,43 @@
+<main class="event-detail" *ngIf="event; else missing">
+    <nav class="event-detail__nav">
+        <app-back-button></app-back-button>
+    </nav>
+
+    <div class="event-detail__hero">
+        <div class="event-detail__hero-img"></div>
+    </div>
+
+    <section class="event-detail__content">
+        <h1 class="event-detail__title">{{ event.title }}</h1>
+        <span class="category-tag" [ngClass]="'category-tag--' + event.category">{{ event.category }}</span>
+
+        <div class="event-detail__description">
+            <p>{{ event.description }}</p>
+        </div>
+
+        <div class="event-detail__meta">
+            <div class="event-detail__meta-item">
+                <span class="event-detail__meta-icon">📅</span>
+                <span class="event-detail__meta-label">{{ event.dateFormatted }}</span>
+            </div>
+            <div class="event-detail__meta-item">
+                <span class="event-detail__meta-icon">🕒</span>
+                <span class="event-detail__meta-label">{{ event.time }}</span>
+            </div>
+            <div class="event-detail__meta-item">
+                <span class="event-detail__meta-icon">📍</span>
+                <span class="event-detail__meta-label">{{ event.location }}</span>
+            </div>
+            <div class="event-detail__meta-item">
+                <span class="event-detail__meta-icon">👥</span>
+                <span class="event-detail__meta-label">{{ event.organizer }}</span>
+            </div>
+        </div>
+
+        <a class="btn btn--primary" [href]="event.registrationUrl" target="_blank" rel="noopener">Register</a>
+    </section>
+</main>
+
+<ng-template #missing>
+    <p>Event not found.</p>
+</ng-template>
