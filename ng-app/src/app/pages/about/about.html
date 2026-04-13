@@ -1,0 +1,6 @@
+<section class="bg-white p-4 rounded-3 shadow-sm" *ngIf="page$ | async as page">
+  <h1 class="h2">{{ page['aboutTitle'] }}</h1>
+  <p class="lead">{{ page['aboutSubtitle'] }}</p>
+  <h2 class="h4 mt-4">{{ page['aboutHeading'] }}</h2>
+  <p>{{ page['aboutDescription'] }}</p>
+</section>

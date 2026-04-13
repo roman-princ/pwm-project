@@ -1,0 +1,16 @@
+<section class="bg-white p-4 rounded-3 shadow-sm" *ngIf="event$ | async as event; else notFound">
+  <div class="d-flex justify-content-between align-items-start gap-3">
+    <div>
+      <span class="badge text-bg-primary mb-2">{{ event.category }}</span>
+      <h1 class="h2">{{ event.title }}</h1>
+    </div>
+    <a class="btn btn-outline-secondary" routerLink="/events">Back</a>
+  </div>
+  <p class="text-muted">{{ event.date }} {{ event.time }} - {{ event.location }}</p>
+  <p>{{ event.description }}</p>
+  <a class="btn btn-primary" [href]="event.registrationUrl || '#'" target="_blank" rel="noopener">{{ (page$ | async)?.['registerBtn'] || 'Register here' }}</a>
+</section>
+
+<ng-template #notFound>
+  <section class="alert alert-warning">Event not found.</section>
+</ng-template>

@@ -1,0 +1,33 @@
+<footer class="site-footer" *ngIf="footer$ | async as footer">
+  <div class="site-footer__content">
+    <div class="site-footer__contact">
+      <div class="site-footer__contact-item">
+        <img src="/assets/map.png" alt="Location" />
+        <span>{{ footer['footerAddress'] }}</span>
+      </div>
+      <div class="site-footer__contact-item">
+        <img src="/assets/phone.png" alt="Phone number" />
+        <span>{{ footer['footerPhone'] }}</span>
+      </div>
+    </div>
+
+    <div class="site-footer__social">
+      <a href="#" class="site-footer__social-link">
+        <img src="/assets/fb.png" alt="Facebook" />
+        <span>{{ footer['footerFacebook'] }}</span>
+      </a>
+      <a href="#" class="site-footer__social-link">
+        <img src="/assets/ig.png" alt="Instagram" />
+        <span>{{ footer['footerInstagram'] }}</span>
+      </a>
+      <a href="#" class="site-footer__social-link">
+        <img src="/assets/x.png" alt="X" />
+        <span>{{ footer['footerX'] }}</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-footer__copyright">
+    <span>{{ footer['footerCopyright'] }}</span>
+  </div>
+</footer>

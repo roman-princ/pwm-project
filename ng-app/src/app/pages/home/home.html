@@ -1,0 +1,28 @@
+<section class="hero" *ngIf="page$ | async as page">
+  <h1>{{ page['heroTitle'] }}</h1>
+  <p>{{ page['heroDescription'] }}</p>
+</section>
+
+<section class="events-section">
+  <h2>Coming soon</h2>
+  <div class="event-list">
+    <article class="event-card" *ngFor="let event of (events$ | async)?.slice(0, 4)">
+      <img class="event-card__image" src="/assets/placeholder.png" alt="Event image" />
+      <div class="event-card__content">
+        <div class="event-card__top">
+          <h3>{{ event.title }}</h3>
+          <span class="event-card__tag">{{ event.category }}</span>
+        </div>
+        <p class="event-card__desc">{{ event.description }}</p>
+        <ul class="event-card__meta">
+          <li>🗓 {{ event.date }}</li>
+          <li>🕒 {{ event.time }}</li>
+          <li>📍 {{ event.location }}</li>
+        </ul>
+      </div>
+      <a class="event-card__action" [routerLink]="['/events', event.id]">Detail</a>
+    </article>
+  </div>
+
+  <a class="all-events-btn" routerLink="/events">All Events</a>
+</section>

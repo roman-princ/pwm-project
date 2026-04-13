@@ -1,0 +1,28 @@
+<section class="events-page">
+  <div class="events-page__top" *ngIf="page$ | async as page">
+    <h1>{{ page['pageTitle'] }}</h1>
+    <select class="events-page__filter" [formControl]="categoryControl">
+      <option value="all">All categories</option>
+      <option *ngFor="let c of categories$ | async" [value]="c.value">{{ c.label }}</option>
+    </select>
+  </div>
+
+  <div class="event-list">
+    <article class="event-card" *ngFor="let event of events$ | async">
+      <img class="event-card__image" src="/assets/placeholder.png" alt="Event image" />
+      <div class="event-card__content">
+        <div class="event-card__top">
+          <strong>{{ event.title }}</strong>
+          <span class="event-card__tag">{{ event.category }}</span>
+        </div>
+        <p class="event-card__desc">{{ event.description }}</p>
+      </div>
+      <ul class="event-card__meta">
+        <li>🗓 {{ event.date }}</li>
+        <li>🕒 {{ event.time }}</li>
+        <li>📍 {{ event.location }}</li>
+      </ul>
+      <a class="event-card__action" [routerLink]="['/events', event.id]">Detail</a>
+    </article>
+  </div>
+</section>

@@ -1,0 +1,47 @@
+<section class="bg-white p-4 rounded-3 shadow-sm">
+  <h1 class="h3 mb-3">{{ (page$ | async)?.['pageHeading'] || 'Edit Event' }}</h1>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="row g-3">
+      <div class="col-12 col-md-6">
+        <label class="form-label">Title</label>
+        <input class="form-control" formControlName="title" />
+      </div>
+      <div class="col-12 col-md-6">
+        <label class="form-label">Category</label>
+        <select class="form-select" formControlName="category">
+          <option value="">Select a category</option>
+          <option *ngFor="let c of categories$ | async" [value]="c.value">{{ c.label }}</option>
+        </select>
+      </div>
+      <div class="col-12 col-md-6">
+        <label class="form-label">Organizer</label>
+        <input class="form-control" formControlName="organizer" />
+      </div>
+      <div class="col-12 col-md-6">
+        <label class="form-label">Location</label>
+        <input class="form-control" formControlName="location" />
+      </div>
+      <div class="col-12">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" rows="4" formControlName="description"></textarea>
+      </div>
+      <div class="col-12 col-md-6">
+        <label class="form-label">Date</label>
+        <input class="form-control" type="date" [min]="today" formControlName="date" />
+      </div>
+      <div class="col-12 col-md-6">
+        <label class="form-label">Time</label>
+        <input class="form-control" type="time" formControlName="time" />
+      </div>
+      <div class="col-12">
+        <label class="form-label">Registration URL</label>
+        <input class="form-control" type="url" formControlName="registrationUrl" />
+      </div>
+    </div>
+    <p *ngIf="errorMessage" class="text-danger mt-3 mb-0">{{ errorMessage }}</p>
+    <div class="d-flex gap-2 mt-3">
+      <button class="btn btn-primary" type="submit">{{ (page$ | async)?.['saveBtn'] || 'Save Changes' }}</button>
+      <button class="btn btn-outline-danger" type="button" (click)="deleteEvent()">{{ (page$ | async)?.['deleteBtn'] || 'Delete' }}</button>
+    </div>
+  </form>
+</section>

@@ -1,0 +1,39 @@
+<section class="row justify-content-center">
+  <div class="col-12 col-lg-8">
+    <form class="bg-white p-4 rounded-3 shadow-sm" [formGroup]="form" (ngSubmit)="submit()">
+      <h1 class="h3 mb-3">{{ (page$ | async)?.['registerHeading'] || 'Registration' }}</h1>
+
+      <div class="row g-3">
+        <div class="col-12 col-md-6">
+          <label class="form-label">First Name</label>
+          <input class="form-control" formControlName="firstName" />
+        </div>
+        <div class="col-12 col-md-6">
+          <label class="form-label">Surname</label>
+          <input class="form-control" formControlName="surname" />
+        </div>
+        <div class="col-12 col-md-6">
+          <label class="form-label">E-mail</label>
+          <input class="form-control" type="email" formControlName="email" />
+        </div>
+        <div class="col-12 col-md-6">
+          <label class="form-label">Username</label>
+          <input class="form-control" formControlName="username" />
+        </div>
+        <div class="col-12 col-md-6">
+          <label class="form-label">Password</label>
+          <input class="form-control" type="password" formControlName="password" />
+        </div>
+        <div class="col-12 col-md-6">
+          <label class="form-label">Password again</label>
+          <input class="form-control" type="password" formControlName="passwordConfirm" />
+        </div>
+      </div>
+
+      <p *ngIf="form.errors?.['passwordMismatch']" class="text-danger mt-3 mb-0">Passwords must match.</p>
+      <p *ngIf="errorMessage" class="text-danger mt-3 mb-0">{{ errorMessage }}</p>
+      <p *ngIf="submitted" class="text-success mt-3 mb-0">Registration saved. Redirecting to login...</p>
+      <button class="btn btn-primary mt-3" type="submit">Register</button>
+    </form>
+  </div>
+</section>

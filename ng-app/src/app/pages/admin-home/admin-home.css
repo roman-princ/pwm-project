@@ -1,0 +1,95 @@
+.admin-page__top {
+  margin-bottom: 1rem;
+}
+
+.admin-page__top h1 {
+  font-size: 2rem;
+  margin: 0 0 0.6rem;
+}
+
+.admin-page h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.add-btn,
+.all-events-btn {
+  display: inline-block;
+  background: #fff;
+  border: 1px solid #dbe3ef;
+  border-radius: 0.4rem;
+  color: #111827;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.8rem;
+}
+
+.event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.event-card {
+  display: grid;
+  grid-template-columns: 9rem 1fr auto auto;
+  align-items: center;
+  gap: 0.8rem;
+  background: #fff;
+  border: 1px solid #dbe3ef;
+  border-radius: 0.6rem;
+  padding: 0.5rem;
+}
+
+.event-card__image {
+  width: 100%;
+  height: 6rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.event-card__top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.event-card__tag {
+  background: #fce7f3;
+  color: #a3004c;
+  font-size: 0.65rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 1rem;
+}
+
+.event-card__desc {
+  margin: 0.35rem 0 0;
+  color: #6b7280;
+  font-size: 0.76rem;
+}
+
+.event-card__meta {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.72rem;
+  color: #4b5563;
+}
+
+.edit-btn {
+  background: #dbeafe;
+  border: 1px solid #bfd4f7;
+  color: #1f3a8a;
+  border-radius: 0.5rem;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.75rem;
+}
+
+.all-events-btn {
+  display: table;
+  margin: 1rem auto 0;
+}
+
+@media (max-width: 768px) {
+  .event-card {
+    grid-template-columns: 1fr;
+  }
+}

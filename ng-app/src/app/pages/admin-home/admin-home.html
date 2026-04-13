@@ -1,0 +1,28 @@
+<section class="admin-page">
+  <div class="admin-page__top">
+    <h1>Hello NAME,</h1>
+    <a class="add-btn" routerLink="/events/create">{{ (page$ | async)?.['addNewEventBtn'] || 'Add New Event' }}</a>
+  </div>
+  <h2>{{ (page$ | async)?.['eventsHeading'] || 'My Events' }}</h2>
+
+  <div class="event-list">
+    <article class="event-card" *ngFor="let event of (events$ | async)?.slice(0, 4)">
+      <img class="event-card__image" src="/assets/placeholder.png" alt="Event image" />
+      <div class="event-card__content">
+        <div class="event-card__top">
+          <strong>{{ event.title }}</strong>
+          <span class="event-card__tag">{{ event.category }}</span>
+        </div>
+        <p class="event-card__desc">{{ event.description }}</p>
+      </div>
+      <ul class="event-card__meta">
+        <li>🗓 {{ event.date }}</li>
+        <li>🕒 {{ event.time }}</li>
+        <li>📍 {{ event.location }}</li>
+      </ul>
+      <a class="edit-btn" [routerLink]="['/events', event.id, 'edit']">Edit</a>
+    </article>
+  </div>
+
+  <a class="all-events-btn" routerLink="/events">{{ (page$ | async)?.['seeMoreBtn'] || 'See more' }}</a>
+</section>
