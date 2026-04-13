@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 import { DataService } from '../../core/services/data.service';
 import { Category, EventItem } from '../../shared/models/models';
 import { BackButtonComponent } from '../../shared/components/back-button/back-button.component';
@@ -19,6 +20,8 @@ export class EditEventComponent implements OnInit {
   categories: Category[] = [];
   event?: EventItem;
   error = '';
+  imageUploading = false;
+  selectedImageFile: File | null = null;
   submitted = false;
 
   readonly form = this.fb.nonNullable.group({
@@ -41,9 +44,15 @@ export class EditEventComponent implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
+    private readonly authService: AuthService,
     private readonly dataService: DataService,
     private readonly router: Router,
   ) {}
+
+  onImageSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.selectedImageFile = input.files?.[0] ?? null;
+  }
 
   async ngOnInit(): Promise<void> {
     this.categories = await this.dataService.getCategories();
@@ -88,6 +97,28 @@ export class EditEventComponent implements OnInit {
       return;
     }
 
+    let imageUrl: string | null = raw.image.trim() || null;
+    if (this.selectedImageFile) {
+      const currentUserId = this.authService.currentUser?.id;
+      if (!currentUserId) {
+        this.error = 'You must be logged in to upload images.';
+        return;
+      }
+
+      try {
+        this.imageUploading = true;
+        imageUrl = await this.dataService.uploadEventImage(
+          this.selectedImageFile,
+          currentUserId,
+        );
+      } catch {
+        this.error = 'Could not upload image to Firebase Storage.';
+        this.imageUploading = false;
+        return;
+      }
+      this.imageUploading = false;
+    }
+
     const updated = await this.dataService.updateEvent(this.event.id, {
       title: raw.title,
       category: raw.category,
@@ -97,7 +128,7 @@ export class EditEventComponent implements OnInit {
       time: raw.time,
       location: raw.location,
       registrationUrl: raw.registrationUrl,
-      image: raw.image || null,
+      image: imageUrl,
     });
 
     if (!updated) {

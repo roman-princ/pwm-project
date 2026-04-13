@@ -38,7 +38,7 @@ export class LoginComponent {
     const { username, password } = this.form.getRawValue();
     const ok = await this.authService.login(username, password);
     if (!ok) {
-      this.error = 'Invalid username or password.';
+      this.error = 'Invalid username/email or password.';
       return;
     }
 

@@ -59,13 +59,21 @@
         </div>
 
         <div class="form-group">
-            <label for="image">Pictures:</label>
+            <label for="imageFile">Image file:</label>
+            <input id="imageFile" type="file" accept="image/*" (change)="onImageSelected($event)" />
+        </div>
+
+        <div class="form-group">
+            <label for="image">Or image URL:</label>
             <input id="image" type="text" formControlName="image" />
         </div>
 
         <div class="event-form__actions" id="eventFormActions">
-            <button type="submit" class="btn btn--primary">Save</button>
-            <button type="button" class="btn btn--danger" (click)="deleteEvent()">Delete</button>
+            <button type="submit" class="btn btn--primary" [disabled]="imageUploading">
+                {{ imageUploading ? 'Uploading...' : 'Save' }}
+            </button>
+            <button type="button" class="btn btn--danger" (click)="deleteEvent()"
+                [disabled]="imageUploading">Delete</button>
         </div>
     </form>
 </main>

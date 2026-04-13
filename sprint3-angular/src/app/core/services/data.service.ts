@@ -1,5 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {
+  Database,
+  get,
+  ref as dbRef,
+  remove,
+  set,
+  update,
+} from '@angular/fire/database';
+import {
+  Storage,
+  getDownloadURL,
+  ref as storageRef,
+  uploadBytes,
+} from '@angular/fire/storage';
 import { firstValueFrom } from 'rxjs';
 import {
   Category,
@@ -14,7 +28,11 @@ import {
 export class DataService {
   private dbCache: DbData | null = null;
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly database: Database,
+    private readonly storage: Storage,
+  ) {}
 
   private async loadDb(): Promise<DbData> {
     if (this.dbCache) {
@@ -22,15 +40,6 @@ export class DataService {
     }
 
     const db = await firstValueFrom(this.http.get<DbData>('data/db.json'));
-    const savedEvents = localStorage.getItem('db_events');
-    if (savedEvents) {
-      try {
-        db.events = JSON.parse(savedEvents);
-      } catch {
-        // Ignore bad local cache.
-      }
-    }
-
     this.dbCache = db;
     return db;
   }
@@ -52,11 +61,41 @@ export class DataService {
     };
   }
 
-  private persistEvents(): void {
-    if (!this.dbCache) {
+  private async ensureEventsInitialized(): Promise<void> {
+    const eventsRef = dbRef(this.database, 'events');
+    const existingEvents = await get(eventsRef);
+    if (existingEvents.exists()) {
       return;
     }
-    localStorage.setItem('db_events', JSON.stringify(this.dbCache.events));
+
+    const db = await this.loadDb();
+    const seedPayload: Record<string, EventItem> = {};
+    for (const event of db.events) {
+      seedPayload[String(event.id)] = event;
+    }
+
+    await set(eventsRef, seedPayload);
+  }
+
+  private async getEventsFromRealtimeDb(): Promise<EventItem[]> {
+    await this.ensureEventsInitialized();
+    const eventsRef = dbRef(this.database, 'events');
+    const snapshot = await get(eventsRef);
+    if (!snapshot.exists()) {
+      return [];
+    }
+
+    const raw = snapshot.val() as Record<string, EventItem>;
+    return Object.values(raw).map((evt) => this.enrichEvent(evt));
+  }
+
+  async uploadEventImage(file: File, createdBy: number): Promise<string> {
+    const safeFileName = file.name.replace(/\s+/g, '-').toLowerCase();
+    const imagePath = `events/${createdBy}/${Date.now()}-${safeFileName}`;
+    const imageRef = storageRef(this.storage, imagePath);
+
+    await uploadBytes(imageRef, file);
+    return getDownloadURL(imageRef);
   }
 
   private getLocalUsers(): User[] {
@@ -68,22 +107,20 @@ export class DataService {
   }
 
   async getEvents(): Promise<EventItem[]> {
-    const db = await this.loadDb();
-    return db.events.map((evt) => this.enrichEvent(evt));
+    return this.getEventsFromRealtimeDb();
   }
 
   async getUpcomingEvents(): Promise<EventItem[]> {
-    const db = await this.loadDb();
+    const events = await this.getEventsFromRealtimeDb();
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    return db.events
+    return events
       .filter((evt) => new Date(`${evt.date}T00:00:00`) >= today)
-      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-      .map((evt) => this.enrichEvent(evt));
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   }
 
   async getEventsNextSevenDays(): Promise<EventItem[]> {
-    const db = await this.loadDb();
+    const events = await this.getEventsFromRealtimeDb();
     const now = new Date();
     now.setHours(0, 0, 0, 0);
 
@@ -91,30 +128,34 @@ export class DataService {
     sevenDaysLater.setDate(sevenDaysLater.getDate() + 7);
     sevenDaysLater.setHours(23, 59, 59, 999);
 
-    return db.events
+    return events
       .filter((evt) => {
         const eventDate = new Date(`${evt.date}T00:00:00`);
         return eventDate >= now && eventDate <= sevenDaysLater;
       })
-      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-      .map((evt) => this.enrichEvent(evt));
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   }
 
   async getEventById(id: number): Promise<EventItem | undefined> {
-    const db = await this.loadDb();
-    const found = db.events.find((evt) => evt.id === id);
-    return found ? this.enrichEvent(found) : undefined;
+    await this.ensureEventsInitialized();
+    const eventRef = dbRef(this.database, `events/${id}`);
+    const snapshot = await get(eventRef);
+    if (!snapshot.exists()) {
+      return undefined;
+    }
+
+    return this.enrichEvent(snapshot.val() as EventItem);
   }
 
   async createEvent(eventData: Omit<EventItem, 'id'>): Promise<EventItem> {
-    const db = await this.loadDb();
-    const maxId = db.events.reduce((max, evt) => Math.max(max, evt.id), 0);
+    const events = await this.getEventsFromRealtimeDb();
+    const maxId = events.reduce((max, evt) => Math.max(max, evt.id), 0);
     const newEvent: EventItem = {
       id: maxId + 1,
       ...eventData,
     };
-    db.events.push(newEvent);
-    this.persistEvents();
+
+    await set(dbRef(this.database, `events/${newEvent.id}`), newEvent);
     return this.enrichEvent(newEvent);
   }
 
@@ -122,26 +163,25 @@ export class DataService {
     id: number,
     updates: Partial<EventItem>,
   ): Promise<EventItem | null> {
-    const db = await this.loadDb();
-    const idx = db.events.findIndex((evt) => evt.id === id);
-    if (idx === -1) {
+    const eventRef = dbRef(this.database, `events/${id}`);
+    const existingEventSnapshot = await get(eventRef);
+    if (!existingEventSnapshot.exists()) {
       return null;
     }
 
-    db.events[idx] = { ...db.events[idx], ...updates };
-    this.persistEvents();
-    return this.enrichEvent(db.events[idx]);
+    await update(eventRef, updates);
+    const updatedSnapshot = await get(eventRef);
+    return this.enrichEvent(updatedSnapshot.val() as EventItem);
   }
 
   async deleteEvent(id: number): Promise<boolean> {
-    const db = await this.loadDb();
-    const idx = db.events.findIndex((evt) => evt.id === id);
-    if (idx === -1) {
+    const eventRef = dbRef(this.database, `events/${id}`);
+    const existingEventSnapshot = await get(eventRef);
+    if (!existingEventSnapshot.exists()) {
       return false;
     }
 
-    db.events.splice(idx, 1);
-    this.persistEvents();
+    await remove(eventRef);
     return true;
   }
 
@@ -161,7 +201,8 @@ export class DataService {
       return null;
     }
 
-    const { password: _password, ...safeUser } = user;
+    const safeUser = { ...user };
+    delete safeUser.password;
     return safeUser;
   }
 
@@ -189,7 +230,8 @@ export class DataService {
     localUsers.push(newUser);
     localStorage.setItem('db_users', JSON.stringify(localUsers));
 
-    const { password: _password, ...safeUser } = newUser;
+    const safeUser = { ...newUser };
+    delete safeUser.password;
     return safeUser;
   }
 

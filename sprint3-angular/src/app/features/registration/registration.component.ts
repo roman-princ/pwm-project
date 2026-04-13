@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { DataService } from '../../core/services/data.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 import { BackButtonComponent } from '../../shared/components/back-button/back-button.component';
 
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, BackButtonComponent],
+  imports: [CommonModule, ReactiveFormsModule, BackButtonComponent],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.css',
 })
@@ -29,7 +29,7 @@ export class RegistrationComponent {
   });
 
   constructor(
-    private readonly dataService: DataService,
+    private readonly authService: AuthService,
     private readonly router: Router,
   ) {}
 
@@ -48,7 +48,7 @@ export class RegistrationComponent {
     }
 
     try {
-      await this.dataService.registerUser({
+      await this.authService.register({
         firstName: raw.firstName,
         surname: raw.surname,
         email: raw.email,

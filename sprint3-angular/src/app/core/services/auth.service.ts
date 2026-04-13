@@ -1,16 +1,59 @@
 import { Injectable } from '@angular/core';
+import {
+  Auth,
+  authState,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from '@angular/fire/auth';
+import {
+  Firestore,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  limit,
+  query,
+  runTransaction,
+  setDoc,
+  where,
+} from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
-import { DataService } from './data.service';
 import { User } from '../../shared/models/models';
+import { environment } from '../../../environments/environment';
+
+type StoredUserProfile = Omit<User, 'password'>;
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly currentUserSubject = new BehaviorSubject<User | null>(
-    this.getUserFromStorage(),
-  );
+  private readonly currentUserSubject = new BehaviorSubject<User | null>(null);
   readonly currentUser$ = this.currentUserSubject.asObservable();
+  private readonly authReady: Promise<void>;
+  private resolveAuthReady: (() => void) | null = null;
 
-  constructor(private readonly dataService: DataService) {}
+  constructor(
+    private readonly auth: Auth,
+    private readonly firestore: Firestore,
+  ) {
+    this.authReady = new Promise<void>((resolve) => {
+      this.resolveAuthReady = resolve;
+    });
+
+    authState(this.auth).subscribe(async (firebaseUser) => {
+      if (!firebaseUser) {
+        this.currentUserSubject.next(null);
+        this.resolveReadyOnce();
+        return;
+      }
+
+      const profile = await this.getOrCreateProfile(
+        firebaseUser.uid,
+        firebaseUser.email ?? '',
+      );
+      this.currentUserSubject.next(profile);
+      this.resolveReadyOnce();
+    });
+  }
 
   get currentUser(): User | null {
     return this.currentUserSubject.value;
@@ -24,45 +67,151 @@ export class AuthService {
     return this.currentUser?.role === 'admin';
   }
 
-  async login(username: string, password: string): Promise<boolean> {
-    const user = await this.dataService.authenticate(username, password);
-    if (!user) {
+  async login(identifier: string, password: string): Promise<boolean> {
+    try {
+      const email = await this.resolveLoginEmail(identifier);
+      if (!email) {
+        return false;
+      }
+
+      await signInWithEmailAndPassword(this.auth, email, password);
+      await this.authReady;
+      return true;
+    } catch {
       return false;
     }
-
-    this.persistAuth(user);
-    this.currentUserSubject.next(user);
-    return true;
   }
 
-  logout(): void {
-    localStorage.setItem('isLoggedIn', 'false');
-    localStorage.removeItem('username');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('auth_user');
+  async register(userData: {
+    firstName: string;
+    surname: string;
+    email: string;
+    organization: string;
+    username: string;
+    password: string;
+  }): Promise<void> {
+    const normalizedEmail = userData.email.trim().toLowerCase();
+    const usernameTaken = await this.isUsernameTaken(userData.username.trim());
+    if (usernameTaken) {
+      throw new Error('Username already exists.');
+    }
+
+    const credential = await createUserWithEmailAndPassword(
+      this.auth,
+      normalizedEmail,
+      userData.password,
+    );
+
+    const role: User['role'] = environment.adminEmails
+      .map((email) => email.toLowerCase())
+      .includes(normalizedEmail)
+      ? 'admin'
+      : 'user';
+
+    const newProfile: StoredUserProfile = {
+      id: await this.nextUserId(),
+      firstName: userData.firstName,
+      surname: userData.surname,
+      email: normalizedEmail,
+      organization: userData.organization,
+      username: userData.username.trim(),
+      role,
+    };
+
+    await setDoc(doc(this.firestore, 'users', credential.user.uid), newProfile);
+  }
+
+  async logout(): Promise<void> {
+    await signOut(this.auth);
     this.currentUserSubject.next(null);
   }
 
-  private persistAuth(user: User): void {
-    localStorage.setItem('isLoggedIn', 'true');
-    localStorage.setItem('username', user.username);
-    localStorage.setItem('userRole', user.role);
-    localStorage.setItem('userId', String(user.id));
-    localStorage.setItem('auth_user', JSON.stringify(user));
+  async isCurrentUserAdmin(): Promise<boolean> {
+    await this.authReady;
+    return this.currentUser?.role === 'admin';
   }
 
-  private getUserFromStorage(): User | null {
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    if (!isLoggedIn) {
+  private resolveReadyOnce(): void {
+    if (!this.resolveAuthReady) {
+      return;
+    }
+    this.resolveAuthReady();
+    this.resolveAuthReady = null;
+  }
+
+  private async resolveLoginEmail(identifier: string): Promise<string | null> {
+    const trimmed = identifier.trim();
+    if (!trimmed) {
       return null;
     }
 
-    try {
-      const value = localStorage.getItem('auth_user');
-      return value ? JSON.parse(value) : null;
-    } catch {
+    if (trimmed.includes('@')) {
+      return trimmed.toLowerCase();
+    }
+
+    const usersRef = collection(this.firestore, 'users');
+    const usersByUsernameQuery = query(
+      usersRef,
+      where('username', '==', trimmed),
+      limit(1),
+    );
+    const snapshot = await getDocs(usersByUsernameQuery);
+    if (snapshot.empty) {
       return null;
     }
+
+    return (snapshot.docs[0].data() as StoredUserProfile).email;
+  }
+
+  private async isUsernameTaken(username: string): Promise<boolean> {
+    const usersRef = collection(this.firestore, 'users');
+    const existingUserQuery = query(
+      usersRef,
+      where('username', '==', username),
+      limit(1),
+    );
+    const snapshot = await getDocs(existingUserQuery);
+    return !snapshot.empty;
+  }
+
+  private async nextUserId(): Promise<number> {
+    return runTransaction(this.firestore, async (transaction) => {
+      const counterRef = doc(this.firestore, 'metadata', 'users_counter');
+      const counterSnapshot = await transaction.get(counterRef);
+      const currentValue = Number(counterSnapshot.data()?.['value'] ?? 1000);
+      const nextValue = currentValue + 1;
+
+      transaction.set(counterRef, { value: nextValue }, { merge: true });
+      return nextValue;
+    });
+  }
+
+  private async getOrCreateProfile(uid: string, email: string): Promise<User> {
+    const userRef = doc(this.firestore, 'users', uid);
+    const userSnapshot = await getDoc(userRef);
+
+    if (userSnapshot.exists()) {
+      return userSnapshot.data() as User;
+    }
+
+    const normalizedEmail = email.toLowerCase();
+    const role: User['role'] = environment.adminEmails
+      .map((adminEmail) => adminEmail.toLowerCase())
+      .includes(normalizedEmail)
+      ? 'admin'
+      : 'user';
+
+    const fallbackProfile: StoredUserProfile = {
+      id: await this.nextUserId(),
+      firstName: '',
+      surname: '',
+      email: normalizedEmail,
+      organization: '',
+      username: normalizedEmail.split('@')[0] || `user-${Date.now()}`,
+      role,
+    };
+
+    await setDoc(userRef, fallbackProfile);
+    return fallbackProfile;
   }
 }

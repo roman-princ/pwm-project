@@ -19,6 +19,8 @@ export class CreateEventComponent implements OnInit {
 
   categories: Category[] = [];
   error = '';
+  imageUploading = false;
+  selectedImageFile: File | null = null;
   submitted = false;
 
   readonly form = this.fb.nonNullable.group({
@@ -55,6 +57,11 @@ export class CreateEventComponent implements OnInit {
     return selected.getTime() >= now.getTime();
   }
 
+  onImageSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.selectedImageFile = input.files?.[0] ?? null;
+  }
+
   async submit(): Promise<void> {
     this.error = '';
     this.submitted = true;
@@ -69,6 +76,28 @@ export class CreateEventComponent implements OnInit {
       return;
     }
 
+    const currentUserId = this.authService.currentUser?.id;
+    if (!currentUserId) {
+      this.error = 'You must be logged in to create events.';
+      return;
+    }
+
+    let imageUrl: string | null = raw.image.trim() || null;
+    if (this.selectedImageFile) {
+      try {
+        this.imageUploading = true;
+        imageUrl = await this.dataService.uploadEventImage(
+          this.selectedImageFile,
+          currentUserId,
+        );
+      } catch {
+        this.error = 'Could not upload image to Firebase Storage.';
+        this.imageUploading = false;
+        return;
+      }
+      this.imageUploading = false;
+    }
+
     await this.dataService.createEvent({
       title: raw.title,
       category: raw.category,
@@ -78,8 +107,8 @@ export class CreateEventComponent implements OnInit {
       time: raw.time,
       location: raw.location,
       registrationUrl: raw.registrationUrl,
-      image: raw.image || null,
-      createdBy: this.authService.currentUser?.id ?? 1,
+      image: imageUrl,
+      createdBy: currentUserId,
     });
 
     this.router.navigate(['/admin-home']);

@@ -1,0 +1,21 @@
+{
+  "rules": {
+    ".read": true,
+    "events": {
+      ".read": true,
+      ".write": "auth != null"
+    },
+    "categories": {
+      ".read": true,
+      ".write": false
+    },
+    "pages": {
+      ".read": true,
+      ".write": false
+    },
+    "site": {
+      ".read": true,
+      ".write": false
+    }
+  }
+}

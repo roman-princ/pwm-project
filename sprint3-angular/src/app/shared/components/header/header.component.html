@@ -25,6 +25,8 @@
             <nav class="header__nav">
                 <a routerLink="/all-events" class="header__link">All Events</a>
                 <a routerLink="/about" class="header__link">About Us</a>
+                <a *ngIf="authService.isAdmin" routerLink="/admin-home"
+                    class="header__link header__link--admin">Admin</a>
             </nav>
 
             <a *ngIf="!authService.isLoggedIn" routerLink="/login" class="header__login">
