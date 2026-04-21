@@ -121,6 +121,37 @@ export class AuthService {
     await setDoc(doc(this.firestore, 'users', credential.user.uid), newProfile);
   }
 
+  async suggestAvailableUsername(baseUsername: string): Promise<string> {
+    const normalizedBase = baseUsername
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9_]/g, '_')
+      .replace(/_+/g, '_')
+      .replace(/^_|_$/g, '')
+      .slice(0, 30);
+
+    if (!normalizedBase) {
+      return '';
+    }
+
+    if (!(await this.isUsernameTaken(normalizedBase))) {
+      return normalizedBase;
+    }
+
+    let suffix = 2;
+    while (suffix <= 9999) {
+      const suffixValue = String(suffix);
+      const trimmedBase = normalizedBase.slice(0, 30 - suffixValue.length);
+      const candidate = `${trimmedBase}${suffixValue}`;
+      if (!(await this.isUsernameTaken(candidate))) {
+        return candidate;
+      }
+      suffix += 1;
+    }
+
+    return `${Date.now()}`.slice(-10);
+  }
+
   async logout(): Promise<void> {
     await signOut(this.auth);
     this.currentUserSubject.next(null);
@@ -163,7 +194,7 @@ export class AuthService {
     return (snapshot.docs[0].data() as StoredUserProfile).email;
   }
 
-  private async isUsernameTaken(username: string): Promise<boolean> {
+  async isUsernameTaken(username: string): Promise<boolean> {
     const usersRef = collection(this.firestore, 'users');
     const existingUserQuery = query(
       usersRef,

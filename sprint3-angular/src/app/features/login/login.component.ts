@@ -42,6 +42,11 @@ export class LoginComponent {
       return;
     }
 
-    this.router.navigate(['/admin-home']);
+    if (await this.authService.isCurrentUserAdmin()) {
+      this.router.navigate(['/admin-home']);
+      return;
+    }
+
+    this.router.navigate(['/']);
   }
 }

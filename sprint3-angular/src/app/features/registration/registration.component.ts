@@ -14,8 +14,10 @@ import { BackButtonComponent } from '../../shared/components/back-button/back-bu
 })
 export class RegistrationComponent {
   private readonly fb = inject(FormBuilder);
+  private usernameRequestId = 0;
 
   error = '';
+  usernameSuggestion = '';
   submitted = false;
 
   readonly form = this.fb.nonNullable.group({
@@ -31,7 +33,52 @@ export class RegistrationComponent {
   constructor(
     private readonly authService: AuthService,
     private readonly router: Router,
-  ) {}
+  ) {
+    this.form.controls.email.valueChanges.subscribe((email) => {
+      void this.updateGeneratedUsername(email);
+    });
+  }
+
+  private buildUsernameFromEmail(email: string): string {
+    const trimmed = email.trim().toLowerCase();
+    if (!trimmed.includes('@')) {
+      return '';
+    }
+
+    const [localPart] = trimmed.split('@');
+    const base = localPart
+      .replace(/[^a-z0-9_]/g, '_')
+      .replace(/_+/g, '_')
+      .replace(/^_|_$/g, '');
+
+    return base.slice(0, 30);
+  }
+
+  private async updateGeneratedUsername(email: string): Promise<void> {
+    const requestId = ++this.usernameRequestId;
+    const baseUsername = this.buildUsernameFromEmail(email);
+
+    if (!baseUsername) {
+      this.form.controls.username.setValue('', { emitEvent: false });
+      this.usernameSuggestion = '';
+      return;
+    }
+
+    const suggestedUsername =
+      await this.authService.suggestAvailableUsername(baseUsername);
+
+    if (requestId !== this.usernameRequestId) {
+      return;
+    }
+
+    this.form.controls.username.setValue(suggestedUsername, {
+      emitEvent: false,
+    });
+    this.usernameSuggestion =
+      suggestedUsername !== baseUsername
+        ? `Username \"${baseUsername}\" was taken. Using \"${suggestedUsername}\".`
+        : '';
+  }
 
   async submit(): Promise<void> {
     this.error = '';
@@ -47,13 +94,25 @@ export class RegistrationComponent {
       return;
     }
 
+    const availableUsername = await this.authService.suggestAvailableUsername(
+      raw.username,
+    );
+    if (!availableUsername) {
+      this.error = 'Could not generate a valid username from this e-mail.';
+      return;
+    }
+
+    this.form.controls.username.setValue(availableUsername, {
+      emitEvent: false,
+    });
+
     try {
       await this.authService.register({
         firstName: raw.firstName,
         surname: raw.surname,
         email: raw.email,
         organization: raw.organization,
-        username: raw.username,
+        username: availableUsername,
         password: raw.password,
       });
       this.router.navigate(['/login']);

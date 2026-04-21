@@ -40,3 +40,12 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Environment secrets
+.env
+.env.local
+.env.*.local
+
+# Generated from .env at build/start time
+/src/environments/environment.generated.ts
+/src/environments/environment.generated.prod.ts
