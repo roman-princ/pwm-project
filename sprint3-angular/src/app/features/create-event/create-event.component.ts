@@ -86,12 +86,9 @@ export class CreateEventComponent implements OnInit {
     if (this.selectedImageFile) {
       try {
         this.imageUploading = true;
-        imageUrl = await this.dataService.uploadEventImage(
-          this.selectedImageFile,
-          currentUserId,
-        );
+        imageUrl = await this.dataService.fileToBase64(this.selectedImageFile);
       } catch {
-        this.error = 'Could not upload image to Firebase Storage.';
+        this.error = 'Could not read the selected image.';
         this.imageUploading = false;
         return;
       }

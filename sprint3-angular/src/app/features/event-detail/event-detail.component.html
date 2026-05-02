@@ -4,7 +4,8 @@
     </nav>
 
     <div class="event-detail__hero">
-        <div class="event-detail__hero-img"></div>
+        <div class="event-detail__hero-img"
+            [style.background-image]="'url(' + (event.image || '/assets/placeholder.png') + ')'"></div>
     </div>
 
     <section class="event-detail__content">

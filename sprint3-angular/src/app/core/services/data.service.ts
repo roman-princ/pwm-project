@@ -1,19 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
-  Database,
-  get,
-  ref as dbRef,
-  remove,
-  set,
-  update,
-} from '@angular/fire/database';
-import {
-  Storage,
-  getDownloadURL,
-  ref as storageRef,
-  uploadBytes,
-} from '@angular/fire/storage';
+  Firestore,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  runTransaction,
+  setDoc,
+  updateDoc,
+} from '@angular/fire/firestore';
 import { firstValueFrom } from 'rxjs';
 import {
   Category,
@@ -21,7 +18,6 @@ import {
   EventItem,
   PageContent,
   Site,
-  User,
 } from '../../shared/models/models';
 
 @Injectable({ providedIn: 'root' })
@@ -30,8 +26,7 @@ export class DataService {
 
   constructor(
     private readonly http: HttpClient,
-    private readonly database: Database,
-    private readonly storage: Storage,
+    private readonly firestore: Firestore,
   ) {}
 
   private async loadDb(): Promise<DbData> {
@@ -61,57 +56,28 @@ export class DataService {
     };
   }
 
-  private async ensureEventsInitialized(): Promise<void> {
-    const eventsRef = dbRef(this.database, 'events');
-    const existingEvents = await get(eventsRef);
-    if (existingEvents.exists()) {
-      return;
-    }
-
-    const db = await this.loadDb();
-    const seedPayload: Record<string, EventItem> = {};
-    for (const event of db.events) {
-      seedPayload[String(event.id)] = event;
-    }
-
-    await set(eventsRef, seedPayload);
-  }
-
-  private async getEventsFromRealtimeDb(): Promise<EventItem[]> {
-    await this.ensureEventsInitialized();
-    const eventsRef = dbRef(this.database, 'events');
-    const snapshot = await get(eventsRef);
-    if (!snapshot.exists()) {
-      return [];
-    }
-
-    const raw = snapshot.val() as Record<string, EventItem>;
-    return Object.values(raw).map((evt) => this.enrichEvent(evt));
-  }
-
-  async uploadEventImage(file: File, createdBy: number): Promise<string> {
-    const safeFileName = file.name.replace(/\s+/g, '-').toLowerCase();
-    const imagePath = `events/${createdBy}/${Date.now()}-${safeFileName}`;
-    const imageRef = storageRef(this.storage, imagePath);
-
-    await uploadBytes(imageRef, file);
-    return getDownloadURL(imageRef);
-  }
-
-  private getLocalUsers(): User[] {
-    try {
-      return JSON.parse(localStorage.getItem('db_users') ?? '[]');
-    } catch {
-      return [];
-    }
+  async fileToBase64(file: File): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (typeof reader.result === 'string') {
+          resolve(reader.result);
+          return;
+        }
+        reject(new Error('Could not read file as data URL.'));
+      };
+      reader.onerror = () => reject(reader.error ?? new Error('Read failed.'));
+      reader.readAsDataURL(file);
+    });
   }
 
   async getEvents(): Promise<EventItem[]> {
-    return this.getEventsFromRealtimeDb();
+    const snapshot = await getDocs(collection(this.firestore, 'events'));
+    return snapshot.docs.map((d) => this.enrichEvent(d.data() as EventItem));
   }
 
   async getUpcomingEvents(): Promise<EventItem[]> {
-    const events = await this.getEventsFromRealtimeDb();
+    const events = await this.getEvents();
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     return events
@@ -120,7 +86,7 @@ export class DataService {
   }
 
   async getEventsNextSevenDays(): Promise<EventItem[]> {
-    const events = await this.getEventsFromRealtimeDb();
+    const events = await this.getEvents();
     const now = new Date();
     now.setHours(0, 0, 0, 0);
 
@@ -137,25 +103,20 @@ export class DataService {
   }
 
   async getEventById(id: number): Promise<EventItem | undefined> {
-    await this.ensureEventsInitialized();
-    const eventRef = dbRef(this.database, `events/${id}`);
-    const snapshot = await get(eventRef);
+    const eventRef = doc(this.firestore, 'events', String(id));
+    const snapshot = await getDoc(eventRef);
     if (!snapshot.exists()) {
       return undefined;
     }
 
-    return this.enrichEvent(snapshot.val() as EventItem);
+    return this.enrichEvent(snapshot.data() as EventItem);
   }
 
   async createEvent(eventData: Omit<EventItem, 'id'>): Promise<EventItem> {
-    const events = await this.getEventsFromRealtimeDb();
-    const maxId = events.reduce((max, evt) => Math.max(max, evt.id), 0);
-    const newEvent: EventItem = {
-      id: maxId + 1,
-      ...eventData,
-    };
+    const newId = await this.nextEventId();
+    const newEvent: EventItem = { id: newId, ...eventData };
 
-    await set(dbRef(this.database, `events/${newEvent.id}`), newEvent);
+    await setDoc(doc(this.firestore, 'events', String(newId)), newEvent);
     return this.enrichEvent(newEvent);
   }
 
@@ -163,76 +124,43 @@ export class DataService {
     id: number,
     updates: Partial<EventItem>,
   ): Promise<EventItem | null> {
-    const eventRef = dbRef(this.database, `events/${id}`);
-    const existingEventSnapshot = await get(eventRef);
-    if (!existingEventSnapshot.exists()) {
+    const eventRef = doc(this.firestore, 'events', String(id));
+    const existing = await getDoc(eventRef);
+    if (!existing.exists()) {
       return null;
     }
 
-    await update(eventRef, updates);
-    const updatedSnapshot = await get(eventRef);
-    return this.enrichEvent(updatedSnapshot.val() as EventItem);
+    await updateDoc(eventRef, updates as Record<string, unknown>);
+    const updated = await getDoc(eventRef);
+    return this.enrichEvent(updated.data() as EventItem);
   }
 
   async deleteEvent(id: number): Promise<boolean> {
-    const eventRef = dbRef(this.database, `events/${id}`);
-    const existingEventSnapshot = await get(eventRef);
-    if (!existingEventSnapshot.exists()) {
+    const eventRef = doc(this.firestore, 'events', String(id));
+    const existing = await getDoc(eventRef);
+    if (!existing.exists()) {
       return false;
     }
 
-    await remove(eventRef);
+    await deleteDoc(eventRef);
     return true;
+  }
+
+  private async nextEventId(): Promise<number> {
+    return runTransaction(this.firestore, async (transaction) => {
+      const counterRef = doc(this.firestore, 'metadata', 'events_counter');
+      const counterSnapshot = await transaction.get(counterRef);
+      const currentValue = Number(counterSnapshot.data()?.['value'] ?? 200);
+      const nextValue = currentValue + 1;
+
+      transaction.set(counterRef, { value: nextValue }, { merge: true });
+      return nextValue;
+    });
   }
 
   async getCategories(): Promise<Category[]> {
     const db = await this.loadDb();
     return db.categories;
-  }
-
-  async authenticate(username: string, password: string): Promise<User | null> {
-    const db = await this.loadDb();
-    const allUsers = [...db.users, ...this.getLocalUsers()];
-    const user = allUsers.find(
-      (candidate) =>
-        candidate.username === username && candidate.password === password,
-    );
-    if (!user) {
-      return null;
-    }
-
-    const safeUser = { ...user };
-    delete safeUser.password;
-    return safeUser;
-  }
-
-  async registerUser(
-    userData: Omit<User, 'id' | 'role'> & { password: string },
-  ): Promise<User> {
-    const db = await this.loadDb();
-    const localUsers = this.getLocalUsers();
-    const allUsers = [...db.users, ...localUsers];
-
-    if (allUsers.some((user) => user.username === userData.username)) {
-      throw new Error('Username already exists.');
-    }
-    if (allUsers.some((user) => user.email === userData.email)) {
-      throw new Error('E-mail already registered.');
-    }
-
-    const maxId = allUsers.reduce((max, user) => Math.max(max, user.id), 0);
-    const newUser: User = {
-      id: maxId + 1,
-      ...userData,
-      role: 'user',
-    };
-
-    localUsers.push(newUser);
-    localStorage.setItem('db_users', JSON.stringify(localUsers));
-
-    const safeUser = { ...newUser };
-    delete safeUser.password;
-    return safeUser;
   }
 
   async getPageContent(pageKey: string): Promise<PageContent> {

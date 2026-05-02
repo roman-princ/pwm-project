@@ -99,20 +99,16 @@ export class EditEventComponent implements OnInit {
 
     let imageUrl: string | null = raw.image.trim() || null;
     if (this.selectedImageFile) {
-      const currentUserId = this.authService.currentUser?.id;
-      if (!currentUserId) {
+      if (!this.authService.currentUser?.id) {
         this.error = 'You must be logged in to upload images.';
         return;
       }
 
       try {
         this.imageUploading = true;
-        imageUrl = await this.dataService.uploadEventImage(
-          this.selectedImageFile,
-          currentUserId,
-        );
+        imageUrl = await this.dataService.fileToBase64(this.selectedImageFile);
       } catch {
-        this.error = 'Could not upload image to Firebase Storage.';
+        this.error = 'Could not read the selected image.';
         this.imageUploading = false;
         return;
       }

@@ -8,8 +8,9 @@
   },
   "scripts": {
     "generate:env": "node scripts/generate-env.mjs",
+    "seed:events": "node scripts/seed-events.mjs",
     "ng": "ng",
-    "start": "yarn generate:env && ng serve",
+    "dev": "yarn generate:env && ng serve",
     "build": "yarn generate:env && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "yarn generate:env && ng test",

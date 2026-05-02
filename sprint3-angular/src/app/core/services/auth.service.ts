@@ -8,15 +8,10 @@ import {
 } from '@angular/fire/auth';
 import {
   Firestore,
-  collection,
   doc,
   getDoc,
-  getDocs,
-  limit,
-  query,
   runTransaction,
   setDoc,
-  where,
 } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../../shared/models/models';
@@ -91,8 +86,8 @@ export class AuthService {
     password: string;
   }): Promise<void> {
     const normalizedEmail = userData.email.trim().toLowerCase();
-    const usernameTaken = await this.isUsernameTaken(userData.username.trim());
-    if (usernameTaken) {
+    const username = userData.username.trim();
+    if (await this.isUsernameTaken(username)) {
       throw new Error('Username already exists.');
     }
 
@@ -114,11 +109,15 @@ export class AuthService {
       surname: userData.surname,
       email: normalizedEmail,
       organization: userData.organization,
-      username: userData.username.trim(),
+      username,
       role,
     };
 
     await setDoc(doc(this.firestore, 'users', credential.user.uid), newProfile);
+    await setDoc(doc(this.firestore, 'usernames', username), {
+      uid: credential.user.uid,
+      email: normalizedEmail,
+    });
   }
 
   async suggestAvailableUsername(baseUsername: string): Promise<string> {
@@ -180,29 +179,16 @@ export class AuthService {
       return trimmed.toLowerCase();
     }
 
-    const usersRef = collection(this.firestore, 'users');
-    const usersByUsernameQuery = query(
-      usersRef,
-      where('username', '==', trimmed),
-      limit(1),
-    );
-    const snapshot = await getDocs(usersByUsernameQuery);
-    if (snapshot.empty) {
+    const snapshot = await getDoc(doc(this.firestore, 'usernames', trimmed));
+    if (!snapshot.exists()) {
       return null;
     }
-
-    return (snapshot.docs[0].data() as StoredUserProfile).email;
+    return (snapshot.data() as { email: string }).email;
   }
 
   async isUsernameTaken(username: string): Promise<boolean> {
-    const usersRef = collection(this.firestore, 'users');
-    const existingUserQuery = query(
-      usersRef,
-      where('username', '==', username),
-      limit(1),
-    );
-    const snapshot = await getDocs(existingUserQuery);
-    return !snapshot.empty;
+    const snapshot = await getDoc(doc(this.firestore, 'usernames', username));
+    return snapshot.exists();
   }
 
   private async nextUserId(): Promise<number> {
@@ -226,20 +212,16 @@ export class AuthService {
     }
 
     const normalizedEmail = email.toLowerCase();
-    const role: User['role'] = environment.adminEmails
-      .map((adminEmail) => adminEmail.toLowerCase())
-      .includes(normalizedEmail)
-      ? 'admin'
-      : 'user';
-
+    const baseUsername =
+      normalizedEmail.split('@')[0] || `user-${Date.now()}`;
     const fallbackProfile: StoredUserProfile = {
       id: await this.nextUserId(),
       firstName: '',
       surname: '',
       email: normalizedEmail,
       organization: '',
-      username: normalizedEmail.split('@')[0] || `user-${Date.now()}`,
-      role,
+      username: baseUsername,
+      role: 'user',
     };
 
     await setDoc(userRef, fallbackProfile);

@@ -1,16 +1,154 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Temporary permissive rules for development while auth profile bootstrap is in place.
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function userDoc(uid) {
+      return get(/databases/$(database)/documents/users/$(uid)).data;
+    }
+
+    function isAdmin() {
+      return isSignedIn()
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        && userDoc(request.auth.uid).role == 'admin';
+    }
+
+    function isWhitelistedAdmin(email) {
+      return exists(/databases/$(database)/documents/admins/$(email));
+    }
+
+    // User profiles. Only the owner reads/edits their own; admins read all.
     match /users/{userId} {
+      allow get: if isOwner(userId) || isAdmin();
+      allow list: if isAdmin();
+
+      allow create: if isOwner(userId)
+        && request.resource.data.keys().hasOnly(
+            ['id','firstName','surname','email','organization','username','role'])
+        && request.resource.data.keys().hasAll(
+            ['id','firstName','surname','email','organization','username','role'])
+        && request.resource.data.id is number
+        && request.resource.data.firstName is string
+        && request.resource.data.surname is string
+        && request.resource.data.email is string
+        && request.resource.data.organization is string
+        && request.resource.data.username is string
+        && (
+          request.resource.data.role == 'user'
+          || (request.resource.data.role == 'admin'
+              && isWhitelistedAdmin(request.resource.data.email))
+        );
+
+      allow update: if (isOwner(userId) || isAdmin())
+        && request.resource.data.id == resource.data.id
+        && request.resource.data.email == resource.data.email
+        && request.resource.data.username == resource.data.username
+        && (isAdmin() || request.resource.data.role == resource.data.role);
+
+      allow delete: if isAdmin();
+    }
+
+    // username -> { uid, email } lookup table for pre-auth login flow.
+    // Doc id is the username (lowercase). Read is public so unauthenticated
+    // clients can resolve a username to an email before signing in and so
+    // registration can check availability.
+    match /usernames/{username} {
       allow read: if true;
-      allow write: if request.auth != null;
+
+      allow create: if isSignedIn()
+        && request.resource.data.keys().hasOnly(['uid','email'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.email is string;
+
+      allow update: if false;
+
+      allow delete: if isSignedIn() && resource.data.uid == request.auth.uid;
     }
 
-    match /metadata/{docId} {
-      allow read, write: if request.auth != null;
+    // Pre-seeded admin whitelist. Doc id is the email (lowercased). Add docs
+    // here from the Firebase console to authorise role='admin' on registration.
+    match /admins/{email} {
+      allow read: if true;
+      allow write: if isAdmin();
     }
 
+    // Auto-incrementing user.id. Any signed-in user runs this transaction
+    // during registration. Counter only increases by 1 per write.
+    match /metadata/users_counter {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn()
+        && request.resource.data.keys().hasOnly(['value'])
+        && request.resource.data.value is number;
+      allow update: if isSignedIn()
+        && request.resource.data.keys().hasOnly(['value'])
+        && request.resource.data.value is number
+        && request.resource.data.value == resource.data.value + 1;
+      allow delete: if false;
+    }
+
+    // Auto-incrementing event.id. Admin only.
+    match /metadata/events_counter {
+      allow read: if isAdmin();
+      allow create: if isAdmin()
+        && request.resource.data.keys().hasOnly(['value'])
+        && request.resource.data.value is number;
+      allow update: if isAdmin()
+        && request.resource.data.keys().hasOnly(['value'])
+        && request.resource.data.value is number
+        && request.resource.data.value == resource.data.value + 1;
+      allow delete: if false;
+    }
+
+    // Public catalog. Anyone reads, only admins mutate, with strict shape
+    // validation matching the create-event form.
+    match /events/{eventId} {
+      allow read: if true;
+
+      allow create: if isAdmin()
+        && request.resource.data.keys().hasOnly(
+            ['id','title','category','description','date','time','location',
+             'organizer','registrationUrl','image','createdBy'])
+        && request.resource.data.keys().hasAll(
+            ['id','title','category','description','date','time','location',
+             'organizer','registrationUrl','image','createdBy'])
+        && request.resource.data.id is number
+        && request.resource.data.title is string
+        && request.resource.data.title.size() >= 5
+        && request.resource.data.title.size() <= 100
+        && request.resource.data.category is string
+        && request.resource.data.description is string
+        && request.resource.data.description.size() >= 20
+        && request.resource.data.date is string
+        && request.resource.data.time is string
+        && request.resource.data.location is string
+        && request.resource.data.organizer is string
+        && request.resource.data.registrationUrl is string
+        && request.resource.data.registrationUrl.matches('^https?://.+')
+        && (request.resource.data.image == null
+            || request.resource.data.image is string)
+        && request.resource.data.createdBy is number;
+
+      allow update: if isAdmin()
+        && request.resource.data.id == resource.data.id
+        && request.resource.data.createdBy == resource.data.createdBy
+        && request.resource.data.title is string
+        && request.resource.data.title.size() >= 5
+        && request.resource.data.title.size() <= 100
+        && request.resource.data.description is string
+        && request.resource.data.description.size() >= 20
+        && request.resource.data.registrationUrl.matches('^https?://.+');
+
+      allow delete: if isAdmin();
+    }
+
+    // Default deny.
     match /{document=**} {
       allow read, write: if false;
     }
