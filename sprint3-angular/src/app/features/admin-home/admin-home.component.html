@@ -1,0 +1,19 @@
+<main class="admin-home">
+    <section class="admin-home__welcome">
+        <h1 class="admin-home__title">My Events</h1>
+        <div>
+            <a class="btn btn--primary" routerLink="/create-event">Add New Event</a>
+        </div>
+    </section>
+
+    <section class="admin-home__events">
+        <h2 class="admin-home__events-heading">My Events</h2>
+        <div class="admin-home__events-list" id="adminEventList">
+            <app-event-card *ngFor="let event of myEvents" [event]="event" [editable]="true"></app-event-card>
+        </div>
+        <div class="admin-home__cta">
+            <a class="btn btn--outline" routerLink="/all-events">See more</a>
+        </div>
+        <p *ngIf="myEvents.length === 0">You have not created events yet.</p>
+    </section>
+</main>

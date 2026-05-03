@@ -1,0 +1,13 @@
+.back-button,
+.back-button:link,
+.back-button:visited {
+  color: #000;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.back-button:hover {
+  transform: translateX(-0.3rem);
+}

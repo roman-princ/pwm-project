@@ -1,0 +1,50 @@
+:root {
+  --bg-blue: #e8f4fd;
+  --card-white: #ffffff;
+  --text-main: #333;
+}
+
+.page-body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: var(--bg-blue);
+  margin: 0;
+  color: var(--text-main);
+}
+
+.hero {
+  text-align: center;
+  padding: 2.5rem 10%;
+}
+
+.hero__title {
+  font-size: 2rem;
+  margin-bottom: 0.9rem;
+}
+
+.hero__description {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.events__heading {
+  font-size: 1.5rem;
+  margin-bottom: 1.3rem;
+}
+
+.events__list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: var(--container-size);
+}
+
+.events__list .event-card__link {
+  width: var(--container-size);
+  width: 100%;
+}
+
+.events__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
